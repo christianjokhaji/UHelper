@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     implementation("net.dv8tion:JDA:$jdaVersion")
+    implementation("ch.qos.logback:logback-classic:1.5.6")
 }
 
 tasks.withType<JavaCompile> {
@@ -23,5 +24,5 @@ tasks.withType<JavaCompile> {
 
     // Set this to the version of java you want to use,
     // the minimum required for JDA is 1.8
-    sourceCompatibility = "8"
+    sourceCompatibility = "11"
 }
