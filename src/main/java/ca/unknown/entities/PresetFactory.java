@@ -1,5 +1,5 @@
 package ca.unknown.entities;
 
-public interface PomodoroFactory {
-
+public interface PresetFactory {
+    Pomodoro create(Integer workMinute, Integer breakMinute, Integer iteration, String name);
 }

@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Pomodoro implements Preset{
+public class Pomodoro implements Preset {
     private final HashMap<String,Integer> map;
     private final String name;
-    private int iteration;
 
     public Pomodoro(Integer workMinute, Integer breakMinute, Integer iteration, String name){
         map = new HashMap<>();
@@ -15,7 +14,6 @@ public class Pomodoro implements Preset{
         this.map.put("breakMinute", breakMinute);
         this.map.put("iteration", iteration);
         this.name = name;
-        this.iteration = 0;
     }
 
     public void commenceTimer() {

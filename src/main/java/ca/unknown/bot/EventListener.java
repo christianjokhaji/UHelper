@@ -2,8 +2,15 @@ package ca.unknown.bot;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import ca.unknown.entities.Pomodoro;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.lang.Math;
 
 public class EventListener extends ListenerAdapter
 {
@@ -27,5 +34,11 @@ public class EventListener extends ListenerAdapter
             MessageChannel channel = event.getChannel();
             channel.sendMessage("Pong!").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
         }
+    }
+    @Override
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+         if (event.getName().equals("timer")) {
+
+         }
     }
 }
