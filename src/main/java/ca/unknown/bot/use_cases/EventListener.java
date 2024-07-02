@@ -1,14 +1,16 @@
-package ca.unknown.bot;
+package ca.unknown.bot.use_cases;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class EventListener extends ListenerAdapter
-{
+/**
+ * A simple event listener template for testing purposes.
+ */
+public class EventListener extends ListenerAdapter {
+
     /**
-     * A simple event listener template for testing purposes
      * Returns "Pong!" if the message content is "!ping"
      *
      * @param event a MessageReceivedEvent
