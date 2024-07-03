@@ -2,6 +2,7 @@ package ca.unknown.bot.app;
 
 import ca.unknown.bot.use_cases.EventListener;
 import ca.unknown.bot.use_cases.GameInteractor;
+import ca.unknown.bot.use_cases.StudyInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -26,7 +27,7 @@ public class Main {
 
         // Adds use-case interactors to the bot instance.
         jda.addEventListener(new GameInteractor());
-
+        jda.addEventListener(new StudyInteractor());
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(Commands.slash("rock-paper-scissors",
                 "Starts a game of rock paper scissors.")
@@ -34,5 +35,13 @@ public class Main {
                         .addChoice("Rock", "rock")
                         .addChoice("Paper", "paper")
                         .addChoice("Scissors", "scissors"))).queue();
+
+        jda.updateCommands().addCommands(Commands.slash("study",
+                        "Starts a study session")
+                .addOptions(new OptionData(OptionType.STRING, "choice", "How can we help you study")
+                        .addChoice("Reset Notes", "resetnotes")
+                        .addChoice("Add Question", "addquestion")
+                        .addChoice("Add Answer", "addanswer")
+                        .addChoice("Study", "study"))).queue();
     }
 }
