@@ -1,10 +1,15 @@
 package ca.unknown.bot;
 
+import ca.unknown.bot.EventListener;
+import ca.unknown.entities.TimerInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 // Min: TOKEN=MTI0OTAyNDYzMDIwODA2OTY5Mg.G_elJO.T9CQRFpB59Z8W3SgK6dt_wiDibF1rD4Xn_VOxQ
+
 public class Main {
     /**
      * Main entryway for the program
@@ -20,11 +25,17 @@ public class Main {
         // Adds a simple event listener for testing purposes.
         jda.addEventListener(new EventListener());
 
+        // Adds an event listener for timer features
+        jda.addEventListener(new TimerInteractor());
+
         // Experimenting with onSlashCommands
         jda.updateCommands().addCommands(Commands.slash("timer",
-                "Initiates a Timer")).queue();
+                "Initiates a Timer"), Commands.slash("preset",
+                "Creates a new timer preset")
+                .addOption(OptionType.INTEGER, "work", "how long a work session should be")
+                .addOption(OptionType.INTEGER, "break", "how long a break should be")
+                .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
+                .addOption(OptionType.STRING, "name", "the name of the timer")).queue();
 
-        jda.updateCommands().addCommands(Commands.slash("preset",
-                        "creates a new Timer preset")).queue();
     }
 }

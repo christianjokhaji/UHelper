@@ -38,7 +38,14 @@ public class EventListener extends ListenerAdapter
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
          if (event.getName().equals("timer")) {
-
+             Pomodoro test = new Pomodoro(25, 5, 3, "lol");
+             Timer timer = new Timer();
+             TimerTask task = new TimerTask() {
+                 public void run() {
+                    event.reply("testing").queue();
+            }
+        };
+             timer.scheduleAtFixedRate(task, 0, 3000);
          }
     }
 }

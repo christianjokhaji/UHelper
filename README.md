@@ -2,6 +2,8 @@
 
 UHelper is an interactive bot that is designed to meet students' needs on Discord.
 
+Currently, we plan to implement the following features:
+
 Important Deadlines:
 July 11 - Phase 1
 August 8 - Phase 2 & Final Presentation
