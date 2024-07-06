@@ -3,27 +3,27 @@ import java.util.Calendar;
 
 /**
  * Stores the user's assignment details.
- * @param classCode The code of the class which the assignment is from.
+ * @param courseCode The course code of the class which the assignment is from.
  * @param assignmentName The name of the assignment.
  * @param dueDate The date and time that the assignment is due.
  */
 public class Assignment {
-    private String classCode;
+    private String courseCode;
     private String assignmentName;
     private Calendar dueDate;
 
-    public Assignment(String classCode, String assignmentName, Calendar dueDate){
-        this.classCode = classCode;
+    public Assignment(String courseCode, String assignmentName, Calendar dueDate){
+        this.courseCode = courseCode;
         this.assignmentName = assignmentName;
         this.dueDate = dueDate;
     }
 
     /**
-     * Return the course code of the assignment.
+     * Return the course code of the class that the assignment is from.
      * @return
      */
-    public String getClassCode(){
-        return classCode;
+    public String getCourseCode(){
+        return courseCode;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Assignment {
      * @return
      */
     public String toString(){
-        return "Your assignment, '" + assignmentName + "', for class " + classCode +
+        return "Your assignment, '" + assignmentName + "', for class " + courseCode +
                 " is due on " + dueDate.getTime();
     }
 }
