@@ -1,10 +1,10 @@
-# Welcome to UHelper! (last updated on July 6 by Min)
+# Welcome to UHelper! 🤖 (last updated on July 6 by Min)
 
 UHelper is an interactive bot that is designed to meet students' needs on Discord. 
-Please use this Github link to learn more.
-https://github.com/christianjokhaji/UHelper
 
-## Overview
+Feel free to edit this file in a way you feel is better.
+
+## Overview 📖
 
 The main goal of UHelper is to provide assistance with time management and wellness. 
 Users can create for tests or assignments at specified times and details. Once scheduled, 
@@ -23,7 +23,7 @@ lines. The customizability ensures a seamless and non-disruptive experience acro
 functionalities.
 
 
-## Project Progresses
+## Project Progresses 👀
 I encourage you to use this section as a checklist for your work so that everyone can see how the
 project is going. You may add notes to communicate with your teammates. 
 
@@ -37,7 +37,7 @@ Currently, we are working to implement the following features.
   - [ ] Invite other users to share a timer.
 
 - Minigames
-  - [X] Rock-scissor-paper
+  - [X] Rock-paper-scissors
 
 - Study help
 
@@ -52,15 +52,15 @@ Currently, we are working to implement the following features.
 - Customizable Commands
 
 
-## Important Notes
+## Important Notes 🗣️
 
 July 18 - Phase 1
+https://q.utoronto.ca/courses/345741/pages/week-6-lab-project-next-steps?module_item_id=5689750
 
 August 8 - Phase 2 & Final Presentation
 
 
-## Blueprint
+## Blueprint 🌚
 
+You can find all the user stories and other details here.
 https://docs.google.com/document/d/1OcYBGoSZbEqtA47CwSlzFe1wVuZo28Xl-FKUkS_0AUI/edit#heading=h.rwi1fv3j8vi2
-
-You'll find user stories and other details here.
