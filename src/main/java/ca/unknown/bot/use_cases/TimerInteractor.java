@@ -1,11 +1,11 @@
-package ca.unknown.entities;
+package ca.unknown.bot.use_cases;
 
+import ca.unknown.bot.entities.Pomodoro;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Objects;
 

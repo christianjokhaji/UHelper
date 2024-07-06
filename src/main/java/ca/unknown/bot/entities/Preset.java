@@ -1,4 +1,4 @@
-package ca.unknown.entities;
+package ca.unknown.bot.entities;
 
 public interface Preset {
 
@@ -8,4 +8,7 @@ public interface Preset {
 
     int getIteration();
 
+    String toString();
+
+    String getName();
 }

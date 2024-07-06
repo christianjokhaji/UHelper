@@ -1,4 +1,4 @@
-package ca.unknown.entities;
+package ca.unknown.bot.entities;
 
 public class PomodoroFactory implements PresetFactory {
     /**

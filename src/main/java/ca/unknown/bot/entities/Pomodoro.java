@@ -1,4 +1,4 @@
-package ca.unknown.entities;
+package ca.unknown.bot.entities;
 
 import java.util.HashMap;
 import java.util.Timer;
@@ -48,6 +48,12 @@ public class Pomodoro implements Preset {
         System.out.println("Your timer session is expired.");
     }
 
+    // To be implemented
+    public void cancel() {
+        return;
+    }
+
+    // Helper Function for starting a work session
     private void commenceWork() {
         Timer timerForWork = new Timer();
         TimerTask task = new TimerTask() {
@@ -59,6 +65,7 @@ public class Pomodoro implements Preset {
         timerForWork.schedule(task,0, minToMillisecond(map.get("workMinute")));
     }
 
+    // Helper function for starting a break
     private void commenceBreak() {
         Timer timerForBreak = new Timer();
         TimerTask workend = new TimerTask(){
@@ -84,6 +91,11 @@ public class Pomodoro implements Preset {
     @Override
     public int getIteration() {
         return this.map.get("iteration");
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 
     @Override
