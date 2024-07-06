@@ -37,10 +37,13 @@ Currently, we are working to implement the following features.
   - [ ] Invite other users to share a timer.
 
 - Minigames
+  - [X] Rock-scissor-paper
 
 - Study help
 
-- Reminders for exams and assignments
+- Reminders for exams
+
+- Reminders for assignments
 
 - Recipe
 
