@@ -16,6 +16,8 @@ repositories {
 dependencies {
     implementation("net.dv8tion:JDA:$jdaVersion")
     implementation("ch.qos.logback:logback-classic:1.5.6")
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation("org.json:json:20240303")
 }
 
 tasks.withType<JavaCompile> {
