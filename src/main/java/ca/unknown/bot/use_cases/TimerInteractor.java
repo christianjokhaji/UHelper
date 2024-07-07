@@ -10,30 +10,17 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.Objects;
 
 /**
- * A use-case interactor for starting a game.
+ * A use-case interactor for timer and its features.
  */
 public class TimerInteractor extends ListenerAdapter {
 
     /**
-     * Starts the appropriate game based on the event name.
+     * TimerInteractor allows a bot to create, initiate, and cancel a timer.
      *
      * @param event represents a SlashCommandInteraction event.
      */
-    @Override
-    public void onMessageReceived(MessageReceivedEvent event)
-    {
-        if (event.getAuthor().isBot()) return;
-        // We don't want to respond to other bot accounts, including ourselves
-        Message message = event.getMessage();
-        String content = message.getContentRaw();
-        // getContentRaw() is an atomic getter
-        // getContentDisplay() is a lazy getter which modifies the content for e.g. console view (strip discord formatting)
-        if (content.equals("!ping"))
-        {
-            MessageChannel channel = event.getChannel();
-            channel.sendMessage("Pong!").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
-        }
-    }
+
+//    public void onMessageReceived(MessageReceivedEvent event) {}
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {

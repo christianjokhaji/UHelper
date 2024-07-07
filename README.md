@@ -6,8 +6,8 @@ Feel free to edit this file in a way you feel is better.
 
 ## Overview 📖
 
-The main goal of UHelper is to provide assistance with time management and wellness. 
-Users can create for tests or assignments at specified times and details. Once scheduled, 
+The main goal of UHelper is to assist with time management and wellness. 
+Users can create events for tests or assignments at specified times and details. Once scheduled, 
 the bot will notify users individually in direct messages a day before the events. 
 For study assistance, they can input questions and answers for UHelper to quiz them later, 
 with optional hints available. To help boost students’ productivity and focus, 
