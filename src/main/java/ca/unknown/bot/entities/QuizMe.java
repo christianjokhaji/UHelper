@@ -1,57 +1,59 @@
 package ca.unknown.bot.entities;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-/**
- * A class that represents the QuizMe entity.
- */
 public class QuizMe {
-
     private final Map<String, String> notes;
+    private final Map<String, String> hints;
+    private final List<String> questionsOrder;
 
+    // Constructs a QuizMe object
     public QuizMe() {
         this.notes = new HashMap<>();
+        this.hints = new HashMap<>();
+        this.questionsOrder = new ArrayList<>();
     }
 
-    /**
-     * Resets all notes (questions and answers).
-     */
+
+     // Resets all notes (questions and answers).
+
     public void resetNotes(SlashCommandInteractionEvent event) {
         notes.clear();
-        event.reply("All notes have been reset.").queue();
+        hints.clear();
+        questionsOrder.clear();
+        event.reply("Notes Reset!").queue();
     }
 
     /**
-     * Adds a new question.
+     * Adds a new question, its answer, and an optional hint.
      *
-     * @param event represents a SlashCommandInteraction event.
+     * @param question The question to be added.
+     * @param answer The answer to be added.
+     * @param hint The hint to be added (optional).
      */
-    public void addQuestion(SlashCommandInteractionEvent event) {
-        String question = event.getOption("question").getAsString();
-        notes.put(question, "");
-        event.reply("Question added: " + question).queue();
-    }
-
-    /**
-     * Adds an answer for a specified question.
-     */
-    public void addAnswer(SlashCommandInteractionEvent event) {
-        String question = event.getOption("question").getAsString();
-        String answer = event.getOption("answer").getAsString();
-
-        if (notes.containsKey(question)) {
-            notes.put(question, answer);
-            event.reply("Answer added for question: " + question).queue();
+    public void addQuestionAndAnswer(String question, String answer, String hint) {
+        notes.put(question, answer);
+        hints.put(question, hint);
+        if (!questionsOrder.contains(question)) {
+            questionsOrder.add(question);
+            System.out.println("Successfully added question " );
         } else {
-            event.reply("Question not found: " + question).queue();
+            System.out.println("Question already exists");
         }
+
     }
 
     /**
-     * Conducts a study session by asking the questions back to the user.
+     * Starts a study session by asking the first question then continuing when user presses button.
+     *
+     * @param event The SlashCommandInteractionEvent triggering this method.
      */
     public void study(SlashCommandInteractionEvent event) {
         if (notes.isEmpty()) {
@@ -59,12 +61,56 @@ public class QuizMe {
             return;
         }
 
-        StringBuilder questions = new StringBuilder();
-        for (String question : notes.keySet()) {
-            questions.append("Question: ").append(question).append("\n");
-        }
+        String firstQuestion = questionsOrder.get(0);
+        Button answerButton = Button.primary("answer_" + firstQuestion + "_0", "Show Answer");
+        Button hintButton = Button.secondary("hint_" + firstQuestion + "_0", "Show Hint");
+        event.reply("Question: " + firstQuestion)
+                .addActionRow(answerButton, hintButton)
+                .queue();
+    }
 
-        event.reply("Let's study! Here are your questions:\n" + questions.toString()).queue();
-        // TODO ad checking once im act taking inpts
+
+     // Shows the answer to a question and provides a button to go to the next question.
+
+    public void showAnswer(ButtonInteractionEvent event, String question, int currentIndex) {
+        String answer = notes.get(question);
+
+        if (answer != null) {
+            Button nextQuestionButton = Button.success("next_" + currentIndex, "Next Question");
+            event.reply("Answer: " + answer)
+                    .addActionRow(nextQuestionButton)
+                    .queue();
+        } else {
+            event.reply("No answer found for this question.").queue();
+        }
+    }
+
+
+     // Shows the hint for a question.
+
+    public void showHint(ButtonInteractionEvent event, String question, int currentIndex) {
+
+        String hint = hints.get(question);
+        if (hint != null && !hint.isEmpty()) event.reply("Hint: " + hint).queue();
+        else {
+            event.reply("No hint available for this question.").queue();
+        }
+    }
+
+
+     // Shows the next question in the order.
+
+    public void showNextQuestion(ButtonInteractionEvent event, int currentIndex) {
+        int nextIndex = currentIndex + 1;
+        if (nextIndex < questionsOrder.size()) {
+            String nextQuestion = questionsOrder.get(nextIndex);
+            Button nextAnswerButton = Button.primary("answer_" + nextQuestion + "_" + nextIndex, "Show Answer");
+            Button nextHintButton = Button.secondary("hint_" + nextQuestion + "_" + nextIndex, "Show Hint");
+            event.getChannel().sendMessage("Question: " + nextQuestion)
+                    .setActionRow(nextAnswerButton, nextHintButton)
+                    .queue();
+        } else {
+            event.reply("No more questions available.").queue();
+        }
     }
 }

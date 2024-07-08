@@ -29,19 +29,19 @@ public class Main {
         jda.addEventListener(new GameInteractor());
         jda.addEventListener(new StudyInteractor());
         // Adds commands to the bot instance.
-        jda.updateCommands().addCommands(Commands.slash("rock-paper-scissors",
-                "Starts a game of rock paper scissors.")
-                .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
-                        .addChoice("Rock", "rock")
-                        .addChoice("Paper", "paper")
-                        .addChoice("Scissors", "scissors"))).queue();
-
-        jda.updateCommands().addCommands(Commands.slash("study",
-                        "Starts a study session")
-                .addOptions(new OptionData(OptionType.STRING, "choice", "How can we help you study")
-                        .addChoice("Reset Notes", "resetnotes")
-                        .addChoice("Add Question", "addquestion")
-                        .addChoice("Add Answer", "addanswer")
-                        .addChoice("Study", "study"))).queue();
+        jda.updateCommands()
+                .addCommands(
+                        Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors")
+                                .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
+                                        .addChoice("Rock", "rock")
+                                        .addChoice("Paper", "paper")
+                                        .addChoice("Scissors", "scissors")),
+                        Commands.slash("study-help", "Get Study Help!")
+                                .addOptions(new OptionData(OptionType.STRING, "choice", "How can we help with studying?")
+                                        .addChoice("Reset Notes", "resetnotes")
+                                        .addChoice("Add Question", "addquestion")
+                                        .addChoice("Study", "study"))
+                )
+                .queue();
     }
 }
