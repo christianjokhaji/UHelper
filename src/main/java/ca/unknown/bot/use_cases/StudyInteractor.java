@@ -45,7 +45,7 @@ public class StudyInteractor extends ListenerAdapter {
 
     // Class to allow user to add multiple questions without having to call the bot again.
     private void handleContinuousAddQuestion(SlashCommandInteractionEvent event) {
-        showAddQuestionModal(event, true);
+        showAddQuestionModal(event);
     }
 
 
@@ -77,7 +77,7 @@ public class StudyInteractor extends ListenerAdapter {
     }
 
     // This is for subsequent requests, where a button is used
-    private void showAddQuestionModal(ButtonInteractionEvent event, boolean firstTime) {
+    private void showAddQuestionModal(ButtonInteractionEvent event) {
         Modal modal = createAddQuestionModal(false);
         event.replyModal(modal).queue();
     }
@@ -106,7 +106,7 @@ public class StudyInteractor extends ListenerAdapter {
         String buttonId = event.getButton().getId();
         if (buttonId != null) {
             if (buttonId.equals("add_another")) {
-                showAddQuestionModal(event, false);
+                showAddQuestionModal(event);
             } else if (buttonId.equals("done")) {
                 event.reply("Finished adding questions.").queue();
             } else if (buttonId.startsWith("answer_")) {
