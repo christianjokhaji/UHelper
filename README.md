@@ -46,6 +46,9 @@ Currently, we are working to implement the following features.
 - Reminders for assignments
 
 - Recipe
+  - [X] Implement the API call to fetch recipe data (July 6)
+  - [ ] Add steps for cooking the meal
+  - [ ] Display Nutritional Information
 
 - Motivational Quotes
 
