@@ -16,8 +16,10 @@ repositories {
 dependencies {
     implementation("net.dv8tion:JDA:$jdaVersion")
     implementation("ch.qos.logback:logback-classic:1.5.6")
-    // https://mvnrepository.com/artifact/org.json/json
     implementation("org.json:json:20240303")
+    testImplementation(platform("org.junit:junit-bom:5.10.3"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<JavaCompile> {
@@ -27,4 +29,11 @@ tasks.withType<JavaCompile> {
     // Set this to the version of java you want to use,
     // the minimum required for JDA is 1.8
     sourceCompatibility = "11"
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
