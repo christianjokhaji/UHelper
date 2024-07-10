@@ -37,13 +37,14 @@ public class Main {
                         .addChoice("Rock", "rock")
                         .addChoice("Paper", "paper")
                         .addChoice("Scissors", "scissors")),
-                Commands.slash("preset", "Creates a new timer preset")
-                        .addOption(OptionType.INTEGER, "work", "how long a work session should be")
-                        .addOption(OptionType.INTEGER, "break", "how long a break should be")
+                Commands.slash("timer_create", "Creates a new timer preset")
+                        .addOption(OptionType.NUMBER, "work", "how long a work session should be")
+                        .addOption(OptionType.NUMBER, "break", "how long a break should be")
                         .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
-                Commands.slash("timer", "Initiates a Timer")
-                        .addOption(OptionType.STRING, "name", "the name of the timer instance")).queue();
+                Commands.slash("timer_start", "Initiates a Timer")
+                        .addOption(OptionType.STRING, "name", "the name of the timer instance"),
+                Commands.slash("timer_cancel", "Cancels ongoing timer")).queue();
 
     }
 }

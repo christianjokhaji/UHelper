@@ -1,11 +1,11 @@
 package ca.unknown.bot.entities;
 
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+
+import java.lang.Math;
 
 public class Pomodoro implements Preset {
-    private final HashMap<String,Integer> map;
+    private final HashMap<String, Object> map;
     private final String name;
 
     /**
@@ -13,38 +13,77 @@ public class Pomodoro implements Preset {
      * their study time and break time are.
      *
      * Representation Invariants:
-     * 1) workMinute, breakMinute, and iteration must be a positive integer.
+     * 1) workMinute, breakMinute, and iteration must be a positive real number.
      * 2) name should never be equal to other Pomodoro instances.
      *
-     * @param workMinute: the length of a study session in a timer preset
-     * @param breakMinute: the length of a break session in a timer preset
+     * @param workTime: the length of a study session in a timer preset
+     * @param breakTime: the length of a break session in a timer preset
      * @param iteration: how many times the user wants the study-break cycle to repeat
      * @param name: the name of a timer preset, which the user will refer to when calling
      */
 
     // The constructor of the Pomodoro class
-    public Pomodoro(Integer workMinute, Integer breakMinute, Integer iteration, String name){
+    public Pomodoro(double workTime, double breakTime, Integer iteration, String name){
         map = new HashMap<>();
-        this.map.put("workMinute", workMinute);
-        this.map.put("breakMinute", breakMinute);
+        this.map.put("workTime", workTime);
+        this.map.put("breakTime", breakTime);
         this.map.put("iteration", iteration);
         this.name = name;
     }
 
     // The method that starts a timer session.
     public void commenceTimer() {
-        for (int i = 0; i != map.get("iteration"); i++){
+        for (int i = 0; i != ((Integer) map.get("iteration")); i++){
             try {
                 System.out.println("Iteration: " + i);
-                this.commenceWork();
-                Thread.sleep(minToMillisecond(map.get("workMinute") - 1));
-                this.commenceBreak();
-                Thread.sleep(minToMillisecond(map.get("breakMinute") - 1));
-        }   catch (InterruptedException e) {
+
+                long currentTime = System.currentTimeMillis();
+                long endTime = currentTime + minToMilli((double) map.get("workTime"));
+                System.out.println("Work period has started at " + new Date());
+                this.commenceWork(endTime);
+                Thread.sleep(minToMilli((double) map.get("workTime")));
+
+                currentTime = System.currentTimeMillis();
+                endTime = currentTime + minToMilli((double) map.get("breakTime"));
+                System.out.println("Break period has started at " + new Date());
+                this.commenceBreak(endTime);
+                Thread.sleep(minToMilli((double) map.get("breakTime")));
+            }
+            catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
-        System.out.println("Your timer session is expired.");
+        System.out.println("Your timer is over. Use /timer_create or /timer_start to start another" +
+                "timer");
+
+    }
+
+    // Helper function for starting a work session
+    private void commenceWork(long endTime) {
+        Timer timerForWork = new Timer();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                if (System.currentTimeMillis() >= endTime) {
+                    System.out.println("Work period has ended at " + new Date());
+                    timerForWork.cancel();
+                }
+            }
+        };
+        timerForWork.scheduleAtFixedRate(task, 100, 100);
+    }
+
+    // Helper function for starting a break session
+    private void commenceBreak(long endTime) {
+        Timer timerForBreak = new Timer();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                if (System.currentTimeMillis() >= endTime) {
+                    System.out.println("Break period has ended at " + new Date());
+                    timerForBreak.cancel();
+                }
+            }
+        };
+        timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 
     // To be implemented
@@ -52,44 +91,20 @@ public class Pomodoro implements Preset {
         return;
     }
 
-    // Helper Function for starting a work session
-    private void commenceWork() {
-        Timer timerForWork = new Timer();
-        TimerTask task = new TimerTask() {
-            public void run() {
-                System.out.println("Work session has started.");
-                timerForWork.cancel();
-            }
-        };
-        timerForWork.schedule(task,0, minToMillisecond(map.get("workMinute")));
-    }
-
-    // Helper function for starting a break
-    private void commenceBreak() {
-        Timer timerForBreak = new Timer();
-        TimerTask workend = new TimerTask(){
-            public void run(){
-                System.out.println("The break has started.");
-                timerForBreak.cancel();
-            }
-        };
-        timerForBreak.schedule(workend,0, minToMillisecond(map.get("breakMinute")));
-    }
-
     // Getters for Pomodoro
     @Override
     public int getWorkMinute() {
-        return this.map.get("workMinute");
+        return (int) this.map.get("workTime");
     }
 
     @Override
     public int getBreakMinute() {
-        return this.map.get("breakMinute");
+        return (int) this.map.get("breakTime");
     }
 
     @Override
     public int getIteration() {
-        return this.map.get("iteration");
+        return (int) this.map.get("iteration");
     }
 
     @Override
@@ -99,13 +114,13 @@ public class Pomodoro implements Preset {
 
     @Override
     public String toString() {
-        return "A timer preset has been created. " + this.name + " repeats " +
-                map.get("workMinute") + " minutes of work and " + map.get("breakMinute") +
-                " minutes of break for " + map.get("iteration") + " times.";
+        return "A timer preset has been created. " + this.name + " will repeat " +
+                map.get("workTime") + " minutes of work and " + map.get("breakTime") +
+                " minutes of break " + map.get("iteration") + " times.";
     }
 
     // a helper function for converting minute to milliseconds
-    private static int minToMillisecond(Integer min){
-        return min * 60000;
+    private static long minToMilli(double min){
+        return Math.round(min * 60000);
     }
 }
