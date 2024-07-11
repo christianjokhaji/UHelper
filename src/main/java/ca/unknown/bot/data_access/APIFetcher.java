@@ -18,7 +18,7 @@ public class APIFetcher {
      * @param url represents the API URL.
      * @return the String representation of the request body (to be parsed into JSON).
      */
-    public static HttpResponse<String> fetch(String url) {
+    public static String fetch(String url) {
         try {
             // Build the HTTP client.
             HttpClient client = HttpClient.newHttpClient();
@@ -28,7 +28,7 @@ public class APIFetcher {
                     .GET()
                     .build();
             // Send the request through the HTTP client and return it.
-            return client.send(request, HttpResponse.BodyHandlers.ofString());
+            return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
         } catch (URISyntaxException | InterruptedException | IOException e) {
             throw new RuntimeException(e);
         }
