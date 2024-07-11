@@ -7,23 +7,23 @@ public class Pomodoro implements Preset {
     private final HashMap<String, Object> map;
     private final String name;
 
-     /**
+    /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
      * their study time and break time are.
-     *
+     * <p>
      * Representation Invariants:
      * 1) workMinute and breakMinute should be a positive real rational number, while iteration
      * should only be a positive integer.
      * 2) name should never be equal to other Pomodoro instances.
-     *
-     * Fun Fact: One unit of work-break (interval) is called a pomodoro, meaning tomato in Italian.
+     * <p>
+     * Fun Fact: One unit of work-break (interval) is called a pomodoro, which means tomato
+      * in Italian.
      *
      * @param workTime: the length of a study session in a timer preset
      * @param breakTime: the length of a break session in a timer preset
      * @param iteration: how many times the user wants the study-break cycle to repeat
      * @param name: the name of a timer preset, which the user will refer to when calling
-     */
-
+        */
 
     /**
       * The Pomodoro constructor method.
@@ -83,7 +83,7 @@ public class Pomodoro implements Preset {
                     timerForWork.cancel();
                 }
             }
-        }; // Checks whether or not the desired time passed for every 0.1 seconds.
+        }; // Checks whether the desired time passed for every 0.1 seconds.
         timerForWork.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -135,7 +135,7 @@ public class Pomodoro implements Preset {
                 " minutes of break " + map.get("iteration") + " times.";
     }
 
-    // a helper function for converting minute to milliseconds
+    // A helper function for converting minute to milliseconds
     private static long minToMilli(double min){
         return Math.round(min * 60 * 1000);
     }
