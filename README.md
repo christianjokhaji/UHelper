@@ -2,7 +2,7 @@
 
 UHelper is an interactive bot that is designed to meet students' needs on Discord. 
 
-Feel free to edit this file in a way you feel is better.
+Feel free to edit this file in a way you think is better.
 
 ## Overview 📖
 
@@ -38,6 +38,7 @@ Currently, we are working to implement the following features.
 
 - Minigames
   - [X] Rock-paper-scissors
+  - [X] Trivia
 
 - Study help
 
