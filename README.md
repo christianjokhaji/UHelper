@@ -1,4 +1,4 @@
-# Welcome to UHelper! 🤖 (last updated on July 6 by Min)
+# Welcome to UHelper! 🤖 (last updated on July 12)
 
 UHelper is an interactive bot that is designed to meet students' needs on Discord. 
 
@@ -38,8 +38,10 @@ Currently, we are working to implement the following features.
 
 - Minigames
   - [X] Rock-paper-scissors
+  - [ ] Trivia
 
 - Study help
+  - [ ] QuizMe
 
 - Reminders for exams
 
@@ -47,7 +49,9 @@ Currently, we are working to implement the following features.
 
 - Recipe
   - [X] Implement the API call to fetch recipe data (July 6)
-  - [ ] Add steps for cooking the meal
+  - [ ] Enable multiple parameters for API calls(i.e., meal type, diet, dish type...) 
+  - [ ] Add directions to recipe
+  - [ ] Add image of the cuisine (if possible)
   - [ ] Display Nutritional Information
 
 - Motivational Quotes

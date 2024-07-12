@@ -1,12 +1,4 @@
 package ca.unknown.bot.entities;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
 
 /**
  * This is an abstract class for retrieving recipe data
