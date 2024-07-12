@@ -7,7 +7,7 @@ public class Pomodoro implements Preset {
     private final HashMap<String, Object> map;
     private final String name;
 
-    /**
+     /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
      * their study time and break time are.
      * <p>
@@ -70,7 +70,7 @@ public class Pomodoro implements Preset {
             }
         }
         System.out.println("Your timer has ended. Use /timer_create or /timer_start to start " +
-                "another " + "timer");
+                "another " + "timer.");
     }
 
     // Helper function for starting a work session
