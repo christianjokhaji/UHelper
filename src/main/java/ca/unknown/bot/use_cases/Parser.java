@@ -1,8 +1,7 @@
 package ca.unknown.bot.use_cases;
 
-import com.google.gson.JsonElement;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 /**
  * A use-case interactor for parsing JSON strings.
@@ -14,7 +13,6 @@ public class Parser {
      * @return a JsonObject for further data manipulation and/or access.
      */
     public static JsonObject parse(String json) {
-        JsonElement jsonElement = JsonParser.parseString(json);
-        return jsonElement.getAsJsonObject();
+        return new Gson().fromJson(json, JsonObject.class);
     }
 }

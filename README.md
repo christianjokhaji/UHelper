@@ -1,8 +1,6 @@
-# Welcome to UHelper! 🤖 (last updated on July 6 by Min)
+# Welcome to UHelper! 🤖 (last updated on July 12)
 
-UHelper is an interactive bot that is designed to meet students' needs on Discord. 
-
-Feel free to edit this file in a way you feel is better.
+UHelper is an interactive bot that is designed to meet students' needs on Discord.
 
 ## Overview 📖
 
@@ -24,43 +22,47 @@ functionalities.
 
 
 ## Project Progresses 👀
-I encourage you to use this section as a checklist for your work so that everyone can see how the
-project is going. You may add notes to communicate with your teammates. 
+Currently, we are working to implement the following features. 
+You can find all the user stories and other details in our blueprint from [here](https://docs.google.com/document/d/1OcYBGoSZbEqtA47CwSlzFe1wVuZo28Xl-FKUkS_0AUI/edit#heading=h.rwi1fv3j8vi2).
 
-Currently, we are working to implement the following features.
-
-- Timer
+- **Timer** ⏱️
   - [X] Create a timer preset by providing the amount of time wanted for work and break. (July 3)
   - [ ] Initiate a timer instance by giving the bot the name of that timer.
   - [ ] Notify users when time is up via DM.
   - [ ] Cancel an ongoing timer.
   - [ ] Invite other users to share a timer.
 
-- Minigames
+- **Minigames** 🎮
   - [X] Rock-paper-scissors
+  - [X] Trivia
 
-- Study help
+- **Study help** 📚
+  - [ ] QuizMe
 
-- Reminders for exams
+- **Reminders** 📅
+  - [ ] for exams
+  - [ ] for assignments
 
-- Reminders for assignments
+- **Recipe** 🍽️
+  - [X] Implement the API call to fetch recipe data (July 6)
+  - Handling parameters input for API calls
+    - [X] Encoding whitespace
+    - [ ] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
+  - [ ] Add directions to external recipes and images(if possible) of the cuisine 
+  - [ ] Display Nutritional Information
 
-- Recipe
+- **Motivational Quotes** 💪
 
-- Motivational Quotes
-
-- Customizable Commands
+- **Customizable Commands** ⚙️
 
 
 ## Important Notes 🗣️
 
-July 18 - Phase 1
-https://q.utoronto.ca/courses/345741/pages/week-6-lab-project-next-steps?module_item_id=5689750
+**July 18** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
+(Access to the course page may be restricted)
 
-August 8 - Phase 2 & Final Presentation
+**August 8** - Phase 2 & Final Presentation
 
 
-## Blueprint 🌚
 
-You can find all the user stories and other details here.
-https://docs.google.com/document/d/1OcYBGoSZbEqtA47CwSlzFe1wVuZo28Xl-FKUkS_0AUI/edit#heading=h.rwi1fv3j8vi2
+

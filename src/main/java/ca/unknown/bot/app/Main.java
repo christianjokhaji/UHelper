@@ -2,8 +2,8 @@ package ca.unknown.bot.app;
 
 import ca.unknown.bot.use_cases.EventListener;
 import ca.unknown.bot.use_cases.GameInteractor;
+import ca.unknown.bot.use_cases.RecipeInteractor;
 import ca.unknown.bot.use_cases.TimerInteractor;
-import ca.unknown.bot.use_cases.TriviaListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -28,6 +28,7 @@ public class Main {
 
         // Adds use-case interactors to the bot instance.
         jda.addEventListener(new GameInteractor());
+        jda.addEventListener(new RecipeInteractor());
         jda.addEventListener(new TimerInteractor());
 
         // Adds commands to the bot instance.
@@ -44,7 +45,10 @@ public class Main {
                         .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
                 Commands.slash("timer", "Initiates a Timer")
-                        .addOption(OptionType.STRING, "name", "the name of the timer instance")).queue();
-
+                        .addOption(OptionType.STRING, "name", "the name of the timer instance"),
+                Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
+                        .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
+                        .addOption(OptionType.INTEGER, "count", "Enter an integer", true)
+                ).queue();
     }
 }
