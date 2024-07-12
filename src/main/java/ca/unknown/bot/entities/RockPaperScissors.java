@@ -15,6 +15,7 @@ public class RockPaperScissors extends Game {
      *
      * @param event represents a SlashCommandInteraction event.
      */
+    @Override
     public void startGame(SlashCommandInteractionEvent event) {
         // Generate a random integer between 0 (inclusive) and 3 (exclusive).
         Random rand = new Random();
