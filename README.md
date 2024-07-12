@@ -58,7 +58,8 @@ You can find all the user stories and other details in our blueprint from [here]
 
 ## Important Notes 🗣️
 
-**July 18** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/week-6-lab-project-next-steps?module_item_id=5689750)
+**July 18** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
+(Access to the course page may be restricted)
 
 **August 8** - Phase 2 & Final Presentation
 
