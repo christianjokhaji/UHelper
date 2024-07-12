@@ -12,7 +12,7 @@ public class Pomodoro implements Preset {
      * their study time and break time are.
      * <p>
      * Representation Invariants:
-     * 1) workMinute and breakMinute should be a positive real rational number, while iteration
+     * 1) workMinute and breakMinute should be a positive rational number, while iteration
      * should only be a positive integer.
      * 2) name should never be equal to other Pomodoro instances.
      * <p>
