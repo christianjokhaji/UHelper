@@ -1,9 +1,15 @@
 package ca.unknown.bot.app;
 
-import ca.unknown.bot.entities.Assignment;
-import java.util.Calendar;
-import ca.unknown.bot.entities.EventDate;
-import ca.unknown.bot.entities.Exam;
+import ca.unknown.bot.use_cases.EventListener;
+import ca.unknown.bot.use_cases.GameInteractor;
+import ca.unknown.bot.use_cases.TimerInteractor;
+import ca.unknown.bot.use_cases.TriviaListener;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Main {
     /**
@@ -12,9 +18,33 @@ public class Main {
      * @param args Stores Java command-line arguments
      */
     public static void main(String[] args) {
-        EventDate dueDate = new EventDate(2024, 11, 29, 14, 00, 00);
-        Assignment test = new Assignment("CSC207", "Phase 1", dueDate.getDate());
-        Exam exam = new Exam("CSC207", "Exam Centre", dueDate.getDate());
-        System.out.println(exam);
+        // Creates an instance of the bot with general permissions.
+        // "TOKEN" is an environment variable.
+        JDA jda = JDABuilder.createDefault(System.getenv("TOKEN"),
+                GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT).build();
+
+        // Adds a simple event listener for testing purposes.
+        jda.addEventListener(new EventListener());
+
+        // Adds use-case interactors to the bot instance.
+        jda.addEventListener(new GameInteractor());
+        jda.addEventListener(new TimerInteractor());
+
+        // Adds commands to the bot instance.
+        jda.updateCommands().addCommands(
+                Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
+                        .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
+                                .addChoice("Rock", "rock")
+                                .addChoice("Paper", "paper")
+                                .addChoice("Scissors", "scissors")),
+                Commands.slash("trivia", "Starts a game of trivia."),
+                Commands.slash("preset", "Creates a new timer preset")
+                        .addOption(OptionType.INTEGER, "work", "how long a work session should be")
+                        .addOption(OptionType.INTEGER, "break", "how long a break should be")
+                        .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
+                        .addOption(OptionType.STRING, "name", "the name of the timer"),
+                Commands.slash("timer", "Initiates a Timer")
+                        .addOption(OptionType.STRING, "name", "the name of the timer instance")).queue();
+
     }
 }
