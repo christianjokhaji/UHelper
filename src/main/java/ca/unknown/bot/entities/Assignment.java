@@ -19,7 +19,7 @@ public class Assignment {
     }
 
     /**
-     * Return the course code of the class that the assignment is from.
+     * Returns the course code of the class that the assignment is from.
      * @return
      */
     public String getCourseCode(){
@@ -27,7 +27,7 @@ public class Assignment {
     }
 
     /**
-     * Return the name of the assignment.
+     * Returns the name of the assignment.
      * @return
      */
     public String getAssignmentName(){
@@ -35,7 +35,7 @@ public class Assignment {
     }
 
     /**
-     * Return the due date of the assignment.
+     * Returns the due date of the assignment.
      * @return
      */
     public Calendar getDueDate(){

@@ -5,7 +5,7 @@ public class EventDate {
     private Calendar.Builder date = new Calendar.Builder();
 
         public EventDate(int year, int month, int day, int hour, int min, int sec){
-            date.setDate(year, month - 1, day);
+            date.setDate(year, month, day);
             date.setTimeOfDay(hour, min, sec);
         }
 
