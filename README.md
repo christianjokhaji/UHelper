@@ -46,7 +46,7 @@ Currently, we are working to implement the following features.
   - [X] Implement the API call to fetch recipe data (July 6)
   - [ ] Enable multiple parameters for API calls(i.e., meal type, diet, dish type...) 
   - [ ] Add directions to recipe
-  - [ ] Add image of the cuisine (if possible)
+  - [ ] Add an image of the cuisine (if possible)
   - [ ] Display Nutritional Information
 
 - Motivational Quotes
@@ -56,7 +56,8 @@ Currently, we are working to implement the following features.
 
 ## Important Notes 🗣️
 
-**July 18** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/week-6-lab-project-next-steps?module_item_id=5689750)
+**July 18** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
+(Access to the course page may be restricted)
 
 **August 8** - Phase 2 & Final Presentation
 
