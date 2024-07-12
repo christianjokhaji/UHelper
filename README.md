@@ -22,36 +22,38 @@ functionalities.
 
 
 ## Project Progresses 👀
-Currently, we are working to implement the following features.
+Currently, we are working to implement the following features. 
+You can find all the user stories and other details in our blueprint from [here](https://docs.google.com/document/d/1OcYBGoSZbEqtA47CwSlzFe1wVuZo28Xl-FKUkS_0AUI/edit#heading=h.rwi1fv3j8vi2).
 
-- Timer
+- **Timer** ⏱️
   - [X] Create a timer preset by providing the amount of time wanted for work and break. (July 3)
   - [ ] Initiate a timer instance by giving the bot the name of that timer.
   - [ ] Notify users when time is up via DM.
   - [ ] Cancel an ongoing timer.
   - [ ] Invite other users to share a timer.
 
-- Minigames
+- **Minigames** 🎮
   - [X] Rock-paper-scissors
-  - [ ] Trivia
+  - [X] Trivia
 
-- Study help
+- **Study help** 📚
   - [ ] QuizMe
 
-- Reminders for exams
+- **Reminders** 📅
+  - [ ] for exams
+  - [ ] for assignments
 
-- Reminders for assignments
-
-- Recipe
+- **Recipe** 🍽️
   - [X] Implement the API call to fetch recipe data (July 6)
-  - [ ] Enable multiple parameters for API calls(i.e., meal type, diet, dish type...) 
-  - [ ] Add directions to recipe
-  - [ ] Add image of the cuisine (if possible)
+  - Handling parameters input for API calls
+    - [X] Encoding whitespace
+    - [ ] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
+  - [ ] Add directions to external recipes and images(if possible) of the cuisine 
   - [ ] Display Nutritional Information
 
-- Motivational Quotes
+- **Motivational Quotes** 💪
 
-- Customizable Commands
+- **Customizable Commands** ⚙️
 
 
 ## Important Notes 🗣️
@@ -61,7 +63,5 @@ Currently, we are working to implement the following features.
 **August 8** - Phase 2 & Final Presentation
 
 
-## Blueprint 🌚
 
-You can find all the user stories and other details [here](https://docs.google.com/document/d/1OcYBGoSZbEqtA47CwSlzFe1wVuZo28Xl-FKUkS_0AUI/edit#heading=h.rwi1fv3j8vi2).
 
