@@ -34,10 +34,10 @@ public class Main {
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
-                .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
-                        .addChoice("Rock", "rock")
-                        .addChoice("Paper", "paper")
-                        .addChoice("Scissors", "scissors")),
+                        .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
+                                .addChoice("Rock", "rock")
+                                .addChoice("Paper", "paper")
+                                .addChoice("Scissors", "scissors")),
                 Commands.slash("trivia", "Starts a game of trivia."),
                 Commands.slash("preset", "Creates a new timer preset")
                         .addOption(OptionType.INTEGER, "work", "how long a work session should be")
