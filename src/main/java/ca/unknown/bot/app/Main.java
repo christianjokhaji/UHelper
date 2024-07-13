@@ -50,4 +50,12 @@ public class Main {
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
                         .addOption(OptionType.INTEGER, "count", "Enter an integer", true)
+                        .addOptions(new OptionData(OptionType.STRING, "meal_type", "Choose a type of meal.")
+                                .addChoice("Breakfast", "breakfast")
+                                .addChoice("Lunch", "lunch")
+                                .addChoice("Snack", "snack")
+                                .addChoice("Teatime", "teatime")
+                                .addChoice("Dinner", "dinner"))
                 ).queue();
+    }
+}

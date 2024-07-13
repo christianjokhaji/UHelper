@@ -53,11 +53,13 @@ You can find all the user stories and other details in our blueprint from [here]
 
 - **Recipe** 🍽️
   - [X] Implement the API call to fetch recipe data (July 6)
-  - Handling parameters input for API calls
+  - [X] Handling parameters input for API calls
     - [X] Encoding whitespace
-    - [ ] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
-  - [ ] Add directions to external recipes and images(if possible) of the cuisine 
-  - [ ] Display Nutritional Information
+    - [X] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
+  - [ ] Style recipe suggestions with Embed Builder
+    - [ ] Add directions to external recipes
+    - [ ] images(if possible) of the cuisine 
+    - [ ] Add Nutritional Information
 
 - **Motivational Quotes** 💪
 
