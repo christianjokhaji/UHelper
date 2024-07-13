@@ -2,9 +2,9 @@ package ca.unknown.bot.entities;
 
 public interface Preset {
 
-    int getWorkMinute();
+    int getWorkTime();
 
-    int getBreakMinute();
+    int getBreakTime();
 
     int getIteration();
 

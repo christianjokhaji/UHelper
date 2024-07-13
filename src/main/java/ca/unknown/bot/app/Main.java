@@ -11,8 +11,6 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
-import javax.swing.text.html.Option;
-
 public class Main {
     /**
      * Main entryway for the program. It serves as a factory for building the bot's functionality.
@@ -41,13 +39,14 @@ public class Main {
                                 .addChoice("Paper", "paper")
                                 .addChoice("Scissors", "scissors")),
                 Commands.slash("trivia", "Starts a game of trivia."),
-                Commands.slash("preset", "Creates a new timer preset")
-                        .addOption(OptionType.INTEGER, "work", "how long a work session should be")
-                        .addOption(OptionType.INTEGER, "break", "how long a break should be")
+                Commands.slash("timer_create", "Creates a new timer preset")
+                        .addOption(OptionType.NUMBER, "work", "how long a work session should be")
+                        .addOption(OptionType.NUMBER, "break", "how long a break should be")
                         .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
-                Commands.slash("timer", "Initiates a Timer")
+                Commands.slash("timer_start", "Initiates a Timer")
                         .addOption(OptionType.STRING, "name", "the name of the timer instance"),
+                Commands.slash("timer_cancel", "Cancels ongoing timer"),
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
                         .addOption(OptionType.INTEGER, "count", "Enter an integer", true)
@@ -56,8 +55,7 @@ public class Main {
                                 .addChoice("Lunch", "lunch")
                                 .addChoice("Snack", "snack")
                                 .addChoice("Teatime", "teatime")
-                                .addChoice("Dinner", "dinner")
-                        )
+                                .addChoice("Dinner", "dinner"))
                 ).queue();
     }
 }
