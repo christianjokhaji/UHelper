@@ -48,7 +48,6 @@ You can find all the user stories and other details in our blueprint from [here]
   - [ ] Bot accepts an exam schedule and creates reminders for each exam.
 
 - **Schedule** 📅 (use case in progress - July 12)
-  - [ ] 
   - [ ] Bot returns a schedule with outstanding events.
 
 - **Recipe** 🍽️
