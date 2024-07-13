@@ -20,18 +20,16 @@ public class TimerInteractor extends ListenerAdapter {
      * @param event represents a SlashCommandInteraction event.
      */
 
-//    public void onMessageReceived(MessageReceivedEvent event) {}
-
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         // !preset {worktime} {breaktime} {iteration} {name}
-        if (event.getName().equals("preset")) {
+        if (event.getName().equals("timer_create")) {
             try {
                 String name = Objects.requireNonNull(event.getOption("name")).getAsString();
-                Integer workMinute = Objects.requireNonNull(event.getOption("work")).getAsInt();
-                Integer breakMinute = Objects.requireNonNull(event.getOption("break")).getAsInt();
+                double workTime = Objects.requireNonNull(event.getOption("work")).getAsDouble();
+                double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
-                Pomodoro newTimer = new Pomodoro(workMinute, breakMinute,iteration, name);
+                Pomodoro newTimer = new Pomodoro(workTime, breakTime, iteration, name);
                 event.reply(newTimer.toString()).queue();
             }
             catch (NumberFormatException e) {
@@ -41,8 +39,12 @@ public class TimerInteractor extends ListenerAdapter {
                 event.reply("Exception raised: ArrayIndexOutOfBoundsException").queue();
             }
         }
-        if (event.getName().equals("timer")) {
-            event.reply("Under construction!").queue();
+        if (event.getName().equals("timer_start")) {
+            event.reply("Timer " + Objects.requireNonNull(event.getOption("name")) +
+                    " has started.").queue();
+        }
+        if (event.getName().equals("timer_cancel")) {
+            event.reply("The current timer has been successfully cancelled.").queue();
         }
     }
 }

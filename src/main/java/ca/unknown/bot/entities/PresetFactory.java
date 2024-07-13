@@ -1,5 +1,5 @@
 package ca.unknown.bot.entities;
 
 public interface PresetFactory {
-    Pomodoro create(Integer workMinute, Integer breakMinute, Integer iteration, String name);
+    Pomodoro create(Float workMinute, Float breakMinute, Integer iteration, String name);
 }

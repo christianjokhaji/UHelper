@@ -70,7 +70,3 @@ You can find all the user stories and other details in our blueprint from [here]
 (Access to the course page may be restricted)
 
 **August 8** - Phase 2 & Final Presentation
-
-
-
-
