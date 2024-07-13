@@ -11,6 +11,8 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import javax.swing.text.html.Option;
+
 public class Main {
     /**
      * Main entryway for the program. It serves as a factory for building the bot's functionality.
@@ -49,6 +51,13 @@ public class Main {
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
                         .addOption(OptionType.INTEGER, "count", "Enter an integer", true)
+                        .addOptions(new OptionData(OptionType.STRING, "meal_type", "Choose a type of meal.")
+                                .addChoice("Breakfast", "breakfast")
+                                .addChoice("Lunch", "lunch")
+                                .addChoice("Snack", "snack")
+                                .addChoice("Teatime", "teatime")
+                                .addChoice("Dinner", "dinner")
+                        )
                 ).queue();
     }
 }

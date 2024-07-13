@@ -1,15 +1,20 @@
 package ca.unknown.bot.interface_interactor;
 
 import ca.unknown.bot.entities.Recipe;
+
+import java.util.HashMap;
 import java.util.List;
 
 public class RecipeModel {
     public static String getResponse(String query, List<Recipe> recipes, int n) {
         int count = n;
         StringBuilder response;
+
         if (recipes.isEmpty()) {
             return "I'm sorry, but I couldn't find any recipes matching your search for " + query + ".";
-        } else if (n > recipes.size()) {
+        }
+
+        if (n > recipes.size()) {
             count =  recipes.size();
             response = new StringBuilder("I couldn't find " + n).append(" ").append("recipes matching your search, ");
             if (count == 1){
