@@ -7,7 +7,7 @@ public class Pomodoro implements Preset {
     private final HashMap<String, Object> map;
     private final String name;
 
-     /**
+    /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
      * their study time and break time are.
      * <p>
@@ -53,14 +53,12 @@ public class Pomodoro implements Preset {
                 long currentTime = System.currentTimeMillis();
                 // calculates the time to end a session by adding the input from user
                 long endTime = currentTime + minToMilli((double) map.get("workTime"));
-                System.out.println("Work period has started at " + new Date());
                 this.commenceWork(endTime);
                 Thread.sleep(minToMilli((double) map.get("workTime")));
 
                 // updates currentTime and endTime
                 currentTime = System.currentTimeMillis();
                 endTime = currentTime + minToMilli((double) map.get("breakTime"));
-                System.out.println("Break period has started at " + new Date());
                 this.commenceBreak(endTime);
                 Thread.sleep(minToMilli((double) map.get("breakTime")));
             }
@@ -79,11 +77,13 @@ public class Pomodoro implements Preset {
         TimerTask task = new TimerTask() {
             public void run() {
                 if (System.currentTimeMillis() >= endTime) {
-                    System.out.println("Work period has ended at " + new Date());
+//                    System.out.println("Work period has ended at " + new Date());
                     timerForWork.cancel();
                 }
             }
-        }; // Checks whether the desired time passed for every 0.1 seconds.
+        };
+        System.out.println("Work period has started at " + new Date());
+        // Checks whether the desired time passed for every 0.1 seconds.
         timerForWork.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -93,11 +93,12 @@ public class Pomodoro implements Preset {
         TimerTask task = new TimerTask() {
             public void run() {
                 if (System.currentTimeMillis() >= endTime) {
-                    System.out.println("Break period has ended at " + new Date());
+//                    System.out.println("Break period has ended at " + new Date());
                     timerForBreak.cancel();
                 }
             }
         };
+        System.out.println("Break period has started at " + new Date());
         timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -130,12 +131,12 @@ public class Pomodoro implements Preset {
     // A string representation of the Pomodoro class
     @Override
     public String toString() {
-        return "A timer preset has been created. " + this.name + " will repeat " +
+        return  this.name + " repeats " +
                 map.get("workTime") + " minutes of work and " + map.get("breakTime") +
                 " minutes of break " + map.get("iteration") + " times.";
     }
 
-    // A helper function for converting minute to milliseconds
+    // A helper function for converting minute to millisecond
     private static long minToMilli(double min){
         return Math.round(min * 60 * 1000);
     }

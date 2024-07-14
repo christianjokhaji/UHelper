@@ -31,7 +31,7 @@ public class Main {
         jda.addEventListener(new RecipeInteractor());
         jda.addEventListener(new TimerInteractor());
 
-        // Adds commands to the bot instance.
+        // Adds commands to the bot (jda) instance.
         jda.updateCommands().addCommands(
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
                         .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
@@ -50,4 +50,5 @@ public class Main {
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
                         .addOption(OptionType.INTEGER, "count", "Enter an integer", true)
-                ).queue();
+        ).queue();
+    }}

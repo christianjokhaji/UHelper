@@ -1,6 +1,8 @@
 package ca.unknown.bot.use_cases;
 
 import ca.unknown.bot.entities.Pomodoro;
+import ca.unknown.bot.data_access.TimerDAO;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.entities.Message;
@@ -30,7 +32,12 @@ public class TimerInteractor extends ListenerAdapter {
                 double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
                 Pomodoro newTimer = new Pomodoro(workTime, breakTime, iteration, name);
-                event.reply(newTimer.toString()).queue();
+
+                TimerDAO timerDAO = new TimerDAO();
+                User user = event.getUser();
+                timerDAO.savePomodoro(newTimer, user,"timer_repository.json");
+
+                event.reply("A timer preset has been created." + newTimer.toString()).queue();
             }
             catch (NumberFormatException e) {
                 event.reply("Exception raised: NumberFormatException").queue();
