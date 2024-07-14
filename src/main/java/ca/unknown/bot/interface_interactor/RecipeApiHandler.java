@@ -5,9 +5,12 @@ import ca.unknown.bot.data_access.URLGenerator;
 import ca.unknown.bot.entities.Recipe;
 
 import ca.unknown.bot.use_cases.Parser;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -39,13 +42,23 @@ public class RecipeApiHandler {
 
         // Iterate over each element in the "hits" array
         for (int i = 0; i < n; i++) {
-            JsonObject hitObject = hitsArray.get(i).getAsJsonObject();
-            JsonObject recipeObject = hitObject.getAsJsonObject("recipe");
+//            JsonObject hitObject = hitsArray.get(i).getAsJsonObject();
+//            JsonObject recipeObject = hitObject.getAsJsonObject("recipe");
+            JsonObject recipeObject = hitsArray.get(i).getAsJsonObject().getAsJsonObject("recipe");
 
             String label = recipeObject.get("label").getAsString();
+            String image = recipeObject.get("image").getAsString();
+            String source = recipeObject.get("source").getAsString();
+            String url = recipeObject.get("url").getAsString();
+            String shareAs = recipeObject.get("shareAs").getAsString();
+            // parse ingredientLines
+            JsonArray ingredients = recipeObject.get("ingredientLines").getAsJsonArray();
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<String>>() {}.getType();
+            List<String> ingredientLines = gson.fromJson(ingredients, listType);
             // TODO: Add more fields as needed
 
-            recipes.add(new Recipe(label));
+            recipes.add(new Recipe(label, image, source, url, shareAs, ingredientLines));
         }
 
         return recipes;

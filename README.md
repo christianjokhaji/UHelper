@@ -56,9 +56,9 @@ You can find all the user stories and other details in our blueprint from [here]
     - [X] Encoding whitespace
     - [X] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
   - [ ] Style recipe suggestions with Embed Builder
-    - [ ] Add directions to external recipes
-    - [ ] images(if possible) of the cuisine 
-    - [ ] Add Nutritional Information
+    - [X] Add directions to external recipes
+    - [X] images(if possible) of the cuisine 
+    - [X] Add Nutritional Information
 
 - **Motivational Quotes** 💪
 
