@@ -40,7 +40,10 @@ public class Main {
                                 .addOptions(new OptionData(OptionType.STRING, "choice", "How can we help with studying?")
                                         .addChoice("Reset Notes", "resetnotes")
                                         .addChoice("Add Question", "addquestion")
-                                        .addChoice("Study", "study"))
+                                        .addChoice("Study", "study")
+                                        .addChoice("Save Quiz ", "savenotes")
+                                        .addChoice("Load Quiz", "loadnotes"))
+
                 )
                 .queue();
     }

@@ -3,6 +3,7 @@ package ca.unknown.bot.entities;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public class QuizMe {
-    private final Map<String, String> notes;
-    private final Map<String, String> hints;
-    private final List<String> questionsOrder;
+    final Map<String, String> notes;
+    final Map<String, String> hints;
+    final List<String> questionsOrder;
 
     // Constructs a QuizMe object
     public QuizMe() {
@@ -24,7 +25,7 @@ public class QuizMe {
 
      // Resets all notes (questions and answers).
 
-    public void resetNotes(SlashCommandInteractionEvent event) {
+    public void resetNotes(@NotNull SlashCommandInteractionEvent event) {
         notes.clear();
         hints.clear();
         questionsOrder.clear();
