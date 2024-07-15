@@ -2,28 +2,16 @@ package ca.unknown.bot.entities;
 import java.util.Calendar;
 
 /**
- * Stores the user's assignment details.
- * @param courseCode The course code of the class which the exam is for.
+ * Stores the user's exam details.
  * @param location The location of the exam.
- * @param examDate The date and time that the exam is scheduled at.
  */
-public class Exam {
-    private String courseCode;
+public class Exam extends ScheduledEvent {
+
     private String location;
-    private Calendar examDate;
 
-    public Exam(String courseCode, String location, Calendar examDate){
-        this.courseCode = courseCode;
+    public Exam(Calendar examDate, String courseCode, String location){
+        super(examDate, courseCode);
         this.location = location;
-        this.examDate = examDate;
-    }
-
-    /**
-     * Returns the course code of the class that the assignment is from.
-     * @return
-     */
-    public String getCourseCode(){
-        return courseCode;
     }
 
     /**
@@ -38,8 +26,13 @@ public class Exam {
      * Print a reminder statement for when the exam is scheduled (incl. location and time).
      * @return
      */
+    public String reminderAlert(){
+        return "Reminder! Your exam for " + getEventName() + " is at " + location +
+                " on " + getEventDate().getTime();
+    }
+
     public String toString(){
-        return "Your exam for " + courseCode + " is in the " + location +
-                " on " + examDate.getTime();
+        return "Exam: '" + getEventName() + "' \t Location: " + location +
+                " \t Time: " + getEventDate().getTime();
     }
 }

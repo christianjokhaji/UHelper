@@ -4,18 +4,13 @@ import java.util.Calendar;
 /**
  * Stores the user's assignment details.
  * @param courseCode The course code of the class which the assignment is from.
- * @param assignmentName The name of the assignment.
- * @param dueDate The date and time that the assignment is due.
  */
-public class Assignment {
+public class Assignment extends ScheduledEvent{
     private String courseCode;
-    private String assignmentName;
-    private Calendar dueDate;
 
-    public Assignment(String courseCode, String assignmentName, Calendar dueDate){
+    public Assignment(Calendar dueDate, String assignmentName, String courseCode){
+        super(dueDate, assignmentName);
         this.courseCode = courseCode;
-        this.assignmentName = assignmentName;
-        this.dueDate = dueDate;
     }
 
     /**
@@ -26,29 +21,19 @@ public class Assignment {
         return courseCode;
     }
 
-    /**
-     * Returns the name of the assignment.
-     * @return
-     */
-    public String getAssignmentName(){
-        return assignmentName;
-    }
-
-    /**
-     * Returns the due date of the assignment.
-     * @return
-     */
-    public Calendar getDueDate(){
-        return dueDate;
-    }
 
     /**
      * Print a reminder statement for when the assignment is due (incl. date and time).
      * @return
      */
+    public String reminderAlert(){
+        return "Reminder! Your assignment, '" + getEventName() + "', for class " + courseCode +
+                " is due on " + getEventDate().getTime();
+    }
+
     public String toString(){
-        return "Your assignment, '" + assignmentName + "', for class " + courseCode +
-                " is due on " + dueDate.getTime();
+        return "Assignment: '" + getEventName() + "' \t Class: " + courseCode +
+                " \t Due Date: " + getEventDate().getTime();
     }
 }
 
