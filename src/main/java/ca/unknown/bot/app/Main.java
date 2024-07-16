@@ -2,6 +2,8 @@ package ca.unknown.bot.app;
 
 import ca.unknown.bot.use_cases.EventListener;
 import ca.unknown.bot.use_cases.GameInteractor;
+import ca.unknown.bot.use_cases.RecipeInteractor;
+import ca.unknown.bot.use_cases.TimerInteractor;
 import ca.unknown.bot.use_cases.StudyInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -27,15 +29,35 @@ public class Main {
 
         // Adds use-case interactors to the bot instance.
         jda.addEventListener(new GameInteractor());
+        jda.addEventListener(new RecipeInteractor());
+        jda.addEventListener(new TimerInteractor());
+
         jda.addEventListener(new StudyInteractor());
         // Adds commands to the bot instance.
-        jda.updateCommands()
-                .addCommands(
-                        Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors")
-                                .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
-                                        .addChoice("Rock", "rock")
-                                        .addChoice("Paper", "paper")
-                                        .addChoice("Scissors", "scissors")),
+        jda.updateCommands().addCommands(
+                Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
+                        .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
+                                .addChoice("Rock", "rock")
+                                .addChoice("Paper", "paper")
+                                .addChoice("Scissors", "scissors")),
+                Commands.slash("trivia", "Starts a game of trivia."),
+                Commands.slash("timer_create", "Creates a new timer preset")
+                        .addOption(OptionType.NUMBER, "work", "how long a work session should be")
+                        .addOption(OptionType.NUMBER, "break", "how long a break should be")
+                        .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
+                        .addOption(OptionType.STRING, "name", "the name of the timer"),
+                Commands.slash("timer_start", "Initiates a Timer")
+                        .addOption(OptionType.STRING, "name", "the name of the timer instance"),
+                Commands.slash("timer_cancel", "Cancels ongoing timer"),
+                Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
+                        .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
+                        .addOption(OptionType.INTEGER, "count", "Enter an integer", true)
+                        .addOptions(new OptionData(OptionType.STRING, "meal_type", "Choose a type of meal.")
+                                .addChoice("Breakfast", "breakfast")
+                                .addChoice("Lunch", "lunch")
+                                .addChoice("Snack", "snack")
+                                .addChoice("Teatime", "teatime")
+                                .addChoice("Dinner", "dinner")),
                         Commands.slash("study-help", "Get Study Help!")
                                 .addOptions(new OptionData(OptionType.STRING, "choice", "How can we help with studying?")
                                         .addChoice("Reset Notes", "resetnotes")
