@@ -32,7 +32,8 @@ public class Main {
         jda.addEventListener(new RecipeInteractor());
         jda.addEventListener(new TimerInteractor());
 
-        jda.addEventListener(new StudyInteractor());
+        StudyInteractor studyInteractor = new StudyInteractor(jda);
+        jda.addEventListener(studyInteractor);
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
@@ -59,7 +60,8 @@ public class Main {
                                 .addChoice("Teatime", "teatime")
                                 .addChoice("Dinner", "dinner")),
                         Commands.slash("study-help", "Get Study Help!")
-                                .addOptions(new OptionData(OptionType.STRING, "choice", "How can we help with studying?")
+                                .addOptions(new OptionData(OptionType.STRING, "choice",
+                                        "How can we help with studying?")
                                         .addChoice("Reset Notes", "resetnotes")
                                         .addChoice("Add Question", "addquestion")
                                         .addChoice("Study", "study")

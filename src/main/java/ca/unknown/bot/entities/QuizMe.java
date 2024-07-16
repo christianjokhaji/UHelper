@@ -22,6 +22,19 @@ public class QuizMe {
         this.questionsOrder = new ArrayList<>();
     }
 
+     // Getters for files
+
+    public Map<String, String> getNotes() {
+        return notes;
+    }
+
+    public Map<String, String> getHints() {
+        return hints;
+    }
+
+    public List<String> getQuestionsOrder() {
+        return questionsOrder;
+    }
 
      // Resets all notes (questions and answers).
 
