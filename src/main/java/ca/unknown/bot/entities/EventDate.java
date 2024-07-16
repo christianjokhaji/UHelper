@@ -1,5 +1,5 @@
 package ca.unknown.bot.entities;
-import java.util.Calendar;
+import java.util.*;
 
 public class EventDate implements Comparable<EventDate> {
     private Calendar.Builder date = new Calendar.Builder();
@@ -9,8 +9,8 @@ public class EventDate implements Comparable<EventDate> {
             date.setTimeOfDay(hour, min, sec);
         }
 
-        public Calendar getDate(){
-            return date.build();
+        public Date getDate(){
+            return date.build().getTime();
         }
 
         @Override
