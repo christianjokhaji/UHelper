@@ -12,4 +12,6 @@ public interface Schedule {
     String toString();
 
     void clearSched();
+
+    String getUser();
 }

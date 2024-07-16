@@ -3,14 +3,11 @@ import java.util.*;
 
 public class UserSchedule implements Schedule {
 
-    private List<ScheduledEvent> events;
+    private List<ScheduledEvent> events = new ArrayList<>();
+    private String user;
 
-    public UserSchedule(){
-        events = new ArrayList<ScheduledEvent>();
-    }
-
-    public UserSchedule(ArrayList<ScheduledEvent> events){
-        this.events = events;
+    public UserSchedule(String user){
+        this.user = user;
     }
 
     public void addEvent(Exam e){
@@ -42,5 +39,9 @@ public class UserSchedule implements Schedule {
 
     public void clearSched(){
         events.clear();
+    }
+
+    public String getUser(){
+        return user;
     }
 }
