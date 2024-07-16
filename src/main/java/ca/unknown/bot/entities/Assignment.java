@@ -1,5 +1,4 @@
 package ca.unknown.bot.entities;
-import java.util.Calendar;
 
 /**
  * Stores the user's assignment details.
@@ -8,7 +7,7 @@ import java.util.Calendar;
 public class Assignment extends ScheduledEvent{
     private String courseCode;
 
-    public Assignment(Calendar dueDate, String assignmentName, String courseCode){
+    public Assignment(EventDate dueDate, String assignmentName, String courseCode){
         super(dueDate, assignmentName);
         this.courseCode = courseCode;
     }
@@ -28,12 +27,12 @@ public class Assignment extends ScheduledEvent{
      */
     public String reminderAlert(){
         return "Reminder! Your assignment, '" + getEventName() + "', for class " + courseCode +
-                " is due on " + getEventDate().getTime();
+                " is due on " + getEventDate();
     }
 
     public String toString(){
         return "Assignment: '" + getEventName() + "' \t Class: " + courseCode +
-                " \t Due Date: " + getEventDate().getTime();
+                " \t Due Date: " + getEventDate();
     }
 }
 
