@@ -5,4 +5,6 @@ public interface ScheduledReminderDataAccessInterface {
     boolean existsByUser(String user);
 
     void save(Schedule userSchedule);
+
+    Schedule getSchedule(String user);
 }

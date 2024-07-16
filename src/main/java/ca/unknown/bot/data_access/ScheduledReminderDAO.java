@@ -17,7 +17,15 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
         this.save();
     }
 
+    public Schedule getSchedule(String user){
+        return userSchedules.get(user);
+    }
+
     private void save(){
 
+    }
+
+    private void load(){
+        // put in map from file
     }
 }
