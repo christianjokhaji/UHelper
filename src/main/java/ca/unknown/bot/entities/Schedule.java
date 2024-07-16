@@ -1,45 +1,15 @@
 package ca.unknown.bot.entities;
-import java.util.*;
 
-public class Schedule {
+public interface Schedule {
+    void addEvent(Exam e);
 
-    private List<ScheduledEvent> events = new ArrayList<>();
+    void addEvent(Assignment a);
 
-    private String user;
+    void addEvent(ScheduledEvent s);
 
-    public Schedule(String user){
-        this.user = user;
-    }
+    void sort();
 
-    public void addEvent(Exam e){
-        events.add(e);
-    }
+    String toString();
 
-    public void addEvent(Assignment a){
-        events.add(a);
-    }
-
-    public void addEvent(ScheduledEvent s){
-        events.add(s);
-    }
-
-    public void sort(){
-        Collections.sort(events);
-    }
-
-    public String getUser(){
-        return user;
-    }
-
-    public void printSchedule(){
-        sort();
-        System.out.println("Here is your upcoming schedule: \n");
-        for(ScheduledEvent s: events){
-            System.out.println(s.toString() + "\n");
-        }
-    }
-
-    public void clearSchedule(){
-        events.clear();
-    }
+    void clearSched();
 }
