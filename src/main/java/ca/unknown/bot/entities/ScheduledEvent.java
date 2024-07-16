@@ -1,19 +1,18 @@
 package ca.unknown.bot.entities;
 
-import java.util.Calendar;
+import java.util.*;
 
 public class ScheduledEvent implements Comparable<ScheduledEvent> {
-    private Calendar eventDate;
+    private EventDate eventDate;
     private String eventName;
 
-    public ScheduledEvent(Calendar eventDate, String eventName){
+    public ScheduledEvent(EventDate eventDate, String eventName){
         this.eventDate = eventDate;
         this.eventName = eventName;
     }
 
-
-    public Calendar getEventDate(){
-        return eventDate;
+    public Date getEventDate(){
+        return eventDate.getDate();
     }
 
     public String getEventName(){
@@ -26,10 +25,10 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
     }
 
     public String reminderAlert(){
-        return "Reminder! You have '" + eventName +  "' on " + eventDate.getTime();
+        return "Reminder! You have '" + eventName +  "' on " + eventDate.getDate();
     }
 
     public String toString(){
-        return "Event: '" + getEventName() + "' \t Time: " + getEventDate().getTime();
+        return "Event: '" + eventName + "' \t Date: " + eventDate.getDate();
     }
 }
