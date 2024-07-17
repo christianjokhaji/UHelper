@@ -2,6 +2,8 @@ package ca.unknown.bot.use_cases;
 
 import ca.unknown.bot.entities.Pomodoro;
 import ca.unknown.bot.data_access.TimerDAO;
+import ca.unknown.bot.data_access.GSONTypeAdapter;
+import ca.unknown.bot.interface_interactor.TimerController;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -27,17 +29,17 @@ public class TimerInteractor extends ListenerAdapter {
         // !preset {worktime} {breaktime} {iteration} {name}
         if (event.getName().equals("timer_create")) {
             try {
+                User user = event.getUser();
                 String name = Objects.requireNonNull(event.getOption("name")).getAsString();
                 double workTime = Objects.requireNonNull(event.getOption("work")).getAsDouble();
                 double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
-                Pomodoro newTimer = new Pomodoro(workTime, breakTime, iteration, name);
 
-                TimerDAO timerDAO = new TimerDAO();
-                User user = event.getUser();
-                timerDAO.savePomodoro(newTimer, user,"timer_repository.json");
+                TimerController.createTimer(name, workTime, breakTime, iteration, user);
 
-                event.reply("A timer preset has been created." + newTimer.toString()).queue();
+                event.reply("A timer preset has been created. \"" + name +
+                        "\" will repeat " + workTime + " minutes of work and " + breakTime
+                + " minutes of break " + iteration + " times.").queue();
             }
             catch (NumberFormatException e) {
                 event.reply("Exception raised: NumberFormatException").queue();

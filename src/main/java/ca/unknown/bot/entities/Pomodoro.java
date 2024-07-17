@@ -4,8 +4,8 @@ import java.util.*;
 import java.lang.Math;
 
 public class Pomodoro implements Preset {
-    private final HashMap<String, Object> map;
     private final String name;
+    private final HashMap<String, Object> map;
 
     /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
@@ -30,11 +30,11 @@ public class Pomodoro implements Preset {
       * Note that workTime, breakTime, and iteration are all stored in a Hashmap
       */
     public Pomodoro(double workTime, double breakTime, Integer iteration, String name){
+        this.name = name;
         map = new HashMap<>();
         this.map.put("workTime", workTime);
         this.map.put("breakTime", breakTime);
         this.map.put("iteration", iteration);
-        this.name = name;
     }
 
     /**
