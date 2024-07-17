@@ -2,6 +2,11 @@ package ca.unknown.bot.app;
 
 import ca.unknown.bot.use_cases.*;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
+import ca.unknown.bot.use_cases.EventListener;
+import ca.unknown.bot.use_cases.GameInteractor;
+import ca.unknown.bot.use_cases.RecipeInteractor;
+import ca.unknown.bot.use_cases.TimerInteractor;
+import ca.unknown.bot.use_cases.StudyInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -29,6 +34,9 @@ public class Main {
         jda.addEventListener(new RecipeInteractor());
         jda.addEventListener(new TimerInteractor());
         jda.addEventListener(new ScheduledReminderInteractor());
+
+        StudyInteractor studyInteractor = new StudyInteractor(jda);
+        jda.addEventListener(studyInteractor);
 
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
@@ -87,5 +95,17 @@ public class Main {
                 Commands.slash("current_schedule", "Displays the user's upcoming event schedule."),
                 Commands.slash("clear_schedule", "Clears the user's current schedule.")
                 ).queue();
+                                .addChoice("Dinner", "dinner")),
+                        Commands.slash("study-help", "Get Study Help!")
+                                .addOptions(new OptionData(OptionType.STRING, "choice",
+                                        "How can we help with studying?")
+                                        .addChoice("Reset Notes", "resetnotes")
+                                        .addChoice("Add Question", "addquestion")
+                                        .addChoice("Study", "study")
+                                        .addChoice("Save Quiz ", "savenotes")
+                                        .addChoice("Load Quiz", "loadnotes"))
+
+                )
+                .queue();
     }
 }

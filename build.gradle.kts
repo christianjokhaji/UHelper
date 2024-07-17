@@ -18,10 +18,13 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.6")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("org.apache.commons:commons-text:1.9")
-//    implementation("org.json:json:20240303")
+
     testImplementation(platform("org.junit:junit-bom:5.10.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.mockito:mockito-core:5.2.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.2.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 }
 
 tasks.withType<JavaCompile> {
