@@ -11,4 +11,6 @@ public interface Schedule {
     void clearSched();
 
     String getUser();
+
+    boolean hasEvents();
 }

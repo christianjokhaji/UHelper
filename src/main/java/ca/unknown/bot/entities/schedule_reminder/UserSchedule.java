@@ -37,4 +37,8 @@ public class UserSchedule implements Schedule {
     public String getUser(){
         return user;
     }
+
+    public boolean hasEvents(){
+        return events.isEmpty();
+    }
 }
