@@ -26,20 +26,20 @@ public class ScheduledReminderController {
         eventDate[5] = Objects.requireNonNull(event.getOption("sec")).getAsInt();
 
         if (event.getName().equals("schedule_event")) {
-            String eventName = Objects.requireNonNull(event.getOption("eventName")).getAsString();
+            String eventName = Objects.requireNonNull(event.getOption("event")).getAsString();
             ScheduledReminderInputData scheduledReminderInputData = new ScheduledReminderInputData(eventName, eventDate);
             return scheduledReminderInputData;
         }
         else if (event.getName().equals("schedule_exam")) {
-            String courseCode = Objects.requireNonNull(event.getOption("courseCode")).getAsString();
+            String courseCode = Objects.requireNonNull(event.getOption("course")).getAsString();
             String location = Objects.requireNonNull(event.getOption("location")).getAsString();
             ScheduledReminderInputData scheduledReminderInputData = new ScheduledReminderInputData(courseCode, eventDate, location);
             //scheduleInteractor.execute(scheduledReminderInputData);
             return scheduledReminderInputData;
         }
         else if (event.getName().equals("schedule_assignment")){
-            String courseCode = Objects.requireNonNull(event.getOption("courseCode")).getAsString();
-            String assignmentName = Objects.requireNonNull(event.getOption("assignmentName")).getAsString();
+            String courseCode = Objects.requireNonNull(event.getOption("course")).getAsString();
+            String assignmentName = Objects.requireNonNull(event.getOption("assignment")).getAsString();
             ScheduledReminderInputData scheduledReminderInputData = new ScheduledReminderInputData(assignmentName, courseCode, eventDate);
             scheduleInteractor.execute(scheduledReminderInputData);
             return scheduledReminderInputData;
