@@ -4,6 +4,7 @@ import ca.unknown.bot.use_cases.EventListener;
 import ca.unknown.bot.use_cases.GameInteractor;
 import ca.unknown.bot.use_cases.RecipeInteractor;
 import ca.unknown.bot.use_cases.TimerInteractor;
+import ca.unknown.bot.use_cases.StudyInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -31,6 +32,8 @@ public class Main {
         jda.addEventListener(new RecipeInteractor());
         jda.addEventListener(new TimerInteractor());
 
+        StudyInteractor studyInteractor = new StudyInteractor(jda);
+        jda.addEventListener(studyInteractor);
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
@@ -55,7 +58,17 @@ public class Main {
                                 .addChoice("Lunch", "lunch")
                                 .addChoice("Snack", "snack")
                                 .addChoice("Teatime", "teatime")
-                                .addChoice("Dinner", "dinner"))
-                ).queue();
+                                .addChoice("Dinner", "dinner")),
+                        Commands.slash("study-help", "Get Study Help!")
+                                .addOptions(new OptionData(OptionType.STRING, "choice",
+                                        "How can we help with studying?")
+                                        .addChoice("Reset Notes", "resetnotes")
+                                        .addChoice("Add Question", "addquestion")
+                                        .addChoice("Study", "study")
+                                        .addChoice("Save Quiz ", "savenotes")
+                                        .addChoice("Load Quiz", "loadnotes"))
+
+                )
+                .queue();
     }
 }
