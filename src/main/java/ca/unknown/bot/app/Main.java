@@ -1,5 +1,7 @@
 package ca.unknown.bot.app;
 
+import ca.unknown.bot.use_cases.*;
+import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
 import ca.unknown.bot.use_cases.EventListener;
 import ca.unknown.bot.use_cases.GameInteractor;
 import ca.unknown.bot.use_cases.RecipeInteractor;
@@ -31,9 +33,11 @@ public class Main {
         jda.addEventListener(new GameInteractor());
         jda.addEventListener(new RecipeInteractor());
         jda.addEventListener(new TimerInteractor());
+        jda.addEventListener(new ScheduledReminderInteractor());
 
         StudyInteractor studyInteractor = new StudyInteractor(jda);
         jda.addEventListener(studyInteractor);
+
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
@@ -59,16 +63,46 @@ public class Main {
                                 .addChoice("Snack", "snack")
                                 .addChoice("Teatime", "teatime")
                                 .addChoice("Dinner", "dinner")),
-                        Commands.slash("study-help", "Get Study Help!")
-                                .addOptions(new OptionData(OptionType.STRING, "choice",
+                Commands.slash("schedule_exam", "Schedules a new exam reminder. Please format your date as " +
+                                " YYYY MM DD HR MIN SEC.")
+                        .addOption(OptionType.STRING, "course", "The course code of the exam.", true)
+                        .addOption(OptionType.STRING, "location", "The location of your exam.", true)
+                        .addOption(OptionType.INTEGER, "year", "The year of your exam.", true)
+                        .addOption(OptionType.INTEGER, "month", "The numeric month of your exam.", true)
+                        .addOption(OptionType.INTEGER, "day", "The numeric day of your exam.", true)
+                        .addOption(OptionType.INTEGER, "hour", "The military hour of your exam.", true)
+                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your exam time.", true)
+                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your exam time.", true),
+                Commands.slash("schedule_assignment", "Schedules a new assignment reminder. Please " +
+                                "format your date as YYYY MM DD HR MIN SEC.")
+                        .addOption(OptionType.STRING, "course", "The course code of the assignment.", true)
+                        .addOption(OptionType.STRING, "assignment", "The name of your assignment.", true)
+                        .addOption(OptionType.INTEGER, "year", "The year of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "month", "The numeric month of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "day", "The numeric day of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "hour", "The military hour of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your assignment due date.", true),
+                Commands.slash("schedule_event", "Schedules a generic event reminder. Please " +
+                                "format your date as YYYY MM DD HR MIN SEC.")
+                        .addOption(OptionType.STRING, "event", "The name of your event.", true)
+                        .addOption(OptionType.INTEGER, "year", "The year of your event.", true)
+                        .addOption(OptionType.INTEGER, "month", "The numeric month of your event.", true)
+                        .addOption(OptionType.INTEGER, "day", "The numeric day of your event.", true)
+                        .addOption(OptionType.INTEGER, "hour", "The military hour of your event.", true)
+                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true)
+                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true),
+                Commands.slash("current_schedule", "Displays the user's upcoming event schedule."),
+                Commands.slash("clear_schedule", "Clears the user's current schedule."),
+                Commands.slash("study-help", "Get Study Help!")
+                        .addOptions(new OptionData(OptionType.STRING, "choice",
                                         "How can we help with studying?")
-                                        .addChoice("Reset Notes", "resetnotes")
-                                        .addChoice("Add Question", "addquestion")
-                                        .addChoice("Study", "study")
-                                        .addChoice("Save Quiz ", "savenotes")
-                                        .addChoice("Load Quiz", "loadnotes"))
+                                .addChoice("Reset Notes", "resetnotes")
+                                .addChoice("Add Question", "addquestion")
+                                .addChoice("Study", "study")
+                                .addChoice("Save Quiz ", "savenotes")
+                                .addChoice("Load Quiz", "loadnotes"))
 
-                )
-                .queue();
+                ).queue();
     }
 }
