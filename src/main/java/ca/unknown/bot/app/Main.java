@@ -83,7 +83,8 @@ public class Main {
                         .addOption(OptionType.INTEGER, "day", "The numeric day of your event.", true)
                         .addOption(OptionType.INTEGER, "hour", "The military hour of your event.", true)
                         .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true)
-                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true)
+                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true),
+                Commands.slash("current_schedule", "Displays the user's current ongoing schedule.")
                 ).queue();
     }
 }

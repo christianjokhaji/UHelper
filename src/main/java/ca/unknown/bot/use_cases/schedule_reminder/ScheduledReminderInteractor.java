@@ -53,6 +53,14 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             //event.reply(scheduleDAO.getSchedule(user).toString()).queue();
         }
+        else if (event.getName().equals("current_schedule")){
+            if(!scheduleDAO.existsByUser(user)){
+                event.reply("You have no ongoing scheduled events.").queue();
+            }
+            else{
+                event.reply(scheduleDAO.getSchedule(user).toString()).queue();
+            }
+        }
     }
 
 }
