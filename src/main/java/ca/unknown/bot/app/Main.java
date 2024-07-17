@@ -93,19 +93,16 @@ public class Main {
                         .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true)
                         .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true),
                 Commands.slash("current_schedule", "Displays the user's upcoming event schedule."),
-                Commands.slash("clear_schedule", "Clears the user's current schedule.")
-                ).queue();
-                                .addChoice("Dinner", "dinner")),
-                        Commands.slash("study-help", "Get Study Help!")
-                                .addOptions(new OptionData(OptionType.STRING, "choice",
+                Commands.slash("clear_schedule", "Clears the user's current schedule."),
+                Commands.slash("study-help", "Get Study Help!")
+                        .addOptions(new OptionData(OptionType.STRING, "choice",
                                         "How can we help with studying?")
-                                        .addChoice("Reset Notes", "resetnotes")
-                                        .addChoice("Add Question", "addquestion")
-                                        .addChoice("Study", "study")
-                                        .addChoice("Save Quiz ", "savenotes")
-                                        .addChoice("Load Quiz", "loadnotes"))
+                                .addChoice("Reset Notes", "resetnotes")
+                                .addChoice("Add Question", "addquestion")
+                                .addChoice("Study", "study")
+                                .addChoice("Save Quiz ", "savenotes")
+                                .addChoice("Load Quiz", "loadnotes"))
 
-                )
-                .queue();
+                ).queue();
     }
 }
