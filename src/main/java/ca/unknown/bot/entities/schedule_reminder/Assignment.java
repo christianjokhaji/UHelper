@@ -1,13 +1,14 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.schedule_reminder;
 
 /**
  * Stores the user's assignment details.
  * @param courseCode The course code of the class which the assignment is from.
  */
-public class Assignment extends ScheduledEvent{
+public class Assignment extends ScheduledEvent {
     private String courseCode;
 
     public Assignment(EventDate dueDate, String assignmentName, String courseCode){
+        // eventName = assignmentName
         super(dueDate, assignmentName);
         this.courseCode = courseCode;
     }

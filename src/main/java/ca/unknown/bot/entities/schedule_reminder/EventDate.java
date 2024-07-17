@@ -1,4 +1,4 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.schedule_reminder;
 import java.util.*;
 
 public class EventDate implements Comparable<EventDate> {

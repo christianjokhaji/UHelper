@@ -1,4 +1,4 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.schedule_reminder;
 
 /**
  * Stores the user's exam details.
@@ -10,6 +10,7 @@ public class Exam extends ScheduledEvent {
     private String location;
 
     public Exam(EventDate examDate, String courseCode, String location){
+        // eventName = courseCode
         super(examDate, courseCode);
         this.location = location;
     }

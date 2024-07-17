@@ -1,9 +1,9 @@
-package ca.unknown.bot.data_access;
-import ca.unknown.bot.entities.Schedule;
+package ca.unknown.bot.data_access.schedule_reminder;
+import ca.unknown.bot.entities.schedule_reminder.Schedule;
 
 import java.util.*;
 
-public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterface{
+public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterface {
     private Map<String, Schedule> userSchedules = new HashMap<>();
 
     @Override

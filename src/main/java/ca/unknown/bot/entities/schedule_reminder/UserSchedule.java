@@ -1,4 +1,9 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.schedule_reminder;
+import ca.unknown.bot.entities.schedule_reminder.Assignment;
+import ca.unknown.bot.entities.schedule_reminder.Exam;
+import ca.unknown.bot.entities.schedule_reminder.Schedule;
+import ca.unknown.bot.entities.schedule_reminder.ScheduledEvent;
+
 import java.util.*;
 
 public class UserSchedule implements Schedule {
@@ -10,13 +15,13 @@ public class UserSchedule implements Schedule {
         this.user = user;
     }
 
-    public void addEvent(Exam e){
-        events.add(e);
-    }
-
-    public void addEvent(Assignment a){
-        events.add(a);
-    }
+//    public void addEvent(Exam e){
+//        events.add(e);
+//    }
+//
+//    public void addEvent(Assignment a){
+//        events.add(a);
+//    }
 
     public void addEvent(ScheduledEvent s){
         events.add(s);

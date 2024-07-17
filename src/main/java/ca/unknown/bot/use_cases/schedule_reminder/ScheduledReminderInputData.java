@@ -1,6 +1,6 @@
-package ca.unknown.bot.use_cases;
+package ca.unknown.bot.use_cases.schedule_reminder;
 
-import ca.unknown.bot.entities.EventDate;
+import ca.unknown.bot.entities.schedule_reminder.EventDate;
 
 /**
  * Converts user input data to a format that the interactor can use.
@@ -24,6 +24,7 @@ public class ScheduledReminderInputData {
                 eventDateNumeric[3], eventDateNumeric[4], eventDateNumeric[5]);
     }
 
+    // exam
     public ScheduledReminderInputData(String courseCode, int[] eventDateNumeric, String location){
         this.eventName = courseCode;
         this.eventDate = new EventDate(eventDateNumeric[0], eventDateNumeric[1] - 1, eventDateNumeric[2],
@@ -31,6 +32,7 @@ public class ScheduledReminderInputData {
         this.location = location;
     }
 
+    // assignment
     public ScheduledReminderInputData(String assignmentName, String courseCode, int[] eventDateNumeric){
         this.eventName = assignmentName;
         this.eventDate = new EventDate(eventDateNumeric[0], eventDateNumeric[1] - 1, eventDateNumeric[2],
