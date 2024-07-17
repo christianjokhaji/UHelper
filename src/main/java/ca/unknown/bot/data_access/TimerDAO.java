@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
+import org.apache.commons.lang3.ObjectUtils;
 
 public class TimerDAO {
     /**
@@ -34,37 +35,53 @@ public class TimerDAO {
     * 1) GsonBuilder is a builder class that is used when one wants to create a Gson object with
     * custom configurations. For details, visit
     *
-    * @param data The desired Pomodoro object to be loaded or saved
+    * @param data The desired User-Pomodoro map to be loaded or saved
     * @param filename The name of the timer (Pomodoro) so users can look through the different
     * Pomodoro instances.
     */
-    public void savePomodoro(Map data, String filename) {
-          // 1.Checks if the user DNE in json
+    public void savePomodoro(Map userAndTimer, String filename) {
+
+        // 1. Check if user exists in timer_repository
+        if (checkUser(userAndTimer, filename)) {
            Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
            GsonBuilder builder = new GsonBuilder();
-//            builder.registerTypeAdapter(User.class, new GSONTypeAdapter(user));
-// This custom typeadapter may be used if I change the way the bot structures user and timer
-           Gson gson = builder
+//            builder.registerTypeAdapter(User.class, new GSONTypeAdapter(user)); may be used if I
+//            change the format of storing a timer setting. Right now, GSONTypeAdapter is dummy.
+            Gson gson = builder
                    .enableComplexMapKeySerialization().create();
 
            // Checks for exceptions since they are common with file operations
            try (FileWriter writer = new FileWriter(filename)) {
                JsonWriter jsonWriter = new JsonWriter(writer);
-               gson.toJson(data, type, jsonWriter);
-           } catch (IOException e) {
+               gson.toJson(userAndTimer, type, jsonWriter);
+           } catch (IOException e) { // This will be raised if filename DNE in local
                e.printStackTrace();
            }
        }
-    private boolean checkUser(Gson gson, Map data, String filename) {
+        // 2. Check if
+        else if (checkTimer(userAndTimer, filename)){
+
+        }
+    }
+
+    // returns true if user doesn't exist timer_repository
+    private boolean checkUser(Map userAndTimer, String filename) {
         try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
-            Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
-            Map checking = gson.fromJson(jsonReader, type);
-            return !checking.containsKey(data.keySet().toArray()[0]);
+            Gson gson = new Gson();
+            TypeToken<Map<String,ArrayList>> typeToken= new TypeToken
+                    <Map<String,ArrayList>>(){};
+            Map map = gson.fromJson(jsonReader, typeToken.getType());
+            if (map == null){ return true; }
+            return !map.containsKey(userAndTimer.keySet().toArray()[0]);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private boolean checkTimer(Map data, String filename) {
+        return true;
     }
 
    public Pomodoro loadPomodoro(String filename) {

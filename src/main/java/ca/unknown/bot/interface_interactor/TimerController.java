@@ -23,24 +23,22 @@ public class TimerController {
      * {user1: <timer1, timer2>, user2: <timer3>}
      */
 
-    public static void createTimer(String name, double workTime, double breakTime, Integer iteration
+    public static void saveTimer(String name, double workTime, double breakTime, Integer iteration
     , User user){
 
     /**
-     * createTimer creates a map that looks like the example above. This will be passed onto the
-     * TimerDAO for checking duplicate user and Pomodoro instances.
+     * createTimer creates a map that looks like the example above. The map contains the user id
+     * (String) as a key and the Pomodoro instance they want to create as a value. It will be passed
+     * onto the TimerDAO for checking duplicate user and Pomodoro instances.
      *
-     * Map<String, ArrayList<Pomodoro>>
-     * {user1: <timer1, timer2>, user2: <timer3>}
      */
         Pomodoro newTimer = PomodoroFactory.create(workTime, breakTime, iteration, name);
-        String key = user.toString();
         ArrayList<Pomodoro> value = new ArrayList<>();
         value.add(newTimer);
-        Map map = new HashMap();
-        map.put(key, value);
+        Map userAndTimer = new HashMap();
+        userAndTimer.put(user.toString(), value);
         TimerDAO timerDAO = new TimerDAO();
-        timerDAO.savePomodoro(map, "timer_repository.json");
+        timerDAO.savePomodoro(userAndTimer, "timer_repository.json");
 
     }
 }

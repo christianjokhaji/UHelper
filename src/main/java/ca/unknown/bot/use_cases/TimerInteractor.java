@@ -26,7 +26,7 @@ public class TimerInteractor extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        // !preset {worktime} {breaktime} {iteration} {name}
+        // /timer_create {workTime} {breakTime} {iteration} {name}
         if (event.getName().equals("timer_create")) {
             try {
                 User user = event.getUser();
@@ -35,7 +35,7 @@ public class TimerInteractor extends ListenerAdapter {
                 double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
 
-                TimerController.createTimer(name, workTime, breakTime, iteration, user);
+                TimerController.saveTimer(name, workTime, breakTime, iteration, user);
 
                 event.reply("A timer preset has been created. \"" + name +
                         "\" will repeat " + workTime + " minutes of work and " + breakTime
