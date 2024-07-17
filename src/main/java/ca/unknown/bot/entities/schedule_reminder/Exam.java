@@ -33,7 +33,7 @@ public class Exam extends ScheduledEvent {
     }
 
     public String toString(){
-        return "Exam: '" + getEventName() + "' \t Location: " + location +
-                " \t Date: " + getEventDate().getTime();
+        return "Exam: " + getEventName() + " \t Location: " + location +
+                " \t Date: " + getEventDate();
     }
 }
