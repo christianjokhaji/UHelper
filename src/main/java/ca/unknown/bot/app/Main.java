@@ -84,7 +84,8 @@ public class Main {
                         .addOption(OptionType.INTEGER, "hour", "The military hour of your event.", true)
                         .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true)
                         .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true),
-                Commands.slash("current_schedule", "Displays the user's current ongoing schedule.")
+                Commands.slash("current_schedule", "Displays the user's upcoming event schedule."),
+                Commands.slash("clear_schedule", "Clears the user's current schedule.")
                 ).queue();
     }
 }
