@@ -39,6 +39,7 @@ public class ScheduledReminderController {
     }
 
     public ScheduledReminderInputData getScheduledReminderInputData(){
+        execute();
         return scheduledReminderInputData;
     }
 
