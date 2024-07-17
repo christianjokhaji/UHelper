@@ -1,7 +1,7 @@
 package ca.unknown.bot.app;
 
 import ca.unknown.bot.use_cases.*;
-import ca.unknown.bot.use_cases.schedule_reminder.ScheduleInteractor;
+import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -28,7 +28,7 @@ public class Main {
         jda.addEventListener(new GameInteractor());
         jda.addEventListener(new RecipeInteractor());
         jda.addEventListener(new TimerInteractor());
-        jda.addEventListener(new ScheduleInteractor());
+        jda.addEventListener(new ScheduledReminderInteractor());
 
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
@@ -57,33 +57,33 @@ public class Main {
                                 .addChoice("Dinner", "dinner")),
                 Commands.slash("schedule_exam", "Schedules a new exam reminder. Please format your date as " +
                                 " YYYY MM DD HR MIN SEC.")
-                        .addOption(OptionType.STRING, "course", "The course code of the exam.")
-                        .addOption(OptionType.STRING, "location", "The location of your exam.")
-                        .addOption(OptionType.INTEGER, "year", "The year of your exam.")
-                        .addOption(OptionType.INTEGER, "month", "The numeric month of your exam.")
-                        .addOption(OptionType.INTEGER, "day", "The numeric day of your exam.")
-                        .addOption(OptionType.INTEGER, "hour", "The military hour of your exam.")
-                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your exam time.")
-                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your exam time."),
+                        .addOption(OptionType.STRING, "course", "The course code of the exam.", true)
+                        .addOption(OptionType.STRING, "location", "The location of your exam.", true)
+                        .addOption(OptionType.INTEGER, "year", "The year of your exam.", true)
+                        .addOption(OptionType.INTEGER, "month", "The numeric month of your exam.", true)
+                        .addOption(OptionType.INTEGER, "day", "The numeric day of your exam.", true)
+                        .addOption(OptionType.INTEGER, "hour", "The military hour of your exam.", true)
+                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your exam time.", true)
+                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your exam time.", true),
                 Commands.slash("schedule_assignment", "Schedules a new assignment reminder. Please " +
                                 "format your date as YYYY MM DD HR MIN SEC.")
-                        .addOption(OptionType.STRING, "course", "The course code of the assignment.")
-                        .addOption(OptionType.STRING, "assignment", "The name of your assignment.")
-                        .addOption(OptionType.INTEGER, "year", "The year of your assignment due date.")
-                        .addOption(OptionType.INTEGER, "month", "The numeric month of your assignment due date.")
-                        .addOption(OptionType.INTEGER, "day", "The numeric day of your assignment due date.")
-                        .addOption(OptionType.INTEGER, "hour", "The military hour of your assignment due date.")
-                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your assignment due date.")
-                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your assignment due date."),
+                        .addOption(OptionType.STRING, "course", "The course code of the assignment.", true)
+                        .addOption(OptionType.STRING, "assignment", "The name of your assignment.", true)
+                        .addOption(OptionType.INTEGER, "year", "The year of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "month", "The numeric month of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "day", "The numeric day of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "hour", "The military hour of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your assignment due date.", true)
+                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your assignment due date.", true),
                 Commands.slash("schedule_event", "Schedules a generic event reminder. Please " +
                                 "format your date as YYYY MM DD HR MIN SEC.")
-                        .addOption(OptionType.STRING, "event", "The name of your event.")
-                        .addOption(OptionType.INTEGER, "year", "The year of your event.")
-                        .addOption(OptionType.INTEGER, "month", "The numeric month of your event.")
-                        .addOption(OptionType.INTEGER, "day", "The numeric day of your event.")
-                        .addOption(OptionType.INTEGER, "hour", "The military hour of your event.")
-                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.")
-                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.")
+                        .addOption(OptionType.STRING, "event", "The name of your event.", true)
+                        .addOption(OptionType.INTEGER, "year", "The year of your event.", true)
+                        .addOption(OptionType.INTEGER, "month", "The numeric month of your event.", true)
+                        .addOption(OptionType.INTEGER, "day", "The numeric day of your event.", true)
+                        .addOption(OptionType.INTEGER, "hour", "The military hour of your event.", true)
+                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true)
+                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true)
                 ).queue();
     }
 }
