@@ -18,11 +18,11 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        String user = event.getInteraction().getUser().getName();
 
         if (event.getName().equals("schedule_event")) {
-            String user = event.getInteraction().getUser().getName();
             if(!scheduleDAO.existsByUser(user)){
-                scheduleFactory.create(user);
+                scheduleDAO.save(scheduleFactory.create(user));
             }
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
@@ -32,9 +32,8 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             event.reply(scheduleDAO.getSchedule(user).toString());
         }
         else if (event.getName().equals("schedule_exam")) {
-            String user = event.getInteraction().getUser().getName();
             if(!scheduleDAO.existsByUser(user)){
-                scheduleFactory.create(user);
+                scheduleDAO.save(scheduleFactory.create(user));
             }
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
@@ -44,9 +43,8 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             event.reply(scheduleDAO.getSchedule(user).toString());
         }
         else if (event.getName().equals("schedule_assignment")){
-            String user = event.getInteraction().getUser().getName();
             if(!scheduleDAO.existsByUser(user)){
-                scheduleFactory.create(user);
+                scheduleDAO.save(scheduleFactory.create(user));
             }
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
