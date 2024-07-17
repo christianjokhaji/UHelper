@@ -3,6 +3,7 @@ package ca.unknown.bot.use_cases.schedule_reminder;
 import ca.unknown.bot.data_access.schedule_reminder.ScheduledReminderDataAccessInterface;
 import ca.unknown.bot.entities.schedule_reminder.ScheduledEvent;
 import ca.unknown.bot.entities.schedule_reminder.ScheduledEventFactory;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 public class ScheduledEventInteractor {
     ScheduledEventFactory eventFactory = new ScheduledEventFactory();
@@ -13,8 +14,9 @@ public class ScheduledEventInteractor {
         this.scheduleDAO = scheduleDAO;
     }
 
-    public void execute(ScheduledReminderInputData scheduledReminderInputData, String user){
+    public void execute(ScheduledReminderInputData scheduledReminderInputData, String user, SlashCommandInteractionEvent event){
         ScheduledEvent schedEvent = eventFactory.create(scheduledReminderInputData.getEventDate(), scheduledReminderInputData.getEventName());
         scheduleDAO.getSchedule(user).addEvent(schedEvent);
+        event.reply("You have scheduled the following event: \n"+ schedEvent.toString()).queue();
     }
 }

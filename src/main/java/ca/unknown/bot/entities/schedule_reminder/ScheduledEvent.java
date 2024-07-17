@@ -25,7 +25,7 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
     }
 
     public String reminderAlert(){
-        return "Reminder! You have '" + eventName +  "' on " + eventDate.getDate();
+        return "Reminder! You have an event '" + eventName +  "' on " + eventDate.getDate();
     }
 
     public String toString(){

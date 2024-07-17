@@ -11,14 +11,6 @@ public class UserSchedule implements Schedule {
         this.user = user;
     }
 
-//    public void addEvent(Exam e){
-//        events.add(e);
-//    }
-//
-//    public void addEvent(Assignment a){
-//        events.add(a);
-//    }
-
     public void addEvent(ScheduledEvent s){
         events.add(s);
     }

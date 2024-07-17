@@ -27,9 +27,9 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
             ScheduledReminderInputData scheduledReminderInputData = scheduledReminderController.getScheduledReminderInputData();
-            new ScheduledEventInteractor(scheduleDAO).execute(scheduledReminderInputData, user);
+            new ScheduledEventInteractor(scheduleDAO).execute(scheduledReminderInputData, user, event);
 
-            event.reply(scheduleDAO.getSchedule(user).toString());
+            //event.reply(scheduleDAO.getSchedule(user).toString()).queue();
         }
         else if (event.getName().equals("schedule_exam")) {
             if(!scheduleDAO.existsByUser(user)){
@@ -38,9 +38,9 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
             ScheduledReminderInputData scheduledReminderInputData = scheduledReminderController.getScheduledReminderInputData();
-            new ScheduledExamInteractor(scheduleDAO).execute(scheduledReminderInputData, user);
+            new ScheduledExamInteractor(scheduleDAO).execute(scheduledReminderInputData, user, event);
 
-            event.reply(scheduleDAO.getSchedule(user).toString());
+            //event.reply(scheduleDAO.getSchedule(user).toString()).queue();
         }
         else if (event.getName().equals("schedule_assignment")){
             if(!scheduleDAO.existsByUser(user)){
@@ -49,9 +49,9 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
             ScheduledReminderInputData scheduledReminderInputData = scheduledReminderController.getScheduledReminderInputData();
-            new ScheduledAssignmentInteractor(scheduleDAO).execute(scheduledReminderInputData, user);
+            new ScheduledAssignmentInteractor(scheduleDAO).execute(scheduledReminderInputData, user, event);
 
-            event.reply(scheduleDAO.getSchedule(user).toString());
+            //event.reply(scheduleDAO.getSchedule(user).toString()).queue();
         }
     }
 
