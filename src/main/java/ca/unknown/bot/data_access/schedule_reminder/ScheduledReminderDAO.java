@@ -6,6 +6,10 @@ import java.util.*;
 public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterface {
     private Map<String, Schedule> userSchedules = new HashMap<>();
 
+    public ScheduledReminderDAO(){
+
+    }
+
     @Override
     public boolean existsByUser(String user) {
         return userSchedules.containsKey(user);
