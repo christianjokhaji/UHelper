@@ -32,7 +32,7 @@ public class Assignment extends ScheduledEvent {
     }
 
     public String toString(){
-        return "Assignment: '" + getEventName() + "' \t Class: " + courseCode +
+        return "Assignment: " + getEventName() + " \t Class: " + courseCode +
                 " \t Due Date: " + getEventDate();
     }
 }

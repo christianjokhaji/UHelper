@@ -29,6 +29,6 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
     }
 
     public String toString(){
-        return "Event: '" + eventName + "' \t Date: " + eventDate.getDate();
+        return "Event: " + eventName + " \t Date: " + eventDate.getDate();
     }
 }
