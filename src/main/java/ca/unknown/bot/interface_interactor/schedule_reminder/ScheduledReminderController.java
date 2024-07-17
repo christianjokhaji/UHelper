@@ -1,22 +1,19 @@
 package ca.unknown.bot.interface_interactor.schedule_reminder;
 
-import ca.unknown.bot.use_cases.schedule_reminder.ScheduleInteractor;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInputData;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.util.Objects;
 
 public class ScheduledReminderController {
-
-    SlashCommandInteractionEvent event;
-    ScheduleInteractor scheduleInteractor;
+    private SlashCommandInteractionEvent event;
+    private ScheduledReminderInputData scheduledReminderInputData;
 
     public ScheduledReminderController(SlashCommandInteractionEvent event){
         this.event = event;
-        //this.scheduleInteractor = scheduleInteractor;
     }
 
-    public ScheduledReminderInputData execute(){
+    private void execute(){
         int[] eventDate = new int[6];
         eventDate[0] = Objects.requireNonNull(event.getOption("year")).getAsInt();
         eventDate[1] = Objects.requireNonNull(event.getOption("month")).getAsInt();
@@ -27,23 +24,25 @@ public class ScheduledReminderController {
 
         if (event.getName().equals("schedule_event")) {
             String eventName = Objects.requireNonNull(event.getOption("event")).getAsString();
-            ScheduledReminderInputData scheduledReminderInputData = new ScheduledReminderInputData(eventName, eventDate);
-            return scheduledReminderInputData;
+            this.setScheduledReminderInputData(new ScheduledReminderInputData(eventName, eventDate));
         }
         else if (event.getName().equals("schedule_exam")) {
             String courseCode = Objects.requireNonNull(event.getOption("course")).getAsString();
             String location = Objects.requireNonNull(event.getOption("location")).getAsString();
-            ScheduledReminderInputData scheduledReminderInputData = new ScheduledReminderInputData(courseCode, eventDate, location);
-            //scheduleInteractor.execute(scheduledReminderInputData);
-            return scheduledReminderInputData;
+            this.setScheduledReminderInputData(new ScheduledReminderInputData(courseCode, eventDate, location));
         }
         else if (event.getName().equals("schedule_assignment")){
             String courseCode = Objects.requireNonNull(event.getOption("course")).getAsString();
             String assignmentName = Objects.requireNonNull(event.getOption("assignment")).getAsString();
-            ScheduledReminderInputData scheduledReminderInputData = new ScheduledReminderInputData(assignmentName, courseCode, eventDate);
-            scheduleInteractor.execute(scheduledReminderInputData);
-            return scheduledReminderInputData;
+            this.setScheduledReminderInputData(new ScheduledReminderInputData(assignmentName, courseCode, eventDate));
         }
-        return null;
+    }
+
+    public ScheduledReminderInputData getScheduledReminderInputData(){
+        return scheduledReminderInputData;
+    }
+
+    private void setScheduledReminderInputData(ScheduledReminderInputData scheduledReminderInputData){
+        this.scheduledReminderInputData = scheduledReminderInputData;
     }
 }
