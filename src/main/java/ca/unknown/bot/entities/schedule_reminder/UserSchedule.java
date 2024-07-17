@@ -1,8 +1,4 @@
 package ca.unknown.bot.entities.schedule_reminder;
-import ca.unknown.bot.entities.schedule_reminder.Assignment;
-import ca.unknown.bot.entities.schedule_reminder.Exam;
-import ca.unknown.bot.entities.schedule_reminder.Schedule;
-import ca.unknown.bot.entities.schedule_reminder.ScheduledEvent;
 
 import java.util.*;
 
@@ -33,13 +29,13 @@ public class UserSchedule implements Schedule {
 
     public String toString(){
         sort();
-        String output = "Here is your upcoming schedule: \n";
+        StringBuilder output = new StringBuilder("Here is your upcoming schedule: \n");
         String temp = "";
         for(ScheduledEvent s: events){
             temp = s.toString() + "\n";
-            output.concat(temp);
+            output.append(temp);
         }
-        return output;
+        return output.toString();
     }
 
     public void clearSched(){
