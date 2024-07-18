@@ -2,7 +2,7 @@ package ca.unknown.bot.use_cases;
 
 import ca.unknown.bot.entities.Pomodoro;
 import ca.unknown.bot.data_access.TimerDAO;
-import ca.unknown.bot.data_access.GSONTypeAdapter;
+import ca.unknown.bot.data_access.GSONTypeAdapter; // may be used or not in the future
 import ca.unknown.bot.interface_interactor.TimerController;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -35,11 +35,20 @@ public class TimerInteractor extends ListenerAdapter {
                 double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
 
-                TimerController.saveTimer(name, workTime, breakTime, iteration, user);
+//                TimerController.saveTimer(name, workTime, breakTime, iteration, user);
+//                event.reply("A timer preset has been created. \"" + name +
+//                        "\" will repeat " + workTime + " minutes of work and " + breakTime
+//                + " minutes of break " + iteration + " times.").queue();
 
-                event.reply("A timer preset has been created. \"" + name +
+                if (TimerController.checkDuplicateTimer(name, user)) {
+                    event.reply("Duplicate names are not allowed for timer instances.")
+                            .queue();
+                } else {
+                    TimerController.saveTimer(name, workTime, breakTime, iteration, user);
+                    event.reply("A timer preset has been created. \"" + name +
                         "\" will repeat " + workTime + " minutes of work and " + breakTime
                 + " minutes of break " + iteration + " times.").queue();
+                }
             }
             catch (NumberFormatException e) {
                 event.reply("Exception raised: NumberFormatException").queue();

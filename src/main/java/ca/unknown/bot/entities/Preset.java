@@ -1,5 +1,7 @@
 package ca.unknown.bot.entities;
 
+import java.util.HashMap;
+
 public interface Preset {
 
     /**
@@ -9,11 +11,13 @@ public interface Preset {
      * it comes to designing other types of timer (i.e. general, sleep alarm, etc.)
      */
 
-    int getWorkTime();
+    double getWorkTime();
 
-    int getBreakTime();
+    double getBreakTime();
 
     int getIteration();
+
+    HashMap getMap();
 
     String toString();
 

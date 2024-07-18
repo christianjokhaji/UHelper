@@ -2,6 +2,7 @@ package ca.unknown.bot.data_access;
 
 import com.google.gson.*;
 import ca.unknown.bot.entities.Pomodoro;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
@@ -42,7 +44,7 @@ public class TimerDAO {
     public void savePomodoro(Map userAndTimer, String filename) {
 
         // 1. Check timer_repository is empty
-        if (checkEmpty(userAndTimer, filename)) {
+        if (checkEmpty(filename)) {
            Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
            GsonBuilder builder = new GsonBuilder();
 //            builder.registerTypeAdapter(User.class, new GSONTypeAdapter(user)); may be used if I
@@ -60,26 +62,52 @@ public class TimerDAO {
        }
         // 2. Check if timer_repository doesn't contain that specific user
         else if (!checkUser(userAndTimer, filename)){
-            Map map = loadPomodoro(filename);
+            Map repo = loadPomodoro(filename);
             String key = userAndTimer.keySet().toArray()[0].toString();
-            map.put(key, userAndTimer.get(key));
+            repo.put(key, userAndTimer.get(key));
             Gson gson = new GsonBuilder().create();
             try (FileWriter writer = new FileWriter(filename)) {
                JsonWriter jsonWriter = new JsonWriter(writer);
                Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
-               gson.toJson(map, type, jsonWriter);
+               gson.toJson(repo, type, jsonWriter);
            } catch (IOException e) { // This will be raised if filename DNE in local
                e.printStackTrace();
            }
         }
         // 3. Check if timer_repository contains the user but no specified timer
         else if (checkUser(userAndTimer, filename)){
+            Map repo = loadPomodoro(filename);
+            String key = userAndTimer.keySet().toArray()[0].toString();
+            ArrayList value = (ArrayList) userAndTimer.get(key);
+            ArrayList newPomodoros = (ArrayList) repo.get(key);
+            Pomodoro pomodoro = (Pomodoro) value.get(0);
+            // 1: Encase a Pomodoro instance of userAndTimer.get(key) in a LinkedTreeMap
+            LinkedTreeMap timer = new LinkedTreeMap();
+            timer.put("name", pomodoro.getName());
+            LinkedTreeMap spec = new LinkedTreeMap();
+            spec.put("breakTime", pomodoro.getBreakTime());
+            spec.put("iteration", pomodoro.getIteration());
+            spec.put("workTime", pomodoro.getWorkTime());
+            timer.put("map", spec);
 
+            // 2: Put the new LinkedTreeMap in newPomodoros
+            newPomodoros.add(timer);
+
+            // 3: repo.put(key, newPomodoros);
+            repo.put(key, newPomodoros);
+            Gson gson = new GsonBuilder().create();
+            try (FileWriter writer = new FileWriter(filename)) {
+               JsonWriter jsonWriter = new JsonWriter(writer);
+               Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
+               gson.toJson(repo, type, jsonWriter);
+           } catch (IOException e) { // This will be raised if filename DNE in local
+               e.printStackTrace();
+           }
         }
     }
 
     // returns true if the designated json file is totally empty
-    private boolean checkEmpty(Map userAndTimer, String filename) {
+    private boolean checkEmpty(String filename) {
         try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
@@ -108,23 +136,37 @@ public class TimerDAO {
         return false;
     }
 
-    private boolean checkTimer(Map userAndTimer, String filename) {
-        return true;
-    }
+    // returns true if the input name is already used for any timer that user has
+    public boolean checkDuplicate(String name, String user, String filename) {
+        try (FileReader reader = new FileReader(filename)) {
+            Map repo = loadPomodoro(filename);
+            if (repo == null) {return false;}
+            ArrayList Pomodoros = (ArrayList) repo.get(user);
+            Gson gson = new GsonBuilder().create();
+            for (int i = 0; i < Pomodoros.size(); i++) {
+                Object pomodoro =  Pomodoros.get(i);
+
+                }
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+        }
+
 
    public Map loadPomodoro(String filename) {
        /**
     *
     * @param filename Name of quiz object to be loaded
-    * @return Pomodoro using file reader
+    * @return A map representation of timer_repository.json
     */
        try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
             TypeToken<Map<String,ArrayList>> typeToken= new TypeToken
                     <Map<String,ArrayList>>(){};
-            Map map = gson.fromJson(jsonReader, typeToken.getType());
-            return map;
+            Map repo = gson.fromJson(jsonReader, typeToken.getType());
+            return repo;
         } catch (IOException e) {
             e.printStackTrace();
         }

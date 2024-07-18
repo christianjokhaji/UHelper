@@ -109,13 +109,13 @@ public class Pomodoro implements Preset {
 
     // Getters for Pomodoro
     @Override
-    public int getWorkTime() {
-        return (int) this.map.get("workTime");
+    public double getWorkTime() {
+        return (double) this.map.get("workTime");
     }
 
     @Override
-    public int getBreakTime() {
-        return (int) this.map.get("breakTime");
+    public double getBreakTime() {
+        return (double) this.map.get("breakTime");
     }
 
     @Override
@@ -127,6 +127,9 @@ public class Pomodoro implements Preset {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public HashMap getMap() {return this.map;}
 
     // A string representation of the Pomodoro class
     @Override
