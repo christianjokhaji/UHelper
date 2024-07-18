@@ -1,4 +1,4 @@
-# Welcome to UHelper! 🤖 (last updated on July 12 by Aria)
+# Welcome to UHelper! 🤖 (last updated on July 17 by Aria)
 
 UHelper is an interactive bot that is designed to meet students' needs on Discord.
 
@@ -39,12 +39,14 @@ You can find all the user stories and other details in our blueprint from [here]
 - **Study help** 📚
   - [ ] QuizMe
 
-- **Reminders** 📅
-  - [X] Create a scheduled assignment by providing the course code, due date, and name of the assignment. (July 5)
-  - [X] Create a scheduled exam by providing the course code, location, and date (day + time) of the exam. (July 5)
-  - [ ] Bot sends direct message reminders when prompted.
-  - [ ] Bot sends scheduled direct message reminders.
-  - [ ] Bot returns a schedule with outstanding academic events (incl. both assignments and exams).
+- **Scheduled Reminders** 📅
+  - [X] Create a scheduled event by providing the event name and date (day + time) of the event. (July 14)
+    - [X] Create a scheduled assignment by providing the course code, due date, and name of the assignment. (July 5)
+    - [X] Create a scheduled exam by providing the course code, location, and date (day + time) of the exam. (July 5)
+  - [ ] Bot sends scheduled direct message reminders the day before each event.
+  - [X] Bot displays a schedule with ongoing events (incl. assignments, general events, and exams). (July 17)
+  - [X] Bot clears the user's current schedule. (July 17)
+    - [ ] Deletes reminder alerts
   - [ ] Bot accepts an exam schedule and creates reminders for each exam.
 
 - **Schedule** 📅 (use case in progress - July 12)
