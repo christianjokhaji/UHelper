@@ -51,16 +51,22 @@ public class TimerController {
         return timerDAO.checkDuplicate(name, user.toString(), "timer_repository.json");
     }
 
-    public static ArrayList getTimers(User user) {
-        String userString = user.toString();
+    public static String getTimers(User user) {
         TimerDAO timerDAO = new TimerDAO();
         ArrayList returnList = new ArrayList();
+        String message = new String("");
         ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
         for (int i = 0; i < list.size(); i++) {
             LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
             String name = treeMap.get("name").toString();
-
+            LinkedTreeMap spec = (LinkedTreeMap) treeMap.get("map");
+            double workTime = (double) spec.get("workTime");
+            double breakTime = (double) spec.get("breakTime");
+            Double iteration = (Double) spec.get("iteration");
+            Integer it = iteration.intValue();
+            Pomodoro pomodoro = PomodoroFactory.create(workTime, breakTime, it, name);
+            message = message + pomodoro.toString() + "\n";
         }
-
+        return message;
     }
 }

@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -53,14 +54,14 @@ public class TimerInteractor extends ListenerAdapter {
             }
         }
         if (event.getName().equals("timer_list")) {
-
+            String message = TimerController.getTimers(event.getUser());
+            event.reply(message).queue();
         }
         if (event.getName().equals("timer_start")) {
-            event.reply("Timer " + Objects.requireNonNull(event.getOption("name")) +
-                    " has started.").queue();
+            event.reply("Coming soon!").queue();
         }
         if (event.getName().equals("timer_cancel")) {
-            event.reply("The current timer has been successfully cancelled.").queue();
+            event.reply("Coming soon!").queue();
         }
     }
 }

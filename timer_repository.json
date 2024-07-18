@@ -1,2 +1,1 @@
-{"user":[{"map":{"breakTime":2.0,"iteration":1,"workTime":3.0},"name":"a"},
-  {"map":{"breakTime":4.0,"iteration":3,"workTime":5.0},"name":"b"}]}
+{"User:havefun01(id\u003d283783079766786049)":[{"name":"test1","map":{"breakTime":10.0,"iteration":2.0,"workTime":50.0}},{"name":"test2","map":{"breakTime":5.0,"iteration":4,"workTime":25.0}}]}
