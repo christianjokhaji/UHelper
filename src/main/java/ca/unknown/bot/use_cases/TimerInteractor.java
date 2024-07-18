@@ -28,7 +28,7 @@ public class TimerInteractor extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         // /timer_create {workTime} {breakTime} {iteration} {name}
-        if (event.getName().equals("timer_create")) {
+        if (event.getName().equals("timer_create")) { // Slash command for creating a timer
             try {
                 User user = event.getUser();
                 String name = Objects.requireNonNull(event.getOption("name")).getAsString();
@@ -53,14 +53,14 @@ public class TimerInteractor extends ListenerAdapter {
                 event.reply("Exception raised: ArrayIndexOutOfBoundsException").queue();
             }
         }
-        if (event.getName().equals("timer_list")) {
+        if (event.getName().equals("timer_list")) { // Command for loading a list of timers
             String message = TimerController.getTimers(event.getUser());
             event.reply(message).queue();
         }
-        if (event.getName().equals("timer_start")) {
+        if (event.getName().equals("timer_start")) { // Command for starting a timer
             event.reply("Coming soon!").queue();
         }
-        if (event.getName().equals("timer_cancel")) {
+        if (event.getName().equals("timer_cancel")) { // Command for cancelling a timer
             event.reply("Coming soon!").queue();
         }
     }
