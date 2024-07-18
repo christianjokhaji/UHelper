@@ -44,6 +44,7 @@ public class Main {
                         .addOption(OptionType.NUMBER, "break", "how long a break should be")
                         .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
+                Commands.slash("timer_list", "Provides the list of timers you have"),
                 Commands.slash("timer_start", "Initiates a Timer")
                         .addOption(OptionType.STRING, "name", "the name of the timer instance"),
                 Commands.slash("timer_cancel", "Cancels ongoing timer"),

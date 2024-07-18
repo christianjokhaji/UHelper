@@ -3,6 +3,7 @@ package ca.unknown.bot.interface_interactor;
 import ca.unknown.bot.entities.Pomodoro;
 import ca.unknown.bot.data_access.TimerDAO;
 import ca.unknown.bot.entities.PomodoroFactory;
+import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
@@ -48,5 +49,18 @@ public class TimerController {
      */
         TimerDAO timerDAO = new TimerDAO();
         return timerDAO.checkDuplicate(name, user.toString(), "timer_repository.json");
+    }
+
+    public static ArrayList getTimers(User user) {
+        String userString = user.toString();
+        TimerDAO timerDAO = new TimerDAO();
+        ArrayList returnList = new ArrayList();
+        ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
+        for (int i = 0; i < list.size(); i++) {
+            LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
+            String name = treeMap.get("name").toString();
+
+        }
+
     }
 }

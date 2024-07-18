@@ -35,11 +35,6 @@ public class TimerInteractor extends ListenerAdapter {
                 double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
 
-//                TimerController.saveTimer(name, workTime, breakTime, iteration, user);
-//                event.reply("A timer preset has been created. \"" + name +
-//                        "\" will repeat " + workTime + " minutes of work and " + breakTime
-//                + " minutes of break " + iteration + " times.").queue();
-
                 if (TimerController.checkDuplicateTimer(name, user)) {
                     event.reply("Duplicate names are not allowed for timer instances.")
                             .queue();
@@ -56,6 +51,9 @@ public class TimerInteractor extends ListenerAdapter {
             catch (ArrayIndexOutOfBoundsException e) {
                 event.reply("Exception raised: ArrayIndexOutOfBoundsException").queue();
             }
+        }
+        if (event.getName().equals("timer_list")) {
+
         }
         if (event.getName().equals("timer_start")) {
             event.reply("Timer " + Objects.requireNonNull(event.getOption("name")) +

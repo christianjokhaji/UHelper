@@ -62,7 +62,7 @@ public class TimerDAO {
        }
         // 2. Check if timer_repository doesn't contain that specific user
         else if (!checkUser(userAndTimer, filename)){
-            Map repo = loadPomodoro(filename);
+            Map repo = loadPomodoro(filename); // Copies the repository into a form of hashmap
             String key = userAndTimer.keySet().toArray()[0].toString();
             repo.put(key, userAndTimer.get(key));
             Gson gson = new GsonBuilder().create();
@@ -142,17 +142,22 @@ public class TimerDAO {
             Map repo = loadPomodoro(filename);
             if (repo == null) {return false;}
             ArrayList Pomodoros = (ArrayList) repo.get(user);
-            Gson gson = new GsonBuilder().create();
             for (int i = 0; i < Pomodoros.size(); i++) {
-                Object pomodoro =  Pomodoros.get(i);
-
+                LinkedTreeMap timer = (LinkedTreeMap) Pomodoros.get(i);
+                String timerName = (String) timer.get("name");
+                if (timerName.equals(name)) {return true;}
                 }
             } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
-        }
+    }
 
+    public ArrayList<LinkedTreeMap> loadTimers(String user, String filename) {
+        Map repo = loadPomodoro(filename);
+        ArrayList list = (ArrayList) repo.get(user);
+        return list;
+    }
 
    public Map loadPomodoro(String filename) {
        /**
