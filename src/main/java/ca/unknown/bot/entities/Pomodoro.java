@@ -77,7 +77,7 @@ public class Pomodoro implements Preset {
         TimerTask task = new TimerTask() {
             public void run() {
                 if (System.currentTimeMillis() >= endTime) {
-//                    System.out.println("Work period has ended at " + new Date());
+                    System.out.println("Work period has ended at " + new Date());
                     timerForWork.cancel();
                 }
             }
@@ -93,7 +93,7 @@ public class Pomodoro implements Preset {
         TimerTask task = new TimerTask() {
             public void run() {
                 if (System.currentTimeMillis() >= endTime) {
-//                    System.out.println("Break period has ended at " + new Date());
+                    System.out.println("Break period has ended at " + new Date());
                     timerForBreak.cancel();
                 }
             }
