@@ -37,8 +37,8 @@ public class TimerInteractor extends ListenerAdapter {
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
 
                 if (TimerController.checkDuplicateTimer(name, user)) {
-                    event.reply("Duplicate names are not allowed for timer instances.")
-                            .queue();
+                    event.reply("Duplicate names are not allowed for timer instances. " +
+                                    "Try again with a different name.").queue();
                 } else {
                     TimerController.saveTimer(name, workTime, breakTime, iteration, user);
                     event.reply("A timer preset has been created. \"" + name +
@@ -54,8 +54,7 @@ public class TimerInteractor extends ListenerAdapter {
             }
         }
         if (event.getName().equals("timer_list")) { // Command for loading a list of timers
-            String message = TimerController.getTimers(event.getUser());
-            event.reply(message).queue();
+            event.reply(TimerController.getTimers(event.getUser())).queue();
         }
         if (event.getName().equals("timer_start")) { // Command for starting a timer
             event.reply("Coming soon!").queue();

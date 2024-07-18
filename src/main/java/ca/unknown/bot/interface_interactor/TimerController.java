@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 public class TimerController {
-    /**
+     /**
      * An intermediate class in the Interface Adapters layer. This class receives the inputs from
      * View (Discord) and converts to an appropriate datatype (Map) for TimerDAO to process.
      * As for the current development, this class also serves as a presenter for the Discord bot
@@ -27,7 +27,7 @@ public class TimerController {
 
     public static void saveTimer(String name, double workTime, double breakTime, Integer iteration
     , User user) {
-    /**
+     /**
      * createTimer creates a map that looks like the example above. The map contains the user id
      * (String) as a key and the Pomodoro instance they want to create as a value. It will be passed
      * onto the TimerDAO for checking duplicate user and Pomodoro instances.
@@ -43,7 +43,7 @@ public class TimerController {
     }
 
     public static boolean checkDuplicateTimer(String name, User user) {
-    /**
+     /**
      * One of the representation invariants of Pomodoro is that the name of an instance of should
      * never be equal to other Pomodoro instances for a user. As such, this function will return
      * true if name is a duplicate such that the view displays a message to change name.
@@ -54,12 +54,12 @@ public class TimerController {
     }
 
     public static String getTimers(User user) {
-        /**
+     /**
      * A presenter method that is used for /timer_list.
      *
      */
         TimerDAO timerDAO = new TimerDAO();
-        String message = new String("You have the following timers:" + "\n");
+        String message = new String("You have the following timer(s):" + "\n");
         ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
         for (int i = 0; i < list.size(); i++) {
             LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);

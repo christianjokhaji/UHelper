@@ -62,7 +62,7 @@ public class TimerDAO {
        }
         // 2. Check if timer_repository doesn't contain that specific user
         else if (!checkUser(userAndTimer, filename)){
-            Map repo = loadPomodoro(filename); // Copies the repository into a form of hashmap
+            Map repo = loadPomodoro(filename); // Copies the repository into a hashmap
             String key = userAndTimer.keySet().toArray()[0].toString();
             repo.put(key, userAndTimer.get(key));
             Gson gson = new GsonBuilder().create();
@@ -81,7 +81,7 @@ public class TimerDAO {
             ArrayList value = (ArrayList) userAndTimer.get(key);
             ArrayList newPomodoros = (ArrayList) repo.get(key);
             Pomodoro pomodoro = (Pomodoro) value.get(0);
-            // 1: Encase a Pomodoro instance of userAndTimer.get(key) in a LinkedTreeMap
+            // 1: Encase a Pomodoro instance from userAndTimer.get(key) in a LinkedTreeMap
             LinkedTreeMap timer = new LinkedTreeMap();
             timer.put("name", pomodoro.getName());
             LinkedTreeMap spec = new LinkedTreeMap();
@@ -141,6 +141,7 @@ public class TimerDAO {
         try (FileReader reader = new FileReader(filename)) {
             Map repo = loadPomodoro(filename);
             if (repo == null) {return false;}
+            else if (!repo.containsKey(user)) {return false;}
             ArrayList Pomodoros = (ArrayList) repo.get(user);
             for (int i = 0; i < Pomodoros.size(); i++) {
                 LinkedTreeMap timer = (LinkedTreeMap) Pomodoros.get(i);
@@ -155,8 +156,18 @@ public class TimerDAO {
 
     public ArrayList<LinkedTreeMap> loadTimers(String user, String filename) {
         Map repo = loadPomodoro(filename);
-        ArrayList list = (ArrayList) repo.get(user);
-        return list;
+        if (repo == null) { // if timer_repository is empty
+            ArrayList emptyList = new ArrayList();
+            return emptyList;
+        }
+        else if (repo.containsKey(user)) { // if you do have a timer
+            ArrayList list = (ArrayList) repo.get(user);
+            return list;
+        }
+        else { // if you haven't created a timer yet
+            ArrayList emptyList = new ArrayList();
+            return emptyList;
+        }
     }
 
    public Map loadPomodoro(String filename) {

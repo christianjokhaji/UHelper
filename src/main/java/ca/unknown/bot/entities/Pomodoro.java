@@ -43,7 +43,7 @@ public class Pomodoro implements Preset {
       * respective timer.
       *
       */
-    public void commenceTimer() {
+    public void startTimer() {
         for (int i = 0; i != ((Integer) map.get("iteration")); i++){
             try {
                 // Prints out what nth interval the timer is on
@@ -134,9 +134,9 @@ public class Pomodoro implements Preset {
     // A string representation of the Pomodoro class
     @Override
     public String toString() {
-        return  this.name + " repeats " +
-                map.get("workTime") + " minutes of work and " + map.get("breakTime") +
-                " minutes of break " + map.get("iteration") + " times.";
+        return  this.name + ": " +
+                map.get("workTime") + " minutes of work, " + map.get("breakTime") +
+                " minutes of break for " + map.get("iteration") + " times.";
     }
 
     // A helper function for converting minute to millisecond
