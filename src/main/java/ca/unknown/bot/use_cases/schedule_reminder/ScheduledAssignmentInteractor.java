@@ -12,8 +12,8 @@ public class ScheduledAssignmentInteractor extends ScheduledEventInteractor {
 
     @Override
     public void execute(ScheduledReminderInputData scheduledReminderInputData, String user, SlashCommandInteractionEvent event) {
-        ScheduledEvent schedAssignment = eventFactory.create(scheduledReminderInputData.getAssignmentCourseCode(),
-                scheduledReminderInputData.getEventDate(), scheduledReminderInputData.getEventName());
+        ScheduledEvent schedAssignment = eventFactory.createAssignment(scheduledReminderInputData.getEventDate(),
+                scheduledReminderInputData.getEventName(), scheduledReminderInputData.getAssignmentCourseCode());
         scheduleDAO.getSchedule(user).addEvent(schedAssignment);
         event.reply("You have scheduled the following event: \n"+ schedAssignment.toString()).queue();
     }

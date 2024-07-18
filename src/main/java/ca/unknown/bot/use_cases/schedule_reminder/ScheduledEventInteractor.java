@@ -15,7 +15,8 @@ public class ScheduledEventInteractor {
     }
 
     public void execute(ScheduledReminderInputData scheduledReminderInputData, String user, SlashCommandInteractionEvent event){
-        ScheduledEvent schedEvent = eventFactory.create(scheduledReminderInputData.getEventDate(), scheduledReminderInputData.getEventName());
+        ScheduledEvent schedEvent = eventFactory.createEvent(scheduledReminderInputData.getEventDate(),
+                scheduledReminderInputData.getEventName());
         scheduleDAO.getSchedule(user).addEvent(schedEvent);
         event.reply("You have scheduled the following event: \n"+ schedEvent.toString()).queue();
     }
