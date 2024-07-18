@@ -68,7 +68,7 @@ public class Pomodoro implements Preset {
             }
         }
         System.out.println("Your timer has ended. Use /timer_create or /timer_start to start " +
-                "another " + "timer.");
+                "another " + "timer."); // This print message will be replaced with sth
     }
 
     // Helper function for starting a work session

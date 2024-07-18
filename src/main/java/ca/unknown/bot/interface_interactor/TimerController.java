@@ -55,12 +55,11 @@ public class TimerController {
 
     public static String getTimers(User user) {
         /**
-     * A presenter method that is used for /timer_create
+     * A presenter method that is used for /timer_list.
      *
      */
         TimerDAO timerDAO = new TimerDAO();
-        ArrayList returnList = new ArrayList();
-        String message = new String("");
+        String message = new String("You have the following timers:" + "\n");
         ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
         for (int i = 0; i < list.size(); i++) {
             LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
