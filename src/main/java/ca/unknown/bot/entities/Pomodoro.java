@@ -7,7 +7,7 @@ public class Pomodoro implements Preset {
     private final String name;
     private final HashMap<String, Object> map;
 
-    /**
+     /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
      * their study time and break time are.
      * <p>

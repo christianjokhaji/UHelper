@@ -15,8 +15,6 @@ public class TimerController {
      /**
      * An intermediate class in the Interface Adapters layer. This class receives the inputs from
      * View (Discord) and converts to an appropriate datatype (Map) for TimerDAO to process.
-     * As for the current development, this class also serves as a presenter for the Discord bot
-     * too.
      *
      * A typical map that maps a Discord user onto timer looks like this. (and this is how,
      * hopefullu, is represented in timer_repository.json.)
@@ -53,25 +51,5 @@ public class TimerController {
         return timerDAO.checkDuplicate(name, user.toString(), "timer_repository.json");
     }
 
-    public static String getTimers(User user) {
-     /**
-     * A presenter method that is used for /timer_list.
-     *
-     */
-        TimerDAO timerDAO = new TimerDAO();
-        String message = new String("You have the following timer(s):" + "\n");
-        ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
-        for (int i = 0; i < list.size(); i++) {
-            LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
-            String name = treeMap.get("name").toString();
-            LinkedTreeMap spec = (LinkedTreeMap) treeMap.get("map");
-            double workTime = (double) spec.get("workTime");
-            double breakTime = (double) spec.get("breakTime");
-            Double iteration = (Double) spec.get("iteration");
-            Integer it = iteration.intValue();
-            Pomodoro pomodoro = PomodoroFactory.create(workTime, breakTime, it, name);
-            message = message + pomodoro.toString() + "\n";
-        }
-        return message;
-    }
+
 }

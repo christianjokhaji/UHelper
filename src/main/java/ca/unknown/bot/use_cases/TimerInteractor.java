@@ -4,6 +4,7 @@ import ca.unknown.bot.entities.Pomodoro;
 import ca.unknown.bot.data_access.TimerDAO;
 import ca.unknown.bot.data_access.GSONTypeAdapter; // may be used or not in the future
 import ca.unknown.bot.interface_interactor.TimerController;
+import ca.unknown.bot.interface_interactor.TimerPresenter;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -54,7 +55,7 @@ public class TimerInteractor extends ListenerAdapter {
             }
         }
         if (event.getName().equals("timer_list")) { // Command for loading a list of timers
-            event.reply(TimerController.getTimers(event.getUser())).queue();
+            event.reply(TimerPresenter.getTimers(event.getUser())).queue();
         }
         if (event.getName().equals("timer_start")) { // Command for starting a timer
             event.reply("Coming soon!").queue();
