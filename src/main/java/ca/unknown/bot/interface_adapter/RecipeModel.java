@@ -1,8 +1,7 @@
-package ca.unknown.bot.interface_interactor;
+package ca.unknown.bot.interface_adapter;
 
 import ca.unknown.bot.entities.Recipe;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class RecipeModel {

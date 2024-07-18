@@ -1,4 +1,4 @@
-package ca.unknown.bot.interface_interactor.schedule_reminder;
+package ca.unknown.bot.interface_adapter.schedule_reminder;
 
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInputData;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
