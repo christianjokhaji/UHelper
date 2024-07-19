@@ -1,5 +1,6 @@
 package ca.unknown.bot.app;
 
+import ca.unknown.bot.interface_interactor.Paginator;
 import ca.unknown.bot.use_cases.*;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
 import ca.unknown.bot.use_cases.EventListener;
@@ -31,10 +32,9 @@ public class Main {
 
         // Adds use-case interactors to the bot instance.
         jda.addEventListener(new GameInteractor());
-        jda.addEventListener(new RecipeInteractor());
+        jda.addEventListener(new RecipeInteractor(jda));
         jda.addEventListener(new TimerInteractor());
         jda.addEventListener(new ScheduledReminderInteractor());
-
         StudyInteractor studyInteractor = new StudyInteractor(jda);
         jda.addEventListener(studyInteractor);
 

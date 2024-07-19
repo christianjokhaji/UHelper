@@ -41,9 +41,7 @@ public class RecipeApiHandler {
         JsonArray hitsArray = parsed.getAsJsonArray("hits");
 
         // Iterate over each element in the "hits" array
-        for (int i = 0; i < n; i++) {
-//            JsonObject hitObject = hitsArray.get(i).getAsJsonObject();
-//            JsonObject recipeObject = hitObject.getAsJsonObject("recipe");
+        for (int i = 0; i < n && i < hitsArray.size(); i++) {
             JsonObject recipeObject = hitsArray.get(i).getAsJsonObject().getAsJsonObject("recipe");
 
             String label = recipeObject.get("label").getAsString();
