@@ -1,8 +1,9 @@
 package ca.unknown.bot.use_cases;
 
-import ca.unknown.bot.data_access.APIFetcher;
+import ca.unknown.bot.data_access.templates.APIFetcher;
 import ca.unknown.bot.entities.RockPaperScissors;
 import ca.unknown.bot.entities.Trivia;
+import ca.unknown.bot.data_access.templates.Parser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

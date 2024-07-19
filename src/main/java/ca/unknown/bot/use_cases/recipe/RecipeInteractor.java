@@ -1,9 +1,9 @@
-package ca.unknown.bot.use_cases;
+package ca.unknown.bot.use_cases.recipe;
 
-import ca.unknown.bot.interface_interactor.Paginator;
-import ca.unknown.bot.interface_interactor.RecipeApiHandler;
-import ca.unknown.bot.entities.Recipe;
-import ca.unknown.bot.interface_interactor.RecipeModel;
+import ca.unknown.bot.interface_interactor.templates.Paginator;
+import ca.unknown.bot.interface_interactor.recipe.RecipeApiHandler;
+import ca.unknown.bot.entities.recipe.Recipe;
+import ca.unknown.bot.interface_interactor.recipe.RecipeModel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -32,6 +32,12 @@ public class RecipeInteractor extends ListenerAdapter {
             // Get the query
             String query = Objects.requireNonNull(event.getOption("food")).getAsString();
             int n = Objects.requireNonNull(event.getOption("count")).getAsInt();
+
+            if (n < 0) {
+                event.getHook().sendMessage("Please try again with a positive number.").queue();
+                return;
+            }
+
             // Generate key-value pairs for every parameter entered
             HashMap<String, String> params = new HashMap<>();
             OptionMapping mealTypeOption = event.getOption("meal_type");
@@ -39,9 +45,8 @@ public class RecipeInteractor extends ListenerAdapter {
                 String value = Objects.requireNonNull(event.getOption("meal_type")).getAsString();
                 params.put("mealType", value);
             }
-
             // Fetch recipes from EDAMAM API according to the query
-            List<Recipe> recipes = RecipeApiHandler.fetchRecipes(query, n, params);
+            List<Recipe> recipes = new RecipeApiHandler(query, n, params).fetchRecipes();
             // After fetching recipes, now we want to form a response
             List<EmbedBuilder> recipeEmbeds = RecipeModel.getResponseEmbed(query, recipes, n, params);
             // initiate the recipe embeds with paginator

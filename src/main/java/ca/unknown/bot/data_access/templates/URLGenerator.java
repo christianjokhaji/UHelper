@@ -1,4 +1,4 @@
-package ca.unknown.bot.data_access;
+package ca.unknown.bot.data_access.templates;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

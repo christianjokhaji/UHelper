@@ -1,11 +1,9 @@
 package ca.unknown.bot.app;
 
-import ca.unknown.bot.interface_interactor.Paginator;
-import ca.unknown.bot.use_cases.*;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
 import ca.unknown.bot.use_cases.EventListener;
 import ca.unknown.bot.use_cases.GameInteractor;
-import ca.unknown.bot.use_cases.RecipeInteractor;
+import ca.unknown.bot.use_cases.recipe.RecipeInteractor;
 import ca.unknown.bot.use_cases.TimerInteractor;
 import ca.unknown.bot.use_cases.StudyInteractor;
 import net.dv8tion.jda.api.JDA;
@@ -56,7 +54,7 @@ public class Main {
                 Commands.slash("timer_cancel", "Cancels ongoing timer"),
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
-                        .addOption(OptionType.INTEGER, "count", "Enter an integer from 1 to 5", true)
+                        .addOption(OptionType.INTEGER, "count", "Enter a positive integer", true)
                         .addOptions(new OptionData(OptionType.STRING, "meal_type", "Choose a type of meal.")
                                 .addChoice("Breakfast", "breakfast")
                                 .addChoice("Lunch", "lunch")

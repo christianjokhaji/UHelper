@@ -1,14 +1,11 @@
-package ca.unknown.bot.interface_interactor;
+package ca.unknown.bot.interface_interactor.recipe;
 
-import ca.unknown.bot.entities.Recipe;
+import ca.unknown.bot.entities.recipe.Recipe;
 import net.dv8tion.jda.api.EmbedBuilder;
-import org.apache.commons.collections4.functors.FalsePredicate;
 
 import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,8 +48,8 @@ public class RecipeModel {
                         .append(query).append(".");
             }
         }
-        summary.append(
-                " Please use the buttons below to navigate through recipes :point_down:\n \nBon Appetite:yum:\n \n"
+        summary.append("\n \nReady to start cooking? Use the buttons below to explore the recipes :point_down:\n" +
+                "Happy Cooking :yum:\n\n"
         );
 
         return summary.toString();
@@ -84,7 +81,8 @@ public class RecipeModel {
                     .setDescription("**Full recipe on [" + recipeSource + "](" + recipeURL+
                             ")**.\nNote: the source link of the recipe may be outdated.")
                     .addField(":point_right: Ingredients", recipeIngredients, true)
-                    .addField(":muscle: Nutrients Info", "Provided by [EDAMAM](" + recipeShareAs + ")", true)
+                    .addBlankField(true)
+                    .addField(":muscle: Nutrients Info", "Provided by [EDAMAM API](" + recipeShareAs + ")", true)
                     .setThumbnail(recipe.getImage()));
         }
         return embeds;
