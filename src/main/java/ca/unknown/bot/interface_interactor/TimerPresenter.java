@@ -43,7 +43,7 @@ public class TimerPresenter {
             double breakTime = (double) spec.get("breakTime");
             Double iteration = (Double) spec.get("iteration");
             Integer it = iteration.intValue();
-            Pomodoro pomodoro = PomodoroFactory.create(workTime, breakTime, it, name);
+            Pomodoro pomodoro = new Pomodoro(workTime,breakTime,it,name);
             message = message + pomodoro.toString() + "\n";
         }
         return message;

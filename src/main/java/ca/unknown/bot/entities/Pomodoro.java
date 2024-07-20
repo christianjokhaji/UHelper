@@ -3,7 +3,7 @@ package ca.unknown.bot.entities;
 import java.util.*;
 import java.lang.Math;
 
-public class Pomodoro implements Preset {
+public class Pomodoro implements TimerInterface {
     private final String name;
     private final HashMap<String, Object> map;
 
@@ -53,13 +53,13 @@ public class Pomodoro implements Preset {
                 long currentTime = System.currentTimeMillis();
                 // calculates the time to end a session by adding the input from user
                 long endTime = currentTime + minToMilli((double) map.get("workTime"));
-                this.commenceWork(endTime);
+                this.startWork(endTime);
                 Thread.sleep(minToMilli((double) map.get("workTime")));
 
                 // updates currentTime and endTime
                 currentTime = System.currentTimeMillis();
                 endTime = currentTime + minToMilli((double) map.get("breakTime"));
-                this.commenceBreak(endTime);
+                this.startBreak(endTime);
                 Thread.sleep(minToMilli((double) map.get("breakTime")));
             }
             // Do not delete this; essential for using Thread.sleep()
@@ -72,7 +72,7 @@ public class Pomodoro implements Preset {
     }
 
     // Helper function for starting a work session
-    private void commenceWork(long endTime) {
+    private void startWork(long endTime) {
         Timer timerForWork = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
@@ -88,7 +88,7 @@ public class Pomodoro implements Preset {
     }
 
     // Helper function for starting a break session
-    private void commenceBreak(long endTime) {
+    private void startBreak(long endTime) {
         Timer timerForBreak = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {

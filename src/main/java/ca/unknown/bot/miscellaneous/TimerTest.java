@@ -21,6 +21,9 @@ import java.util.Map;
 public class TimerTest {
     /**
      * It's only a class for testing Timer-related methods on the go. You can ignore it.
+     *
+     * Formal testings won't be performed in this class. The proper test file for timer can be found
+     * in test.java.ca.unknown.bot.entities.PomodoroTest.
      */
     public static void main(String[] args) {
         TimerDAO timerDAO = new TimerDAO();

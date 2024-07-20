@@ -43,10 +43,12 @@ public class TimerDAO {
     */
     public void savePomodoro(Map userAndTimer, String filename) {
 
-        // 1. Check timer_repository is empty
+        // 1. Check timer_repository is an empty file
         if (checkEmpty(filename)) {
            Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
            GsonBuilder builder = new GsonBuilder();
+
+           // See? I meant to use GSONTypeAdapter here.
 //            builder.registerTypeAdapter(User.class, new GSONTypeAdapter(user)); may be used if I
 //            change the format of storing a timer setting. Right now, GSONTypeAdapter is dummy.
             Gson gson = builder
@@ -81,6 +83,7 @@ public class TimerDAO {
             ArrayList value = (ArrayList) userAndTimer.get(key);
             ArrayList newPomodoros = (ArrayList) repo.get(key);
             Pomodoro pomodoro = (Pomodoro) value.get(0);
+
             // 1: Encase a Pomodoro instance from userAndTimer.get(key) in a LinkedTreeMap
             LinkedTreeMap timer = new LinkedTreeMap();
             timer.put("name", pomodoro.getName());
@@ -137,9 +140,9 @@ public class TimerDAO {
     }
 
     // returns true if the input name is already used for any timer that user has
-    public boolean checkDuplicate(String name, String user, String filename) {
-        try (FileReader reader = new FileReader(filename)) {
-            Map repo = loadPomodoro(filename);
+    public boolean checkDuplicate(String name, String user) {
+        try (FileReader reader = new FileReader("timer_repository.json")) {
+            Map repo = loadPomodoro("timer_repository.json");
             if (repo == null) {return false;}
             else if (!repo.containsKey(user)) {return false;}
             ArrayList Pomodoros = (ArrayList) repo.get(user);

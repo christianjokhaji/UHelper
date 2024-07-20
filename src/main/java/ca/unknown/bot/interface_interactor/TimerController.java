@@ -23,7 +23,7 @@ public class TimerController {
      * {userID1: <timer1, timer2>, userID2: <timer3>}
      */
 
-    public static void saveTimer(String name, double workTime, double breakTime, Integer iteration
+    public static void convertTimerInput(String name, double workTime, double breakTime, Integer iteration
     , User user) {
      /**
      * createTimer creates a map that looks like the example above. The map contains the user id
@@ -31,7 +31,7 @@ public class TimerController {
      * onto the TimerDAO for checking duplicate user and Pomodoro instances.
      *
      */
-        Pomodoro newTimer = PomodoroFactory.create(workTime, breakTime, iteration, name);
+        Pomodoro newTimer = new Pomodoro(workTime, breakTime, iteration, name);
         ArrayList<Pomodoro> value = new ArrayList<>();
         value.add(newTimer);
         Map userAndTimer = new HashMap();
@@ -40,16 +40,16 @@ public class TimerController {
         timerDAO.savePomodoro(userAndTimer, "timer_repository.json");
     }
 
-    public static boolean checkDuplicateTimer(String name, User user) {
-     /**
-     * One of the representation invariants of Pomodoro is that the name of an instance of should
-     * never be equal to other Pomodoro instances for a user. As such, this function will return
-     * true if name is a duplicate such that the view displays a message to change name.
-     *
-     */
-        TimerDAO timerDAO = new TimerDAO();
-        return timerDAO.checkDuplicate(name, user.toString(), "timer_repository.json");
-    }
+//    public static boolean checkDuplicateTimer(String name, User user) {
+//     /**
+//     * One of the representation invariants of Pomodoro is that the name of an instance of should
+//     * never be equal to other Pomodoro instances for a user. As such, this function will return
+//     * true if name is a duplicate such that the view displays a message to change name.
+//     *
+//     */
+//        TimerDAO timerDAO = new TimerDAO();
+//        return timerDAO.checkDuplicate(name, user.toString(), "timer_repository.json");
+//    }
 
 
 }

@@ -2,7 +2,7 @@ package ca.unknown.bot.entities;
 
 import java.util.HashMap;
 
-public interface Preset {
+public interface TimerInterface {
 
     /**
      * A common interface for timer.

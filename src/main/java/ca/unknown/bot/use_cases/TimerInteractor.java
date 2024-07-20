@@ -36,12 +36,16 @@ public class TimerInteractor extends ListenerAdapter {
                 double workTime = Objects.requireNonNull(event.getOption("work")).getAsDouble();
                 double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
+                TimerDAO timerDAO = new TimerDAO();
 
-                if (TimerController.checkDuplicateTimer(name, user)) {
+                if (workTime < 0 || breakTime < 0 || iteration <= 0) {
+                    event.reply("You can't make a timer with negative numbers! Try again " +
+                            "with positive real numbers.").queue();
+                } else if (timerDAO.checkDuplicate(name, user.toString())) {
                     event.reply("Duplicate names are not allowed for timer instances. " +
                                     "Try again with a different name.").queue();
                 } else {
-                    TimerController.saveTimer(name, workTime, breakTime, iteration, user);
+                    TimerController.convertTimerInput(name, workTime, breakTime, iteration, user);
                     event.reply("A timer preset has been created. \"" + name +
                         "\" will repeat " + workTime + " minutes of work and " + breakTime
                 + " minutes of break " + iteration + " times.").queue();

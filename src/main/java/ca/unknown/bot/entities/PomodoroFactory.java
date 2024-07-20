@@ -1,6 +1,6 @@
 package ca.unknown.bot.entities;
 
-public class PomodoroFactory implements PresetFactory {
+public class PomodoroFactory {
     public PomodoroFactory(double workTime, double breakTime, Integer iteration, String name) {
     }
 
@@ -11,7 +11,8 @@ public class PomodoroFactory implements PresetFactory {
      * @param breakTime: the duration of a break session in a Pomodoro
      * @param iteration: how many times does a user need work-break flow
      * @param name: the name of a Pomodoro instance, used to identify one
-     * @return
+     *
+     * Note: I've decided not to use the Factory pattern for Pomodoro.
      */
 
     public static Pomodoro create(double workTime, double breakTime, Integer iteration, String name){

@@ -52,7 +52,7 @@ public class Main {
                         .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
                 Commands.slash("timer_list", "Provides the list of timers you have"),
-                Commands.slash("timer_start", "Initiates a Timer")
+                Commands.slash("timer_start", "Starts a Timer")
                         .addOption(OptionType.STRING, "name", "the name of the timer instance"),
                 Commands.slash("timer_cancel", "Cancels ongoing timer"),
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
