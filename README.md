@@ -71,12 +71,12 @@ setting for this main class.
 ![png](assets/5.png)
 
 In the edit configuration window, choose Java 11 or 17 and Project.Main under the Build and Run section.
-For the main class window, type ca.unknown.bot.app.Main. Next, importantly, you should add a bot 
-token as an environmental variable... but where is the token , you ask? Discord enforces 
+For the main class box, type ca.unknown.bot.app.Main. Next, importantly, you should add a bot 
+token as an environmental variable... but where is the token, you ask? Discord enforces 
 strict rules to its bot developers and one of them is that you can't post
 any bot token online due to security reasons. If you do, it will immediately detect the token and 
-disable it. But, you can still have access to the UHelper's token! It's saved as a png file in 
-UHelper/assets/token.png
+disable it. But, you can still have access to the UHelper's token! We've attached the token via the 
+comment section of the Phase 1 submission.
 
 Once you find the token, set it up as an environmental variable. Click the apply button to save 
 these changes. Next, run the main class. 
