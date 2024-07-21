@@ -46,13 +46,13 @@ UHelper to a server, but also prompts you to select which server you want UHelpe
 
 ![png](assets/1.png)
 
-Here, you can select the server you want (it's under the Add to Server section!) and afterwards, 
-press continue button.
+Here, you can select the server you want (it's under the Add to Server section!) and afterward, 
+press continue.
 
 ![png](assets/2.png)
 
-Then, you are asked to confirm that you wish to grant some permissions to UHelper. Because these 
-are all essential for the bot to function normally, you should not uncheck any one of them. Scroll
+Then, you will be asked to confirm that you wish to grant some permissions to UHelper. Because these 
+are all essential for the bot to function, you should not uncheck any one of them. Scroll
 down to the bottom to find the "authorize" button and click it.
 
 ![png](assets/3.png)
@@ -70,12 +70,27 @@ setting for this main class.
 
 ![png](assets/5.png)
 
-In the edit configuration window, choose Java 11 and Project.Main under the Build and Run section. 
-Next, importantly, you should add a bot token as an environmental variable... but where is the token
-, you ask? Discord enforces strict rules to its bot developers and one of them is that you can't post
+In the edit configuration window, choose Java 11 or 17 and Project.Main under the Build and Run section.
+For the main class window, type ca.unknown.bot.app.Main. Next, importantly, you should add a bot 
+token as an environmental variable... but where is the token , you ask? Discord enforces 
+strict rules to its bot developers and one of them is that you can't post
 any bot token online due to security reasons. If you do, it will immediately detect the token and 
-disable it. But, you can still have access to the UHelper's token in an image!
+disable it. But, you can still have access to the UHelper's token! It's saved as a png file in 
+UHelper/assets/token.png
 
+Once you find the token, set it up as an environmental variable. Click the apply button to save 
+these changes. Next, run the main class. 
+
+![png](assets/6.png)
+
+A successful execution of UHelper should look like this. Then, open Discord and go to your server.
+The UHelper bot should be online in the server. Stopping UHelper in IntelliJ will cause it to go offline.
+
+![png](assets/7.png)
+
+Most of the UHelper's features are slash commands interactions. You can type / in the chat to see 
+the list of commands it offers! Please note that, as of July 21, some features are not implemented 
+yet.
 
 
 ## Project Progresses
