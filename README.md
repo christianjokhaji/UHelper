@@ -3,7 +3,7 @@
 UHelper is an interactive bot that is designed to meet students' needs on Discord. 
 
 1. [Overview](#overview)
-2. [Installation](#installation)
+2. [Installation Guide](#installation-guide)
 3. [Project Progresses](#project-progresses)
 4. [Important Notes](#important-notes)
 
@@ -26,19 +26,56 @@ to avoid command conflicts with other bots in the server, users can customize UH
 lines. The customizability ensures a seamless and non-disruptive experience across various 
 functionalities.
 
-## Installation
+## Installation Guide
 
 ### Before You Start: Setting Up a Discord Server.
 
 In order to install UHelper, you have to create your own server or are already an administrator in 
 an existing server. If you have not used Discord before or do not know how to work with servers, it 
-is recommended that you read through this beginner's guide provided by Discord!
+is recommended that you read through [this beginner
+'s guide](https://support.discord.com/hc/en-us/articles/360045138571-Beginner-s-Guide-to-Discord#h_efc9b7bc-47bc-4212-8b9c-c0fa76573cfe).
 
-[Guide](https://support.discord.com/hc/en-us/articles/360045138571-Beginner-s-Guide-to-Discord#h_efc9b7bc-47bc-4212-8b9c-c0fa76573cfe)
+### How to Invite UHelper to Your Server
 
-### Getting Started: How to Invite UHelper to Your Server
+![png](assets/0.png)
 
-![alt text](https://github.com/Overpoweredplatypus/UHelper/blob/timer/0.png?raw=true)
+If you can see a screen similar as above, that means you've successfully created your own server. 
+You are now ready to invite UHelper to help you through your journey as a student. Next, click this 
+[link](https://discord.com/oauth2/authorize?client_id=1253813199397191863&permissions=1126727225142272&integration_type=0&scope=bot). The link will take you to a webpage that not only informs you that you are about to 
+UHelper to a server, but also prompts you to select which server you want UHelper to join in. 
+
+![png](assets/1.png)
+
+Here, you can select the server you want (it's under the Add to Server section!) and afterwards, 
+press continue button.
+
+![png](assets/2.png)
+
+Then, you are asked to confirm that you wish to grant some permissions to UHelper. Because these 
+are all essential for the bot to function normally, you should not uncheck any one of them. Scroll
+down to the bottom to find the "authorize" button and click it.
+
+![png](assets/3.png)
+
+Seeing this screen means that UHelper has successfully joined your server. Congratulations! The next
+part of this guide will teach you how to run UHelper.
+
+### How to Run UHelper in a Server
+
+![png](assets/4.png)
+
+UHelper joined the server, but it cannot listen to your commands as it is not online. Open up 
+IntelliJ IDEA and go to ca.unknown.bot.app.Main. Go to Edit Configurations to add a new configuration
+setting for this main class.
+
+![png](assets/5.png)
+
+In the edit configuration window, choose Java 11 and Project.Main under the Build and Run section. 
+Next, importantly, you should add a bot token as an environmental variable... but where is the token
+, you ask? Discord enforces strict rules to its bot developers and one of them is that you can't post
+any bot token online due to security reasons. If you do, it will immediately detect the token and 
+disable it. But, you can still have access to the UHelper's token in an image!
+
 
 
 ## Project Progresses
