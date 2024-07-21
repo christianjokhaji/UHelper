@@ -1,4 +1,4 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.timer;
 
 public interface Preset {
 

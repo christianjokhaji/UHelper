@@ -1,6 +1,6 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.game;
 
-import ca.unknown.bot.use_cases.TriviaListener;
+import ca.unknown.bot.use_cases.game.TriviaListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 

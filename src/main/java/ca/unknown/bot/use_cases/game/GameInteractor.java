@@ -1,15 +1,15 @@
-package ca.unknown.bot.use_cases;
+package ca.unknown.bot.use_cases.game;
 
 import ca.unknown.bot.data_access.templates.APIFetcher;
-import ca.unknown.bot.entities.RockPaperScissors;
-import ca.unknown.bot.entities.Trivia;
+import ca.unknown.bot.entities.game.RockPaperScissors;
+import ca.unknown.bot.entities.game.Trivia;
 import ca.unknown.bot.data_access.templates.Parser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import ca.unknown.bot.entities.Game;
+import ca.unknown.bot.entities.game.Game;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.Map;

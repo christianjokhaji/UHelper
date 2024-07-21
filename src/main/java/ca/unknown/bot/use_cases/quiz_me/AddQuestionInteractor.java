@@ -1,4 +1,4 @@
-package ca.unknown.bot.use_cases;
+package ca.unknown.bot.use_cases.quiz_me;
 
 import ca.unknown.bot.entities.QuizMe;
 import ca.unknown.bot.use_cases.utils.ModalUtils;

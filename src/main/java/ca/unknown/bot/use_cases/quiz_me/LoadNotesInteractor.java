@@ -1,4 +1,4 @@
-package ca.unknown.bot.use_cases;
+package ca.unknown.bot.use_cases.quiz_me;
 
 import ca.unknown.bot.data_access.JSONQuizMeRepository;
 import ca.unknown.bot.entities.QuizMe;

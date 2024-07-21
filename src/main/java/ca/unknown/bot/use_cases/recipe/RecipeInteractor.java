@@ -43,7 +43,7 @@ public class RecipeInteractor extends ListenerAdapter {
             OptionMapping mealTypeOption = event.getOption("meal_type");
             if (mealTypeOption != null) {
                 String value = Objects.requireNonNull(event.getOption("meal_type")).getAsString();
-                params.put("mealType", value);
+                params.put("Meal Type", value);
             }
             // Fetch recipes from EDAMAM API according to the query
             List<Recipe> recipes = new RecipeApiHandler(query, n, params).fetchRecipes();

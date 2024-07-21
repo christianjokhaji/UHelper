@@ -15,8 +15,9 @@ public class URLGenerator {
         StringBuilder url = new StringBuilder();
         for (String key : params.keySet()) {
             String value = params.get(key);
+            String encodedKey = encodeValue(key);
             String encodedValue = encodeValue(value);
-            url.append("&").append(key).append("=").append(encodedValue);
+            url.append("&").append(encodedKey).append("=").append(encodedValue);
         }
         return url.toString();
     }

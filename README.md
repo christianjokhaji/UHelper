@@ -37,7 +37,7 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Trivia
 
 - **Study help** 📚
-  - [ ] QuizMe
+  - [X] QuizMe
 
 - **Scheduled Reminders** 📅
   - [X] Create a scheduled event by providing the event name and date (day + time) of the event. (July 14)

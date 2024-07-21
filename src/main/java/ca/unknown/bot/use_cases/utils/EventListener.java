@@ -1,4 +1,4 @@
-package ca.unknown.bot.use_cases;
+package ca.unknown.bot.use_cases.utils;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
