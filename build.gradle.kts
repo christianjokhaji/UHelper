@@ -3,7 +3,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-application.mainClass = "com.unknown.bot.Main"
+application.mainClass = "ca.unknown.bot.app.Main"
 group = "org.example"
 version = "1.0"
 

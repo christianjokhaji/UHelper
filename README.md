@@ -37,7 +37,7 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Trivia
 
 - **Study help** 📚
-  - [ ] QuizMe
+  - [X] QuizMe
 
 - **Scheduled Reminders** 📅
   - [X] Create a scheduled event by providing the event name and date (day + time) of the event. (July 14)
@@ -49,15 +49,18 @@ You can find all the user stories and other details in our blueprint from [here]
     - [ ] Deletes reminder alerts
   - [ ] Bot accepts an exam schedule and creates reminders for each exam.
 
+- **Schedule** 📅 (use case in progress - July 12)
+  - [ ] Bot returns a schedule with outstanding events.
+
 - **Recipe** 🍽️
   - [X] Implement the API call to fetch recipe data (July 6)
   - [X] Handling parameters input for API calls
     - [X] Encoding whitespace
     - [X] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
   - [ ] Style recipe suggestions with Embed Builder
-    - [ ] Add directions to external recipes
-    - [ ] images(if possible) of the cuisine 
-    - [ ] Add Nutritional Information
+    - [X] Add directions to external recipes
+    - [X] images(if possible) of the cuisine 
+    - [X] Add Nutritional Information
 
 - **Motivational Quotes** 💪
 
