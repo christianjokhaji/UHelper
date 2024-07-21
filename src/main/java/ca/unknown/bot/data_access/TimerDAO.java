@@ -1,5 +1,6 @@
 package ca.unknown.bot.data_access;
 
+import ca.unknown.bot.interface_interactor.TimerController;
 import com.google.gson.*;
 import ca.unknown.bot.entities.Pomodoro;
 import com.google.gson.internal.LinkedTreeMap;
@@ -32,17 +33,25 @@ public class TimerDAO {
     */
 
    /**
-    * Notes:
-    * 1) GsonBuilder is a builder class that is used when one wants to create a Gson object with
-    * custom configurations. For details, visit
+    * GsonBuilder is a builder class that is used when one wants to create a Gson object with
+    * custom configurations.
     *
     * @param userAndTimer The desired User-Pomodoro map to be loaded or saved
     * @param filename The name of the timer (Pomodoro) so users can look through the different
     * Pomodoro instances.
     */
-    public void savePomodoro(Map userAndTimer, String filename) {
 
+    public void savePomodoro(Map userAndTimer, String filename) {
+    /**
+    * savePomodoro receives a map structure from TimerController and inspects timer_repository to
+    * find out how to store a new Pomodoro instance.
+     *
+     * @param userAndTimer: a map from TimerController, whose key is a string-fied discord user and
+     *                    value is a new Pomodoro instance wrapped in an ArrayList
+     * @param filename: the location of the json file
+    */
         // 1. Check timer_repository is an empty file
+        // If it is, it will just ask GSON to write userAndTimer without modifications.
         if (checkEmpty(filename)) {
            Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
            GsonBuilder builder = new GsonBuilder();
@@ -84,13 +93,7 @@ public class TimerDAO {
             Pomodoro pomodoro = (Pomodoro) value.get(0);
 
             // 1: Encase a Pomodoro instance from userAndTimer.get(key) in a LinkedTreeMap
-            LinkedTreeMap timer = new LinkedTreeMap();
-            timer.put("name", pomodoro.getName());
-            LinkedTreeMap spec = new LinkedTreeMap();
-            spec.put("breakTime", pomodoro.getBreakTime());
-            spec.put("iteration", pomodoro.getIteration());
-            spec.put("workTime", pomodoro.getWorkTime());
-            timer.put("map", spec);
+            LinkedTreeMap timer = TimerController.converttoLTM(pomodoro);
 
             // 2: Put the new LinkedTreeMap in newPomodoros
             newPomodoros.add(timer);
@@ -157,6 +160,13 @@ public class TimerDAO {
     }
 
     public ArrayList<LinkedTreeMap> loadTimers(String user, String filename) {
+    /**
+    * loadTimers returns an ArrayList that consists of Pomodoro instances.
+     *
+     * @param user an identifier that serves to find out what list to import
+    * @param filename the location of timer_repository
+    * @return ArrayList of Pomodoro instances
+    */
         Map repo = loadPomodoro(filename);
         if (repo == null) { // if timer_repository is empty
             ArrayList emptyList = new ArrayList();
@@ -173,9 +183,11 @@ public class TimerDAO {
     }
 
    public Map loadPomodoro(String filename) {
-       /**
-    *
-    * @param filename Name of quiz object to be loaded
+    /**
+    * loadPomodoro is a reader method that fetches the timer-related data from timer_repository.json
+     * as a map.
+     *
+    * @param filename the location of timer_repository
     * @return A map representation of timer_repository.json
     */
        try (FileReader reader = new FileReader(filename)) {

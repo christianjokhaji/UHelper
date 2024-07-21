@@ -24,6 +24,13 @@
 
     public class PomodoroTest {
 
+    /**
+    * A unit test class for the Pomodoro entity
+    *
+    * I will add more tests as I finish implementing /timer_start and /timer_cancel. As of now,
+     * I realized that it's not feasible to test this class other than its constructor and getters.
+    */
+
         private Pomodoro test;
         JDA mockJDA = Mockito.mock(JDA.class);
         SlashCommandInteraction mockInteraction = Mockito.mock(SlashCommandInteraction.class);
@@ -33,18 +40,14 @@
         private ButtonInteractionEvent mockButtonEvent;
         private SlashCommandInteractionEvent mockSlashEvent;
 
-
         @BeforeEach
         public void setUp() {
 
-            Pomodoro test = new Pomodoro(25.0, 5.0, 3, "test");
-            //mockSlashEvent = mock(SlashCommandInteractionEvent.class);
+            test = new Pomodoro(25.0, 5.0, 3, "test");
             mockSlashEvent = new SlashCommandInteractionEvent(mockJDA, interactionId, mockInteraction);
             mockButtonEvent = mock(ButtonInteractionEvent.class);
 
-            // Mocking reply actions
             InteractionHook mockInteractionHook = mock(InteractionHook.class);
-            //when(mockSlashEvent.reply(anyString())).thenReturn(mock(ReplyCallbackAction.class));
             when(mockButtonEvent.reply(anyString())).thenReturn(mock(ReplyCallbackAction.class));
 
         }
