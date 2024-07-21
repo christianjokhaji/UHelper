@@ -1,4 +1,4 @@
-package ca.unknown.bot.use_cases;
+package ca.unknown.bot.data_access.templates;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

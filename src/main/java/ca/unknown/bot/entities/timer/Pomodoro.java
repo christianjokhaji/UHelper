@@ -1,4 +1,4 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.timer;
 
 import java.util.*;
 import java.lang.Math;

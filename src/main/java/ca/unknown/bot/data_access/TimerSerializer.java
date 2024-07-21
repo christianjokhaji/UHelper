@@ -1,6 +1,6 @@
 package ca.unknown.bot.data_access;
 
-import ca.unknown.bot.entities.Pomodoro;
+import ca.unknown.bot.entities.timer.Pomodoro;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;

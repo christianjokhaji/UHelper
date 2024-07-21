@@ -2,7 +2,7 @@ package ca.unknown.bot.data_access;
 
 import ca.unknown.bot.interface_interactor.TimerController;
 import com.google.gson.*;
-import ca.unknown.bot.entities.Pomodoro;
+import ca.unknown.bot.entities.timer.Pomodoro;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import com.google.gson.JsonObject;

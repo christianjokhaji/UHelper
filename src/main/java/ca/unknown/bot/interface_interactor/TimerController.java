@@ -1,6 +1,6 @@
 package ca.unknown.bot.interface_interactor;
 
-import ca.unknown.bot.entities.Pomodoro;
+import ca.unknown.bot.entities.timer.Pomodoro;
 import ca.unknown.bot.data_access.TimerDAO;
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.api.entities.User;

@@ -1,7 +1,6 @@
 package ca.unknown.bot.miscellaneous;
 
-import ca.unknown.bot.entities.Pomodoro;
-import ca.unknown.bot.use_cases.Parser;
+import ca.unknown.bot.entities.timer.Pomodoro;
 import ca.unknown.bot.data_access.TimerDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

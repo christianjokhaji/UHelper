@@ -1,4 +1,4 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.game;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 

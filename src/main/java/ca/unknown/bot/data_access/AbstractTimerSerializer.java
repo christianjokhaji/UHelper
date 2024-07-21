@@ -1,6 +1,6 @@
 package ca.unknown.bot.data_access;
 
-import ca.unknown.bot.entities.Pomodoro;
+import ca.unknown.bot.entities.timer.Pomodoro;
 import net.dv8tion.jda.api.entities.User;
 import com.google.gson.JsonSerializer;
 

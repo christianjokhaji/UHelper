@@ -1,4 +1,4 @@
-package ca.unknown.bot.use_cases;
+package ca.unknown.bot.use_cases.timer;
 
 import ca.unknown.bot.data_access.TimerDAO;
 import ca.unknown.bot.data_access.GSONTypeAdapter; // may be used or not in the future

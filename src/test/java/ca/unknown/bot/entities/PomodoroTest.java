@@ -17,6 +17,7 @@
     import org.mockito.Mockito;
 
     import java.util.HashMap;
+    import ca.unknown.bot.entities.timer.Pomodoro;
 
     import static org.junit.jupiter.api.Assertions.assertEquals;
     import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -1,12 +1,11 @@
 package ca.unknown.bot.app;
 
-import ca.unknown.bot.use_cases.*;
+import ca.unknown.bot.use_cases.recipe.RecipeInteractor;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
-import ca.unknown.bot.use_cases.EventListener;
-import ca.unknown.bot.use_cases.GameInteractor;
-import ca.unknown.bot.use_cases.RecipeInteractor;
-import ca.unknown.bot.use_cases.TimerInteractor;
-import ca.unknown.bot.use_cases.StudyInteractor;
+import ca.unknown.bot.use_cases.utils.EventListener;
+import ca.unknown.bot.use_cases.game.GameInteractor;
+import ca.unknown.bot.use_cases.timer.TimerInteractor;
+import ca.unknown.bot.use_cases.quiz_me.StudyInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -31,13 +30,13 @@ public class Main {
 
         // Adds use-case interactors to the bot instance.
         jda.addEventListener(new GameInteractor());
-        jda.addEventListener(new RecipeInteractor());
+        jda.addEventListener(new RecipeInteractor(jda));
         jda.addEventListener(new TimerInteractor());
         jda.addEventListener(new ScheduledReminderInteractor());
         StudyInteractor studyInteractor = new StudyInteractor(jda);
         jda.addEventListener(studyInteractor);
 
-        // Adds commands to the bot (jda) instance.
+        // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
                         .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
@@ -56,7 +55,7 @@ public class Main {
                 Commands.slash("timer_cancel", "Cancels ongoing timer."),
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
-                        .addOption(OptionType.INTEGER, "count", "Enter an integer", true)
+                        .addOption(OptionType.INTEGER, "count", "Enter a positive integer", true)
                         .addOptions(new OptionData(OptionType.STRING, "meal_type", "Choose a type of meal.")
                                 .addChoice("Breakfast", "breakfast")
                                 .addChoice("Lunch", "lunch")
