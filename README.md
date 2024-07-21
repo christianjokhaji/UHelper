@@ -1,8 +1,14 @@
-# Welcome to UHelper! 🤖 (last updated on July 18 by Min)
+# Welcome to UHelper! 🤖
 
-UHelper is an interactive bot that is designed to meet students' needs on Discord.
+UHelper is an interactive bot that is designed to meet students' needs on Discord. 
 
-## Overview 📖
+1. [Overview](#overview)
+2. [Installation](#installation)
+3. [Project Progresses](#project-progresses)
+4. [Important Notes](#important-notes)
+
+
+## Overview
 
 The main goal of UHelper is to assist with time management and wellness. 
 Users can create events for exams or assignments at specified times and details. Once scheduled, 
@@ -20,8 +26,22 @@ to avoid command conflicts with other bots in the server, users can customize UH
 lines. The customizability ensures a seamless and non-disruptive experience across various 
 functionalities.
 
+## Installation
 
-## Project Progresses 👀
+### Before You Start: Setting Up a Discord Server.
+
+In order to install UHelper, you have to create your own server or are already an administrator in 
+an existing server. If you have not used Discord before or do not know how to work with servers, it 
+is recommended that you read through this beginner's guide provided by Discord!
+
+[Guide](https://support.discord.com/hc/en-us/articles/360045138571-Beginner-s-Guide-to-Discord#h_efc9b7bc-47bc-4212-8b9c-c0fa76573cfe)
+
+### Getting Started: How to Invite UHelper to Your Server
+
+![alt text](https://github.com/Overpoweredplatypus/UHelper/blob/timer/0.png?raw=true)
+
+
+## Project Progresses
 Currently, we are working to implement the following features. 
 You can find all the user stories and other details in our blueprint from [here](https://docs.google.com/document/d/1OcYBGoSZbEqtA47CwSlzFe1wVuZo28Xl-FKUkS_0AUI/edit#heading=h.rwi1fv3j8vi2).
 
@@ -38,7 +58,7 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Trivia
 
 - **Study help** 📚
-  - [ ] QuizMe
+  - [X] QuizMe
 
 - **Scheduled Reminders** 📅
   - [X] Create a scheduled event by providing the event name and date (day + time) of the event. (July 14)
@@ -65,9 +85,11 @@ You can find all the user stories and other details in our blueprint from [here]
 - **Customizable Commands** ⚙️
 
 
-## Important Notes 🗣️
+## Important Notes
 
 **July 21** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
 (Access to the course page may be restricted)
 
 **August 8** - Phase 2 & Final Presentation
+
+**August 15** - Final Exam

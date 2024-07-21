@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import net.dv8tion.jda.api.entities.User;
-import ca.unknown.bot.use_cases.Parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

@@ -14,7 +14,7 @@ import java.util.Map;
 public class TimerSerializer extends AbstractTimerSerializer {
     /**
      * Please read the Javadoc of GSONTypeAdapter if you'd like to know what I (Min) wanted to do
-     * with this. This class is not being used.
+     * with this. This class is not being used now.
      *
      * If you wish to learn more about how to customize serialization in GSON, please visit
      * https://www.javadoc.io/static/com.google.code.gson/gson/2.11.0/com.google.gson/com/google/gson/JsonSerializer.html

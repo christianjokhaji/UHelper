@@ -1,6 +1,5 @@
 package ca.unknown.bot.use_cases;
 
-import ca.unknown.bot.entities.Pomodoro;
 import ca.unknown.bot.data_access.TimerDAO;
 import ca.unknown.bot.data_access.GSONTypeAdapter; // may be used or not in the future
 import ca.unknown.bot.interface_interactor.TimerController;
@@ -12,7 +11,6 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -21,23 +19,35 @@ import java.util.Objects;
 public class TimerInteractor extends ListenerAdapter {
 
     /**
-     * TimerInteractor allows a bot to create, initiate, and cancel a timer.
+     * TimerInteractor allows a bot to create, initiate, and cancel a timer. Many of the methods
+     * below involves getting information about the user who call a certain command.
      *
      * @param event represents a SlashCommandInteraction event.
      */
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        // /timer_create {workTime} {breakTime} {iteration} {name}
         if (event.getName().equals("timer_create")) { // Slash command for creating a timer
             try {
-                User user = event.getUser();
+                // the user called /timer_create on Discord
+                User user = event.getUser(); // Who called /timer_create on Discord
+
+                // timer's name
                 String name = Objects.requireNonNull(event.getOption("name")).getAsString();
+
+                // the duration of work period
                 double workTime = Objects.requireNonNull(event.getOption("work")).getAsDouble();
+
+                // the duration of break period
                 double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
+
+                // One iteration of work-break routine is called an interval.
                 Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
+
+                // Object needed to check duplicate timers
                 TimerDAO timerDAO = new TimerDAO();
 
+                // Prevents users from creating timers with impossible settings
                 if (workTime < 0 || breakTime < 0 || iteration <= 0) {
                     event.reply("You can't make a timer with negative numbers! Try again " +
                             "with positive real numbers.").queue();

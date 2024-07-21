@@ -34,7 +34,6 @@ public class Main {
         jda.addEventListener(new RecipeInteractor());
         jda.addEventListener(new TimerInteractor());
         jda.addEventListener(new ScheduledReminderInteractor());
-
         StudyInteractor studyInteractor = new StudyInteractor(jda);
         jda.addEventListener(studyInteractor);
 
@@ -46,15 +45,15 @@ public class Main {
                                 .addChoice("Paper", "paper")
                                 .addChoice("Scissors", "scissors")),
                 Commands.slash("trivia", "Starts a game of trivia."),
-                Commands.slash("timer_create", "Creates a new timer preset")
+                Commands.slash("timer_create", "Creates a new Pomodoro timer.")
                         .addOption(OptionType.NUMBER, "work", "how long a work session should be")
                         .addOption(OptionType.NUMBER, "break", "how long a break should be")
                         .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
-                Commands.slash("timer_list", "Provides the list of timers you have"),
-                Commands.slash("timer_start", "Starts a Timer")
+                Commands.slash("timer_list", "Provides the list of the timers you have."),
+                Commands.slash("timer_start", "Starts a timer.")
                         .addOption(OptionType.STRING, "name", "the name of the timer instance"),
-                Commands.slash("timer_cancel", "Cancels ongoing timer"),
+                Commands.slash("timer_cancel", "Cancels ongoing timer."),
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
                         .addOption(OptionType.INTEGER, "count", "Enter an integer", true)

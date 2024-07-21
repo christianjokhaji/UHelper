@@ -2,7 +2,6 @@ package ca.unknown.bot.interface_interactor;
 
 import ca.unknown.bot.entities.Pomodoro;
 import ca.unknown.bot.data_access.TimerDAO;
-import ca.unknown.bot.entities.PomodoroFactory;
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.api.entities.User;
 
@@ -16,8 +15,8 @@ public class TimerController {
      * An intermediate class in the Interface Adapters layer. This class receives the inputs from
      * View (Discord) and converts to an appropriate datatype (Map) for TimerDAO to process.
      *
-     * A typical map that maps a Discord user onto timer looks like this. (and this is how,
-     * hopefullu, is represented in timer_repository.json.)
+     * A typical map that maps a Discord user onto timer looks like this. (and this is how
+      *  a map is represented in timer_repository.json.)
      *
      * Map<String, ArrayList<LinkedTreeMap>>
      * {userID1: <timer1, timer2>, userID2: <timer3>}
@@ -29,6 +28,8 @@ public class TimerController {
      * createTimer creates a map that looks like the example above. The map contains the user id
      * (String) as a key and the Pomodoro instance they want to create as a value. It will be passed
      * onto the TimerDAO for checking duplicate user and Pomodoro instances.
+      *
+      * URGENT: DEPENDENCY INJECTION!!!
      *
      */
         Pomodoro newTimer = new Pomodoro(workTime, breakTime, iteration, name);
