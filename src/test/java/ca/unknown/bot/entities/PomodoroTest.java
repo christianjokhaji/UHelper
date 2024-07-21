@@ -53,7 +53,7 @@
         }
 
         @Test // Check if the constructor and getters of Pomodoro works correctly
-        public void constructorCheck() {
+        void constructorCheck() {
             assertEquals(25.0, test.getWorkTime());
             assertEquals(5.0, test.getBreakTime());
             assertEquals(3, test.getIteration());
@@ -63,5 +63,12 @@
             map.put("breakTime", 5.0);
             map.put("iteration", 3);
             assertEquals(map, test.getMap());
+        }
+
+        @Test // Check if a Pomodoro instance has a correct string representation
+        void toStringCheck() {
+            String str = test.toString();
+            assertEquals(str, "test: 25.0 minutes of work, 5.0 minutes of break for 3" +
+                    " times.");
         }
     }
