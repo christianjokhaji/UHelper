@@ -3,7 +3,7 @@ package ca.unknown.bot.use_cases.schedule_reminder;
 import ca.unknown.bot.data_access.schedule_reminder.ScheduledReminderDAO;
 import ca.unknown.bot.data_access.schedule_reminder.ScheduledReminderDataAccessInterface;
 import ca.unknown.bot.entities.schedule_reminder.*;
-import ca.unknown.bot.interface_interactor.schedule_reminder.ScheduledReminderController;
+import ca.unknown.bot.interface_adapter.schedule_reminder.ScheduledReminderController;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -22,7 +22,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
         if (event.getName().equals("schedule_event")) {
             if(!scheduleDAO.existsByUser(user)){
-                scheduleDAO.save(scheduleFactory.create(user));
+                scheduleDAO.saveNewUser(scheduleFactory.create(user));
             }
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
@@ -33,7 +33,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
         }
         else if (event.getName().equals("schedule_exam")) {
             if(!scheduleDAO.existsByUser(user)){
-                scheduleDAO.save(scheduleFactory.create(user));
+                scheduleDAO.saveNewUser(scheduleFactory.create(user));
             }
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
@@ -44,7 +44,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
         }
         else if (event.getName().equals("schedule_assignment")){
             if(!scheduleDAO.existsByUser(user)){
-                scheduleDAO.save(scheduleFactory.create(user));
+                scheduleDAO.saveNewUser(scheduleFactory.create(user));
             }
 
             ScheduledReminderController scheduledReminderController = new ScheduledReminderController(event);
@@ -54,7 +54,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             //event.reply(scheduleDAO.getSchedule(user).toString()).queue();
         }
         else if (event.getName().equals("current_schedule")){
-            if(!scheduleDAO.existsByUser(user) || scheduleDAO.getSchedule(user).hasEvents()){
+            if(!scheduleDAO.existsByUser(user) || scheduleDAO.getSchedule(user).hasNoEvents()){
                 event.reply("You have no scheduled events.").queue();
             }
             else{

@@ -12,5 +12,5 @@ public interface Schedule {
 
     String getUser();
 
-    boolean hasEvents();
+    boolean hasNoEvents();
 }

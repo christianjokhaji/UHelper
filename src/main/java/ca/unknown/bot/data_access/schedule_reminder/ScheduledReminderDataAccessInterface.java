@@ -4,7 +4,9 @@ import ca.unknown.bot.entities.schedule_reminder.Schedule;
 public interface ScheduledReminderDataAccessInterface {
     boolean existsByUser(String user);
 
-    void save(Schedule userSchedule);
+    void saveNewUser(Schedule userSchedule);
+
+    void saveToFile(String filename);
 
     Schedule getSchedule(String user);
 }

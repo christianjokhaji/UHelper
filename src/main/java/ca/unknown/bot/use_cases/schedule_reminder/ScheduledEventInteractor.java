@@ -18,6 +18,7 @@ public class ScheduledEventInteractor {
         ScheduledEvent schedEvent = eventFactory.createEvent(scheduledReminderInputData.getEventDate(),
                 scheduledReminderInputData.getEventName());
         scheduleDAO.getSchedule(user).addEvent(schedEvent);
+        scheduleDAO.saveToFile("schedule_repository");
         event.reply("You have scheduled the following event: \n"+ schedEvent.toString()).queue();
     }
 }
