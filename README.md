@@ -40,9 +40,9 @@ is recommended that you read through [this beginner
 ![png](assets/0.png)
 
 If you can see a screen similar as above, that means you've successfully created your own server. 
-You are now ready to invite UHelper to help you through your journey as a student. Next, click this 
-[link](https://discord.com/oauth2/authorize?client_id=1253813199397191863&permissions=1126727225142272&integration_type=0&scope=bot). The link will take you to a webpage that not only informs you that you are about to 
-UHelper to a server, but also prompts you to select which server you want UHelper to join in. 
+You are now ready to invite UHelper to help you through your journey as a student. This 
+[link](https://discord.com/oauth2/authorize?client_id=1253813199397191863&permissions=1126727225142272&integration_type=0&scope=bot) will take you to a webpage that prompts you to select which server you want UHelper to
+join. 
 
 ![png](assets/1.png)
 
@@ -65,30 +65,35 @@ part of this guide will teach you how to run UHelper.
 ![png](assets/4.png)
 
 UHelper joined the server, but it cannot listen to your commands as it is not online. Open up 
-IntelliJ IDEA and go to ca.unknown.bot.app.Main. Go to Edit Configurations to add a new configuration
-setting for this main class.
+IntelliJ IDEA and go to ca.unknown.bot.app.Main. Go to Edit Configurations, click Add new run 
+configuration, and select Application.
+
 
 ![png](assets/5.png)
 
-In the edit configuration window, choose Java 11 or 17 and Project.Main under the Build and Run section.
+In the edit configuration window, choose Java 11 and Project.Main under the Build and Run section.
 For the main class box, type ca.unknown.bot.app.Main. Next, importantly, you should add a bot 
 token as an environmental variable... but where is the token, you ask? Discord enforces 
 strict rules to its bot developers and one of them is that you can't post
 any bot token online due to security reasons. If you do, it will immediately detect the token and 
-disable it. But, you can still have access to the UHelper's token! We've attached the token via the 
-comment section of the Phase 1 submission.
+automatically disable it. But, you can still have access to the UHelper's token! We've attached the 
+token via the comment section of the Phase 1 submission.
 
-Once you find the token, set it up as an environmental variable. Click the apply button to save 
-these changes. Next, run the main class. 
+![png](assets/TOKEN=.png)
+
+Once you find the token, set it up as an environmental variable. To do so, type TYPE={your_token}
+in the environmental variables box, as shown in the above screenshot. Click the apply button to save 
+these changes. Finally, run the main.java class. 
 
 ![png](assets/6.png)
 
 A successful execution of UHelper should look like this. Then, open Discord and go to your server.
-The UHelper bot should be online in the server. Stopping UHelper in IntelliJ will cause it to go offline.
+The UHelper bot should be online in your server. Stopping UHelper in IntelliJ will cause it to go 
+offline.
 
 ![png](assets/7.png)
 
-Most of the UHelper's features are slash commands interactions. You can type / in the chat to see 
+Most of the UHelper's features are slash commands interaction, so you can type / in the chat to see 
 the list of commands it offers! Please note that, as of July 21, some features are not implemented 
 yet.
 
@@ -128,9 +133,9 @@ You can find all the user stories and other details in our blueprint from [here]
     - [X] Encoding whitespace
     - [X] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
   - [ ] Style recipe suggestions with Embed Builder
-    - [ ] Add directions to external recipes
-    - [ ] images(if possible) of the cuisine 
-    - [ ] Add Nutritional Information
+    - [X] Add directions to external recipes
+    - [X] images(if possible) of the cuisine 
+    - [X] Add Nutritional Information
 
 - **Motivational Quotes** 💪
 
