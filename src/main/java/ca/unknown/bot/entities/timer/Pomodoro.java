@@ -3,9 +3,9 @@ package ca.unknown.bot.entities.timer;
 import java.util.*;
 import java.lang.Math;
 
-public class Pomodoro implements Preset {
-    private final HashMap<String, Object> map;
+public class Pomodoro implements TimerInterface {
     private final String name;
+    private final HashMap<String, Object> map;
 
      /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
@@ -30,11 +30,11 @@ public class Pomodoro implements Preset {
       * Note that workTime, breakTime, and iteration are all stored in a Hashmap
       */
     public Pomodoro(double workTime, double breakTime, Integer iteration, String name){
+        this.name = name;
         map = new HashMap<>();
         this.map.put("workTime", workTime);
         this.map.put("breakTime", breakTime);
         this.map.put("iteration", iteration);
-        this.name = name;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Pomodoro implements Preset {
       * respective timer.
       *
       */
-    public void commenceTimer() {
+    public void startTimer() {
         for (int i = 0; i != ((Integer) map.get("iteration")); i++){
             try {
                 // Prints out what nth interval the timer is on
@@ -53,15 +53,13 @@ public class Pomodoro implements Preset {
                 long currentTime = System.currentTimeMillis();
                 // calculates the time to end a session by adding the input from user
                 long endTime = currentTime + minToMilli((double) map.get("workTime"));
-                System.out.println("Work period has started at " + new Date());
-                this.commenceWork(endTime);
+                this.startWork(endTime);
                 Thread.sleep(minToMilli((double) map.get("workTime")));
 
                 // updates currentTime and endTime
                 currentTime = System.currentTimeMillis();
                 endTime = currentTime + minToMilli((double) map.get("breakTime"));
-                System.out.println("Break period has started at " + new Date());
-                this.commenceBreak(endTime);
+                this.startBreak(endTime);
                 Thread.sleep(minToMilli((double) map.get("breakTime")));
             }
             // Do not delete this; essential for using Thread.sleep()
@@ -70,11 +68,11 @@ public class Pomodoro implements Preset {
             }
         }
         System.out.println("Your timer has ended. Use /timer_create or /timer_start to start " +
-                "another " + "timer.");
+                "another " + "timer."); // This print message will be replaced with sth
     }
 
     // Helper function for starting a work session
-    private void commenceWork(long endTime) {
+    private void startWork(long endTime) {
         Timer timerForWork = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
@@ -83,12 +81,14 @@ public class Pomodoro implements Preset {
                     timerForWork.cancel();
                 }
             }
-        }; // Checks whether the desired time passed for every 0.1 seconds.
+        };
+        System.out.println("Work period has started at " + new Date());
+        // Checks whether the desired time passed for every 0.1 seconds.
         timerForWork.scheduleAtFixedRate(task, 100, 100);
     }
 
     // Helper function for starting a break session
-    private void commenceBreak(long endTime) {
+    private void startBreak(long endTime) {
         Timer timerForBreak = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
@@ -98,6 +98,7 @@ public class Pomodoro implements Preset {
                 }
             }
         };
+        System.out.println("Break period has started at " + new Date());
         timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -108,13 +109,13 @@ public class Pomodoro implements Preset {
 
     // Getters for Pomodoro
     @Override
-    public int getWorkTime() {
-        return (int) this.map.get("workTime");
+    public double getWorkTime() {
+        return (double) this.map.get("workTime");
     }
 
     @Override
-    public int getBreakTime() {
-        return (int) this.map.get("breakTime");
+    public double getBreakTime() {
+        return (double) this.map.get("breakTime");
     }
 
     @Override
@@ -127,15 +128,18 @@ public class Pomodoro implements Preset {
         return this.name;
     }
 
+    @Override
+    public HashMap getMap() {return this.map;}
+
     // A string representation of the Pomodoro class
     @Override
     public String toString() {
-        return "A timer preset has been created. " + this.name + " will repeat " +
-                map.get("workTime") + " minutes of work and " + map.get("breakTime") +
-                " minutes of break " + map.get("iteration") + " times.";
+        return  this.name + ": " +
+                map.get("workTime") + " minutes of work, " + map.get("breakTime") +
+                " minutes of break for " + map.get("iteration") + " times.";
     }
 
-    // A helper function for converting minute to milliseconds
+    // A helper function for converting minute to millisecond
     private static long minToMilli(double min){
         return Math.round(min * 60 * 1000);
     }

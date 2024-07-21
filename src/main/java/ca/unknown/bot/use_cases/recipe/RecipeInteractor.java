@@ -1,9 +1,9 @@
 package ca.unknown.bot.use_cases.recipe;
 
-import ca.unknown.bot.interface_interactor.templates.Paginator;
 import ca.unknown.bot.interface_interactor.recipe.RecipeApiHandler;
-import ca.unknown.bot.entities.recipe.Recipe;
 import ca.unknown.bot.interface_interactor.recipe.RecipeModel;
+import ca.unknown.bot.interface_interactor.templates.Paginator;
+import ca.unknown.bot.entities.recipe.Recipe;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

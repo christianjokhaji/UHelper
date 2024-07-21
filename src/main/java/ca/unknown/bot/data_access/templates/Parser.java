@@ -1,6 +1,7 @@
 package ca.unknown.bot.data_access.templates;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 /**
@@ -14,5 +15,8 @@ public class Parser {
      */
     public static JsonObject parse(String json) {
         return new Gson().fromJson(json, JsonObject.class);
+    }
+    public static JsonArray parseArray(String json) {
+        return new Gson().fromJson(json, JsonArray.class);
     }
 }
