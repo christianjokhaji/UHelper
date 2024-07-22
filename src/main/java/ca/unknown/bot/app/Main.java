@@ -1,6 +1,5 @@
 package ca.unknown.bot.app;
 
-import ca.unknown.bot.use_cases.*;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
 import ca.unknown.bot.use_cases.EventListener;
 import ca.unknown.bot.use_cases.GameInteractor;
@@ -63,8 +62,8 @@ public class Main {
                                 .addChoice("Snack", "snack")
                                 .addChoice("Teatime", "teatime")
                                 .addChoice("Dinner", "dinner")),
-                Commands.slash("schedule_exam", "Schedules a new exam reminder. Please format your date as " +
-                                " YYYY MM DD HR MIN SEC.")
+                Commands.slash("schedule_exam", "Schedules an exam reminder. Format date as" +
+                                " YYYY MM DD HR MIN SEC and omit the 0 in single digit months.")
                         .addOption(OptionType.STRING, "course", "The course code of the exam.", true)
                         .addOption(OptionType.STRING, "location", "The location of your exam.", true)
                         .addOption(OptionType.INTEGER, "year", "The year of your exam.", true)
@@ -73,8 +72,8 @@ public class Main {
                         .addOption(OptionType.INTEGER, "hour", "The military hour of your exam.", true)
                         .addOption(OptionType.INTEGER, "minute", "The minutes value of your exam time.", true)
                         .addOption(OptionType.INTEGER, "sec", "The seconds value of your exam time.", true),
-                Commands.slash("schedule_assignment", "Schedules a new assignment reminder. Please " +
-                                "format your date as YYYY MM DD HR MIN SEC.")
+                Commands.slash("schedule_assignment", "Schedules an assignment reminder. " +
+                                "Format date as YYYY MM DD HR MIN SEC and omit the 0 in single digit months.")
                         .addOption(OptionType.STRING, "course", "The course code of the assignment.", true)
                         .addOption(OptionType.STRING, "assignment", "The name of your assignment.", true)
                         .addOption(OptionType.INTEGER, "year", "The year of your assignment due date.", true)
@@ -83,8 +82,8 @@ public class Main {
                         .addOption(OptionType.INTEGER, "hour", "The military hour of your assignment due date.", true)
                         .addOption(OptionType.INTEGER, "minute", "The minutes value of your assignment due date.", true)
                         .addOption(OptionType.INTEGER, "sec", "The seconds value of your assignment due date.", true),
-                Commands.slash("schedule_event", "Schedules a generic event reminder. Please " +
-                                "format your date as YYYY MM DD HR MIN SEC.")
+                Commands.slash("schedule_event", "Schedules a generic event reminder. Format date as YYYY MM DD HR MIN SEC " +
+                                "and omit the 0 in single digit months.")
                         .addOption(OptionType.STRING, "event", "The name of your event.", true)
                         .addOption(OptionType.INTEGER, "year", "The year of your event.", true)
                         .addOption(OptionType.INTEGER, "month", "The numeric month of your event.", true)
