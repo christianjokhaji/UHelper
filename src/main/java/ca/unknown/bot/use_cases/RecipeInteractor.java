@@ -1,15 +1,14 @@
 package ca.unknown.bot.use_cases;
 
-import ca.unknown.bot.interface_interactor.RecipeApiHandler;
+import ca.unknown.bot.interface_adapter.RecipeApiHandler;
 import ca.unknown.bot.entities.Recipe;
-import ca.unknown.bot.interface_interactor.RecipeModel;
+import ca.unknown.bot.interface_adapter.RecipeModel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class RecipeInteractor extends ListenerAdapter {
