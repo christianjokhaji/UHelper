@@ -1,6 +1,6 @@
-package ca.unknown.bot.data_access;
+package ca.unknown.bot.data_access.quiz_me;
 
-import ca.unknown.bot.entities.QuizMe;
+import ca.unknown.bot.entities.quiz_me.QuizMe;
 import com.google.gson.Gson;
 
 import java.io.FileReader;
@@ -32,7 +32,7 @@ public class JSONQuizMeRepository{
      */
     public QuizMe loadQuizMe(String filename) {
         Gson gson = new Gson();
-    
+
         try (FileReader reader = new FileReader(filename)) {
             // gson.fromJson converts from the json file we have back to a Java object
             return gson.fromJson(reader, QuizMe.class);

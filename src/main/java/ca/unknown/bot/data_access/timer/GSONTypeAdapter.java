@@ -1,11 +1,9 @@
-package ca.unknown.bot.data_access;
+package ca.unknown.bot.data_access.timer;
 
 import ca.unknown.bot.entities.timer.Pomodoro;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import net.dv8tion.jda.api.entities.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,11 +28,12 @@ public class GSONTypeAdapter extends TypeAdapter<Map<String, ArrayList<Pomodoro>
      */
 
 
-    @Override
+    @Override // Customizes they way an object (for example, userAndTimer in TimerDAO) would be
+    // represented as a json file
     public void write(JsonWriter out, Map<String, ArrayList<Pomodoro>> value) throws IOException {
     }
 
-    @Override
+    @Override // Customizes the way GSON converts a json file into a java object
     public Map read(JsonReader in) throws IOException {
         return null;
     }

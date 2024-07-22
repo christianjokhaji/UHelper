@@ -32,8 +32,7 @@ functionalities.
 
 In order to install UHelper, you have to create your own server or are already an administrator in 
 an existing server. If you have not used Discord before or do not know how to work with servers, it 
-is recommended that you read through [this beginner
-'s guide](https://support.discord.com/hc/en-us/articles/360045138571-Beginner-s-Guide-to-Discord#h_efc9b7bc-47bc-4212-8b9c-c0fa76573cfe).
+is recommended that you read through [this beginner's guide](https://support.discord.com/hc/en-us/articles/360045138571-Beginner-s-Guide-to-Discord#h_efc9b7bc-47bc-4212-8b9c-c0fa76573cfe).
 
 ### How to Invite UHelper to Your Server
 

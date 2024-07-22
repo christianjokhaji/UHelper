@@ -1,8 +1,8 @@
 package ca.unknown.bot.use_cases.recipe;
 
-import ca.unknown.bot.interface_interactor.recipe.RecipeApiHandler;
-import ca.unknown.bot.interface_interactor.recipe.RecipeModel;
-import ca.unknown.bot.interface_interactor.templates.Paginator;
+import ca.unknown.bot.interface_adapter.recipe.RecipeApiHandler;
+import ca.unknown.bot.interface_adapter.recipe.RecipeModel;
+import ca.unknown.bot.interface_adapter.templates.Paginator;
 import ca.unknown.bot.entities.recipe.Recipe;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;

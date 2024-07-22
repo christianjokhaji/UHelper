@@ -1,4 +1,4 @@
-package ca.unknown.bot.interface_interactor.templates;
+package ca.unknown.bot.interface_adapter.templates;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

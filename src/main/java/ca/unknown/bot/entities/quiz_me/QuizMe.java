@@ -1,4 +1,4 @@
-package ca.unknown.bot.entities;
+package ca.unknown.bot.entities.quiz_me;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public class QuizMe {
-    final Map<String, String> notes;
-    final Map<String, String> hints;
-    final List<String> questionsOrder;
+    private final Map<String, String> notes;
+    private final Map<String, String> hints;
+    private final List<String> questionsOrder;
 
     // Constructs a QuizMe object
     public QuizMe() {

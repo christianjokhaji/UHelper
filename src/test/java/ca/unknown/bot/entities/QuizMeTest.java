@@ -1,5 +1,6 @@
     package ca.unknown.bot.entities;
 
+    import ca.unknown.bot.entities.quiz_me.QuizMe;
     import net.dv8tion.jda.api.JDA;
     import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
     import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
@@ -47,9 +48,9 @@
             quizMe.addQuestionAndAnswer("What is Java?", "A programming language.", "Think about coffee.");
             quizMe.resetNotes(mockSlashEvent);
 
-            assertTrue(quizMe.notes.isEmpty());
-            assertTrue(quizMe.hints.isEmpty());
-            assertTrue(quizMe.questionsOrder.isEmpty());
+            assertTrue(quizMe.getNotes().isEmpty());
+            assertTrue(quizMe.getHints().isEmpty());
+            assertTrue(quizMe.getQuestionsOrder().isEmpty());
 
             verify(mockSlashEvent).reply("Notes Reset!").queue();
         }
@@ -59,11 +60,11 @@
         public void testAddQuestionAndAnswer() {
             quizMe.addQuestionAndAnswer("What is Java?", "A programming language.", "Think about coffee.");
 
-            assertEquals(1, quizMe.notes.size());
-            assertEquals(1, quizMe.hints.size());
-            assertEquals(1, quizMe.questionsOrder.size());
-            assertEquals("A programming language.", quizMe.notes.get("What is Java?"));
-            assertEquals("Think about coffee.", quizMe.hints.get("What is Java?"));
+            assertEquals(1, quizMe.getNotes().size());
+            assertEquals(1, quizMe.getHints().size());
+            assertEquals(1, quizMe.getQuestionsOrder().size());
+            assertEquals("A programming language.", quizMe.getNotes().get("What is Java?"));
+            assertEquals("Think about coffee.", quizMe.getHints().get("What is Java?"));
         }
 
         @Test
