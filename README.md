@@ -125,10 +125,8 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Bot displays a schedule with ongoing events (incl. assignments, general events, and exams). (July 17)
   - [X] Bot clears the user's current schedule. (July 17)
     - [ ] Deletes reminder alerts
-  - [ ] Bot accepts an exam schedule and creates reminders for each exam.
-
-- **Schedule** 📅 (use case in progress - July 12)
-  - [ ] Bot returns a schedule with outstanding events.
+  - [X] Bot persists the schedule repo to a .json file. (July 20)
+  - [ ] Schedule repo is persisted if program restarts (in progress)
 
 - **Recipe** 🍽️
   - [X] Implement the API call to fetch recipe data (July 6)
