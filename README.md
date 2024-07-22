@@ -32,8 +32,7 @@ functionalities.
 
 In order to install UHelper, you have to create your own server or are already an administrator in 
 an existing server. If you have not used Discord before or do not know how to work with servers, it 
-is recommended that you read through [this beginner
-'s guide](https://support.discord.com/hc/en-us/articles/360045138571-Beginner-s-Guide-to-Discord#h_efc9b7bc-47bc-4212-8b9c-c0fa76573cfe).
+is recommended that you read through [this beginner's guide](https://support.discord.com/hc/en-us/articles/360045138571-Beginner-s-Guide-to-Discord#h_efc9b7bc-47bc-4212-8b9c-c0fa76573cfe).
 
 ### How to Invite UHelper to Your Server
 
@@ -125,7 +124,8 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Bot displays a schedule with ongoing events (incl. assignments, general events, and exams). (July 17)
   - [X] Bot clears the user's current schedule. (July 17)
     - [ ] Deletes reminder alerts
-  - [ ] Bot accepts an exam schedule and creates reminders for each exam.
+  - [X] Bot persists the schedule repo to a .json file. (July 20)
+   - [ ] Schedule repo is persisted if program restarts (in progress)
 
 - **Schedule** 📅 (use case in progress - July 12)
   - [ ] Bot returns a schedule with outstanding events.

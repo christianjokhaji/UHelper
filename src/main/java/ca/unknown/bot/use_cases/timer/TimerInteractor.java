@@ -1,15 +1,11 @@
 package ca.unknown.bot.use_cases.timer;
 
-import ca.unknown.bot.data_access.TimerDAO;
-import ca.unknown.bot.data_access.GSONTypeAdapter; // may be used or not in the future
-import ca.unknown.bot.interface_interactor.TimerController;
-import ca.unknown.bot.interface_interactor.TimerPresenter;
+import ca.unknown.bot.data_access.timer.TimerDAO;
+import ca.unknown.bot.interface_interactor.timer.TimerController;
+import ca.unknown.bot.interface_interactor.timer.TimerPresenter;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Objects;
 
@@ -32,7 +28,7 @@ public class TimerInteractor extends ListenerAdapter {
                 // the user called /timer_create on Discord
                 User user = event.getUser(); // Who called /timer_create on Discord
 
-                // timer's name
+                // the new timer's name
                 String name = Objects.requireNonNull(event.getOption("name")).getAsString();
 
                 // the duration of work period

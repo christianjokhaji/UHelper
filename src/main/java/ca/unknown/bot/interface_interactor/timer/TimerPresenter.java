@@ -1,13 +1,11 @@
-package ca.unknown.bot.interface_interactor;
+package ca.unknown.bot.interface_interactor.timer;
 
 import ca.unknown.bot.entities.timer.Pomodoro;
-import ca.unknown.bot.data_access.TimerDAO;
+import ca.unknown.bot.data_access.timer.TimerDAO;
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TimerPresenter {
     /**
@@ -29,6 +27,9 @@ public class TimerPresenter {
      * A presenter method that is used for /timer_list. This fetches an ArrayList of LinkedTreeMaps
      * and converts them into a Pomodoro instance and an appropriate message for the discord bot
      * to reply with.
+     *
+     * @param user : the user who requested to see their list of timers
+     * @return message : the message that timerInteractor needs to pass onto a jda instance
      *
      */
         TimerDAO timerDAO = new TimerDAO();

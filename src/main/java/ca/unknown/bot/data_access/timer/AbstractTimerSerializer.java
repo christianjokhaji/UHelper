@@ -1,4 +1,4 @@
-package ca.unknown.bot.data_access;
+package ca.unknown.bot.data_access.timer;
 
 import ca.unknown.bot.entities.timer.Pomodoro;
 import net.dv8tion.jda.api.entities.User;
