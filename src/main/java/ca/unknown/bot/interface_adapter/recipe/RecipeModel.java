@@ -1,4 +1,4 @@
-package ca.unknown.bot.interface_interactor.recipe;
+package ca.unknown.bot.interface_adapter.recipe;
 
 import ca.unknown.bot.entities.recipe.Recipe;
 import net.dv8tion.jda.api.EmbedBuilder;

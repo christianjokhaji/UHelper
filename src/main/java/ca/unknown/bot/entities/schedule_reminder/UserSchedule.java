@@ -2,11 +2,25 @@ package ca.unknown.bot.entities.schedule_reminder;
 
 import java.util.*;
 
+/**
+ * Concrete implementation of a user <code>Schedule</code>. Stores scheduled events and manipulates them.
+ */
 public class UserSchedule implements Schedule {
 
+    /**
+     * A list of this schedule's current events.
+     */
     private List<ScheduledEvent> events = new ArrayList<>();
+
+    /**
+     * The user of this schedule.
+     */
     private String user;
 
+    /**
+     * Class constructor.
+     * @param user the user of this schedule
+     */
     public UserSchedule(String user){
         this.user = user;
     }
@@ -38,7 +52,7 @@ public class UserSchedule implements Schedule {
         return user;
     }
 
-    public boolean hasEvents(){
+    public boolean hasNoEvents(){
         return events.isEmpty();
     }
 }

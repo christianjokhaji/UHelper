@@ -125,10 +125,7 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Bot clears the user's current schedule. (July 17)
     - [ ] Deletes reminder alerts
   - [X] Bot persists the schedule repo to a .json file. (July 20)
-   - [ ] Schedule repo is persisted if program restarts (in progress)
-
-- **Schedule** 📅 (use case in progress - July 12)
-  - [ ] Bot returns a schedule with outstanding events.
+  - [ ] Schedule repo is persisted if program restarts (in progress)
 
 - **Recipe** 🍽️
   - [X] Implement the API call to fetch recipe data (July 6)

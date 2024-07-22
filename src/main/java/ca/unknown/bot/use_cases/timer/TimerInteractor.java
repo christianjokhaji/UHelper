@@ -1,8 +1,8 @@
 package ca.unknown.bot.use_cases.timer;
 
 import ca.unknown.bot.data_access.timer.TimerDAO;
-import ca.unknown.bot.interface_interactor.timer.TimerController;
-import ca.unknown.bot.interface_interactor.timer.TimerPresenter;
+import ca.unknown.bot.interface_adapter.timer.TimerController;
+import ca.unknown.bot.interface_adapter.timer.TimerPresenter;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

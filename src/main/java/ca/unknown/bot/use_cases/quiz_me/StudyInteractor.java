@@ -1,6 +1,6 @@
 package ca.unknown.bot.use_cases.quiz_me;
 
-import ca.unknown.bot.entities.QuizMe;
+import ca.unknown.bot.entities.quiz_me.QuizMe;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;

@@ -1,6 +1,6 @@
 package ca.unknown.bot.data_access.timer;
 
-import ca.unknown.bot.interface_interactor.timer.TimerController;
+import ca.unknown.bot.interface_adapter.timer.TimerController;
 import com.google.gson.*;
 import ca.unknown.bot.entities.timer.Pomodoro;
 import com.google.gson.internal.LinkedTreeMap;

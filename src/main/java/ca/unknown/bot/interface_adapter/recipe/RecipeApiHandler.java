@@ -1,4 +1,4 @@
-package ca.unknown.bot.interface_interactor.recipe;
+package ca.unknown.bot.interface_adapter.recipe;
 
 import ca.unknown.bot.data_access.templates.APIFetcher;
 import ca.unknown.bot.data_access.templates.URLGenerator;

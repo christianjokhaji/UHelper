@@ -1,4 +1,4 @@
-package ca.unknown.bot.interface_interactor.timer;
+package ca.unknown.bot.interface_adapter.timer;
 
 import ca.unknown.bot.entities.timer.Pomodoro;
 import ca.unknown.bot.data_access.timer.TimerDAO;
