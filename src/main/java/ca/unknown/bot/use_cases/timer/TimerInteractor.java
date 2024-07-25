@@ -16,10 +16,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * A use-case interactor for timer and its features.
  */
-public class TimerInteractor extends ListenerAdapter {
+public class TimerViewModel extends ListenerAdapter {
 
     /**
-     * TimerInteractor allows a bot to create, initiate, and cancel a timer. Many of the methods
+     * TimerViewModel allows a bot to create, initiate, and cancel a timer. Many of the methods
      * below involves getting information about the user who call a certain command.
      *
      * @param event represents a SlashCommandInteraction event.
@@ -97,14 +97,11 @@ public class TimerInteractor extends ListenerAdapter {
             if (timer == null) {
                 event.reply("The requested timer is not found.").queue();
             } else {
+                event.reply(timer.getName() + " has been found.").queue();
                 TimerListener timerListener = TimerController.createTimerListener(timer,user,one,
                         two, three);
+                timerListener.begin();
 
-//                TimerPresenter.
-
-
-                sendPrivateMessage(user, timer.toString());
-                event.reply(timer.getName() + " has been found.").queue();
             }
 
         }
@@ -116,7 +113,7 @@ public class TimerInteractor extends ListenerAdapter {
 
     public void sendPrivateMessage(User user, String content) {
     user.openPrivateChannel().queue((channel) -> {
-        channel.sendMessage(content).queueAfter(1, TimeUnit.MINUTES);
+        channel.sendMessage(content).queueAfter(5, TimeUnit.SECONDS);
     });
 }
 }
