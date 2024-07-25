@@ -1,11 +1,16 @@
 package ca.unknown.bot.entities.timer;
 
+import net.dv8tion.jda.api.entities.User;
+
 import java.util.*;
 import java.lang.Math;
+import java.util.concurrent.TimeUnit;
+
 
 public class Pomodoro implements TimerInterface {
     private final String name;
     private final HashMap<String, Object> map;
+    private final ArrayList<User> users;
 
      /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
@@ -35,6 +40,15 @@ public class Pomodoro implements TimerInterface {
         this.map.put("workTime", workTime);
         this.map.put("breakTime", breakTime);
         this.map.put("iteration", iteration);
+        this.users = new ArrayList<>();
+    }
+
+    public void addUser(User user){
+        users.add(user);
+    }
+
+    public void removeUser(User user){
+        users.remove(user);
     }
 
     /**
@@ -67,14 +81,20 @@ public class Pomodoro implements TimerInterface {
                 e.printStackTrace();
             }
         }
-        messagePrinter("Your timer has ended at "+ new Date() + "\nUse /timer_create or " +
+        notifyUsers("Your timer has ended at " + new Date() + "\n\nUse /timer_create or " +
                 "/timer_start to start another timer.");
     }
 
-    // Idea: make a helper function for
-    private String messagePrinter(String str) {
-        System.out.println(str);
-        return str;
+    private void notifyUsers(String message) {
+        for (User user : users) {
+            sendPrivateMessage(user, message);
+        }
+    }
+
+    public void sendPrivateMessage(User user, String content) {
+        user.openPrivateChannel().queue((channel) -> {
+            channel.sendMessage(content).queue();
+        });
     }
 
     // Helper function for starting a work session
@@ -87,8 +107,7 @@ public class Pomodoro implements TimerInterface {
                 }
             }
         };
-        messagePrinter("Work period has started at " + new Date() + " (interval: " + (i+1) + ")");
-        // Checks whether the desired time passed for every 0.1 seconds.
+        notifyUsers("Work period has started at " + new Date() + " (interval: " + (i+1) + ")\n");
         timerForWork.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -102,7 +121,7 @@ public class Pomodoro implements TimerInterface {
                 }
             }
         };
-        messagePrinter("Break period has started at " + new Date() + " (interval: " + (i+1) + ")");
+        notifyUsers("Break period has started at " + new Date() + " (interval: " + (i+1) + ")\n");
         timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 

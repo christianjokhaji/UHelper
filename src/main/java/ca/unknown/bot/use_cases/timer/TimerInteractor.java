@@ -75,30 +75,36 @@ public class TimerInteractor extends ListenerAdapter {
             User one = event.getOption("invitee1",null, OptionMapping::getAsUser);
             User two = event.getOption("invitee2", null, OptionMapping::getAsUser);
             User three = event.getOption("invitee3", null, OptionMapping::getAsUser);
+            String name = Objects.requireNonNull(event.getOption("name")).getAsString();
+            Pomodoro timer = TimerPresenter.fetchTimer(name, user);
+            timer.addUser(user);
 
             if (one != null) {
                 if (one.equals(user)) {
                     event.reply("You can't invite yourself!").queue();
                 }
+                else {timer.addUser(one);}
             }
             if (two != null) {
                 if (two.equals(user)) {
                     event.reply("You can't invite yourself!").queue();
                 }
+                else {timer.addUser(two);}
             }
             if (three != null) {
-                if (three.equals(user)) {event.reply("You can't invite yourself!").queue();}
+                if (three.equals(user)) {
+                    event.reply("You can't invite yourself!").queue();
+                }
+                else {timer.addUser(three);}
             }
 
-            String name = Objects.requireNonNull(event.getOption("name")).getAsString();
-            Pomodoro timer = TimerPresenter.fetchTimer(name, user);
+
 
             if (timer == null) {
                 event.reply("The requested timer is not found.").queue();
             } else {
                 event.reply(timer.getName() + " is starting... Check your DM.").queue();
-                sendPrivateMessage(user, timer.toString());
-
+                timer.startTimer();
             }
 
         }
