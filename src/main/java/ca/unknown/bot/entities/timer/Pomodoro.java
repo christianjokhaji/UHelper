@@ -3,6 +3,8 @@ package ca.unknown.bot.entities.timer;
 import java.util.*;
 import java.lang.Math;
 
+import ca.unknown.bot.entities.timer.TimerListener;
+
 public class Pomodoro implements TimerInterface {
     private final String name;
     private final HashMap<String, Object> map;
@@ -13,11 +15,11 @@ public class Pomodoro implements TimerInterface {
      * <p>
      * Representation Invariants:
      * 1) workMinute and breakMinute should be a positive rational number, while iteration
-     * should only be a positive integer.
+     * should only be a positive integer larger than 0.
      * 2) name should never be equal to other Pomodoro instances.
      * <p>
      * Fun Fact: One unit of work-break (interval) is called a pomodoro, which means tomato
-      * in Italian.
+     * in Italian.
      *
      * @param workTime: the length of a study session in a timer preset
      * @param breakTime: the length of a break session in a timer preset
@@ -41,25 +43,25 @@ public class Pomodoro implements TimerInterface {
       * Starts a Pomodoro instance
       * It has two helper methods: commenceWork and commenceBreak, each of which starts own
       * respective timer.
+     *
+     * This version is to test the logic of Pomodoro on Console. It will not be used when Discord
+     * needs it to serve the timer feature.
       *
       */
     public void startTimer() {
         for (int i = 0; i != ((Integer) map.get("iteration")); i++){
             try {
-                // Prints out what nth interval the timer is on
-                System.out.println("Iteration: " + i);
-
                 // fetches the current time from System in milliseconds
                 long currentTime = System.currentTimeMillis();
                 // calculates the time to end a session by adding the input from user
                 long endTime = currentTime + minToMilli((double) map.get("workTime"));
-                this.startWork(endTime);
+                this.startWork(endTime, i);
                 Thread.sleep(minToMilli((double) map.get("workTime")));
 
                 // updates currentTime and endTime
                 currentTime = System.currentTimeMillis();
                 endTime = currentTime + minToMilli((double) map.get("breakTime"));
-                this.startBreak(endTime);
+                this.startBreak(endTime, i);
                 Thread.sleep(minToMilli((double) map.get("breakTime")));
             }
             // Do not delete this; essential for using Thread.sleep()
@@ -67,38 +69,42 @@ public class Pomodoro implements TimerInterface {
                 e.printStackTrace();
             }
         }
-        System.out.println("Your timer has ended. Use /timer_create or /timer_start to start " +
-                "another " + "timer."); // This print message will be replaced with sth
+        messagePrinter("Your timer has ended at "+ new Date() + "\nUse /timer_create or " +
+                "/timer_start to start another timer.");
+    }
+
+    // Idea: make a helper function for
+    private String messagePrinter(String str) {
+        System.out.println(str);
+        return str;
     }
 
     // Helper function for starting a work session
-    private void startWork(long endTime) {
+    private void startWork(long endTime, int i) {
         Timer timerForWork = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
                 if (System.currentTimeMillis() >= endTime) {
-                    System.out.println("Work period has ended at " + new Date());
                     timerForWork.cancel();
                 }
             }
         };
-        System.out.println("Work period has started at " + new Date());
+        messagePrinter("Work period has started at " + new Date() + " (interval: " + (i+1) + ")");
         // Checks whether the desired time passed for every 0.1 seconds.
         timerForWork.scheduleAtFixedRate(task, 100, 100);
     }
 
     // Helper function for starting a break session
-    private void startBreak(long endTime) {
+    private void startBreak(long endTime, int i) {
         Timer timerForBreak = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
                 if (System.currentTimeMillis() >= endTime) {
-                    System.out.println("Break period has ended at " + new Date());
                     timerForBreak.cancel();
                 }
             }
         };
-        System.out.println("Break period has started at " + new Date());
+        messagePrinter("Break period has started at " + new Date() + " (interval: " + (i+1) + ")");
         timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -134,9 +140,9 @@ public class Pomodoro implements TimerInterface {
     // A string representation of the Pomodoro class
     @Override
     public String toString() {
-        return  this.name + ": " +
+        return  this.name + " - " +
                 map.get("workTime") + " minutes of work, " + map.get("breakTime") +
-                " minutes of break for " + map.get("iteration") + " times.";
+                " minutes of break for " + map.get("iteration") + " time(s)";
     }
 
     // A helper function for converting minute to millisecond

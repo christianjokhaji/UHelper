@@ -1,13 +1,17 @@
 package ca.unknown.bot.use_cases.timer;
 
 import ca.unknown.bot.data_access.timer.TimerDAO;
+import ca.unknown.bot.entities.timer.Pomodoro;
+import ca.unknown.bot.entities.timer.TimerListener;
 import ca.unknown.bot.interface_adapter.timer.TimerController;
 import ca.unknown.bot.interface_adapter.timer.TimerPresenter;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A use-case interactor for timer and its features.
@@ -25,8 +29,8 @@ public class TimerInteractor extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("timer_create")) { // Slash command for creating a timer
             try {
-                // the user called /timer_create on Discord
-                User user = event.getUser(); // Who called /timer_create on Discord
+                // the user who called /timer_create on Discord
+                User user = event.getUser();
 
                 // the new timer's name
                 String name = Objects.requireNonNull(event.getOption("name")).getAsString();
@@ -68,10 +72,51 @@ public class TimerInteractor extends ListenerAdapter {
             event.reply(TimerPresenter.getTimers(event.getUser())).queue();
         }
         if (event.getName().equals("timer_start")) { // Command for starting a timer
-            event.reply("Coming soon!").queue();
+            User user = event.getUser();
+            User one = event.getOption("invitee1",null, OptionMapping::getAsUser);
+            User two = event.getOption("invitee2", null, OptionMapping::getAsUser);
+            User three = event.getOption("invitee3", null, OptionMapping::getAsUser);
+
+            if (one != null) {
+                if (one.equals(user)) {
+                    event.reply("You can't invite yourself!").queue();
+                }
+            }
+            if (two != null) {
+                if (two.equals(user)) {
+                    event.reply("You can't invite yourself!").queue();
+                }
+            }
+            if (three != null) {
+                if (three.equals(user)) {event.reply("You can't invite yourself!").queue();}
+            }
+
+            String name = Objects.requireNonNull(event.getOption("name")).getAsString();
+            Pomodoro timer = TimerPresenter.fetchTimer(name, user);
+
+            if (timer == null) {
+                event.reply("The requested timer is not found.").queue();
+            } else {
+                TimerListener timerListener = TimerController.createTimerListener(timer,user,one,
+                        two, three);
+
+//                TimerPresenter.
+
+
+                sendPrivateMessage(user, timer.toString());
+                event.reply(timer.getName() + " has been found.").queue();
+            }
+
         }
         if (event.getName().equals("timer_cancel")) { // Command for cancelling a timer
-            event.reply("Coming soon!").queue();
+            sendPrivateMessage(event.getUser(), "LOL");
+            event.reply("testing").queue();
         }
     }
+
+    public void sendPrivateMessage(User user, String content) {
+    user.openPrivateChannel().queue((channel) -> {
+        channel.sendMessage(content).queueAfter(1, TimeUnit.MINUTES);
+    });
+}
 }

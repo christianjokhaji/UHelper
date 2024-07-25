@@ -2,6 +2,7 @@ package ca.unknown.bot.interface_adapter.timer;
 
 import ca.unknown.bot.entities.timer.Pomodoro;
 import ca.unknown.bot.data_access.timer.TimerDAO;
+import ca.unknown.bot.entities.timer.TimerListener;
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.api.entities.User;
 
@@ -62,6 +63,19 @@ public class TimerController {
         timer.put("map", spec);
         return timer;
     }
+
+    public static TimerListener createTimerListener(Pomodoro timer, User user, User one, User two,
+                                                   User three) {
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user);
+        if (one != null) {users.add(one);}
+        if (two != null) {users.add(two);}
+        if (three != null) {users.add(three);}
+        TimerListener timerListener = new TimerListener(timer, users);
+        return timerListener;
+    }
+
+
 
 //    public static boolean checkDuplicateTimer(String name, User user) {
 //     /**

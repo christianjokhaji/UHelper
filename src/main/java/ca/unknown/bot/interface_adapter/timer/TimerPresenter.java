@@ -33,8 +33,9 @@ public class TimerPresenter {
      *
      */
         TimerDAO timerDAO = new TimerDAO();
-        String message = new String("You have the following timer(s):" + "\n");
         ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
+        if (list == null || list.size() == 0) {return "You have no timer preset!";}
+        String message = new String("You have the following timer(s):" + "\n\n");
         for (int i = 0; i < list.size(); i++) {
             LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
             String name = treeMap.get("name").toString();
@@ -47,5 +48,34 @@ public class TimerPresenter {
             message = message + pomodoro.toString() + "\n";
         }
         return message;
+    }
+
+    public static Pomodoro fetchTimer(String name, User user) {
+    /**
+     * fetchTimer is used when a Discord user requests to use a timer instance through /timer_start.
+     *
+     * @param name : the name of the requested timer
+     * @param user : the Discord user who called /timer_start
+     */
+        TimerDAO timerDAO = new TimerDAO();
+        ArrayList listTimers = timerDAO.loadTimers(user.toString(), "timer_repository.json");
+        for (Object map : listTimers) {
+            map = (LinkedTreeMap) map;
+            if (((LinkedTreeMap<?, ?>) map).get("name").equals(name)) {
+                Pomodoro timer = convertToPomodoro((LinkedTreeMap) map);
+                return timer;
+            }
+        }
+        return null;
+    }
+
+    private static Pomodoro convertToPomodoro(LinkedTreeMap timer) {
+        String name = timer.get("name").toString();
+        LinkedTreeMap spec = (LinkedTreeMap) timer.get("map");
+        double breakTime = Double.parseDouble(spec.get("breakTime").toString());
+        double workTime = Double.parseDouble(spec.get("workTime").toString());
+        Double it = Double.parseDouble(spec.get("iteration").toString());
+        Integer iteration = it.intValue();
+        return new Pomodoro(workTime, breakTime, iteration, name);
     }
 }

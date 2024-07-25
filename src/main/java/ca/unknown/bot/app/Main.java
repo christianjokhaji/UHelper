@@ -36,6 +36,8 @@ public class Main {
         StudyInteractor studyInteractor = new StudyInteractor(jda);
         jda.addEventListener(studyInteractor);
 
+        OptionData invite = new OptionData(OptionType.USER, "invitee", "Invitee", false);
+
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
@@ -51,7 +53,10 @@ public class Main {
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
                 Commands.slash("timer_list", "Provides the list of the timers you have."),
                 Commands.slash("timer_start", "Starts a timer.")
-                        .addOption(OptionType.STRING, "name", "the name of the timer instance"),
+                        .addOption(OptionType.STRING, "name", "the name of the timer instance")
+                        .addOption(OptionType.USER, "invitee1", "the first user to share a timer (Optional)", false)
+                        .addOption(OptionType.USER, "invitee2", "the second user to share a timer (Optional)", false)
+                        .addOption(OptionType.USER, "invitee3", "the third user to share a timer (Optional)", false),
                 Commands.slash("timer_cancel", "Cancels ongoing timer."),
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
