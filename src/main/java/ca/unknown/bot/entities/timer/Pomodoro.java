@@ -3,8 +3,6 @@ package ca.unknown.bot.entities.timer;
 import java.util.*;
 import java.lang.Math;
 
-import ca.unknown.bot.entities.timer.TimerListener;
-
 public class Pomodoro implements TimerInterface {
     private final String name;
     private final HashMap<String, Object> map;
@@ -65,7 +63,7 @@ public class Pomodoro implements TimerInterface {
                 Thread.sleep(minToMilli((double) map.get("breakTime")));
             }
             // Do not delete this; essential for using Thread.sleep()
-            catch (InterruptedException e){
+            catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

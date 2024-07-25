@@ -2,7 +2,6 @@ package ca.unknown.bot.use_cases.timer;
 
 import ca.unknown.bot.data_access.timer.TimerDAO;
 import ca.unknown.bot.entities.timer.Pomodoro;
-import ca.unknown.bot.entities.timer.TimerListener;
 import ca.unknown.bot.interface_adapter.timer.TimerController;
 import ca.unknown.bot.interface_adapter.timer.TimerPresenter;
 import net.dv8tion.jda.api.entities.User;
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A use-case interactor for timer and its features.
  */
-public class TimerViewModel extends ListenerAdapter {
+public class TimerInteractor extends ListenerAdapter {
 
     /**
      * TimerViewModel allows a bot to create, initiate, and cancel a timer. Many of the methods
@@ -97,10 +96,8 @@ public class TimerViewModel extends ListenerAdapter {
             if (timer == null) {
                 event.reply("The requested timer is not found.").queue();
             } else {
-                event.reply(timer.getName() + " has been found.").queue();
-                TimerListener timerListener = TimerController.createTimerListener(timer,user,one,
-                        two, three);
-                timerListener.begin();
+                event.reply(timer.getName() + " is starting... Check your DM.").queue();
+                sendPrivateMessage(user, timer.toString());
 
             }
 

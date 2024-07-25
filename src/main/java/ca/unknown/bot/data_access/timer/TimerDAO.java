@@ -91,7 +91,7 @@ public class TimerDAO {
             Pomodoro pomodoro = (Pomodoro) value.get(0);
 
             // 1: Encase a Pomodoro instance from userAndTimer.get(key) in a LinkedTreeMap
-            LinkedTreeMap timer = TimerController.converttoLTM(pomodoro);
+            LinkedTreeMap timer = TimerController.convertToLTM(pomodoro);
 
             // 2: Put the new LinkedTreeMap in newPomodoros, which is an ArrayList
             newPomodoros.add(timer);
