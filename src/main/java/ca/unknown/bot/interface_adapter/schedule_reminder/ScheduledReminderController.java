@@ -40,7 +40,7 @@ public class ScheduledReminderController {
         eventDate[2] = Objects.requireNonNull(event.getOption("day")).getAsInt();
         eventDate[3] = Objects.requireNonNull(event.getOption("hour")).getAsInt();
         eventDate[4] = Objects.requireNonNull(event.getOption("minute")).getAsInt();
-        eventDate[5] = Objects.requireNonNull(event.getOption("sec")).getAsInt();
+        eventDate[5] = 0; // sets the seconds value to 00
 
         if (event.getName().equals("schedule_event")) {
             String eventName = Objects.requireNonNull(event.getOption("event")).getAsString();
