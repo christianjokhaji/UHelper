@@ -111,7 +111,7 @@ public class TimerInteractor extends ListenerAdapter {
                 this.timer = timer;
                 event.reply(timer.getName() + " is starting... Check your DM.")
                         .addActionRow(Button.primary("cancel", "Cancel")).queue();
-//                timer.startTimer();
+                timer.startTimer();
             }
         }
     }
@@ -125,9 +125,4 @@ public class TimerInteractor extends ListenerAdapter {
        }
    }
 
-   public void sendPrivateMessage(User user, String content) {
-        user.openPrivateChannel().queue((channel) -> {
-            channel.sendMessage(content).queueAfter(20, TimeUnit.MINUTES);
-        });
-    }
 }

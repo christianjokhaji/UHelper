@@ -4,13 +4,14 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.*;
 import java.lang.Math;
-import java.util.concurrent.TimeUnit;
 
 
 public class Pomodoro implements TimerInterface {
+
     private final String name;
     private final HashMap<String, Object> map;
     private final ArrayList<User> users;
+    private int completedCycle;
 
      /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
@@ -21,8 +22,7 @@ public class Pomodoro implements TimerInterface {
      * should only be a positive integer larger than 0.
      * 2) name should never be equal to other Pomodoro instances.
      * <p>
-     * Fun Fact: One unit of work-break (interval) is called a pomodoro, which means tomato
-     * in Italian.
+     * Fun Fact: A cycle of work-break is called a pomodoro, which means tomato in Italian.
      *
      * @param workTime: the length of a study session in a timer preset
      * @param breakTime: the length of a break session in a timer preset
@@ -41,6 +41,7 @@ public class Pomodoro implements TimerInterface {
         this.map.put("breakTime", breakTime);
         this.map.put("iteration", iteration);
         this.users = new ArrayList<>();
+        this.completedCycle = 0;
     }
 
     public void addUser(User user){
@@ -55,47 +56,19 @@ public class Pomodoro implements TimerInterface {
       * Starts a Pomodoro instance
       * It has two helper methods: commenceWork and commenceBreak, each of which starts own
       * respective timer.
-     *
-     * This version is to test the logic of Pomodoro on Console. It will not be used when Discord
-     * needs it to serve the timer feature.
+      *
+      * This version is to test the logic of Pomodoro on Console. It will not be used when Discord
+      * needs it to serve the timer feature.
       *
       */
     public void startTimer() {
-        for (int i = 0; i != ((Integer) map.get("iteration")); i++){
-            try {
-                // fetches the current time from System in milliseconds
-                long currentTime = System.currentTimeMillis();
-                // calculates the time to end a session by adding the input from user
-                long endTime = currentTime + minToMilli((double) map.get("workTime"));
-                this.startWork(endTime, i);
-                Thread.sleep(minToMilli((double) map.get("workTime")));
-
-                // updates currentTime and endTime
-                currentTime = System.currentTimeMillis();
-                endTime = currentTime + minToMilli((double) map.get("breakTime"));
-                this.startBreak(endTime, i);
-                Thread.sleep(minToMilli((double) map.get("breakTime")));
-            }
-            // Do not delete this; essential for using Thread.sleep()
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        notifyUsers("\nYour timer has ended at " + new Date() + "\nUse /timer_create or " +
-                "/timer_start to start another timer.");
-    }
-
-    private void notifyUsers(String message) {
-        for (User user : users) {
-            sendPrivateMessage(user, message);
+        int totalCycle = getIteration();
+        if (completedCycle < totalCycle) {
+            long endTime = System.currentTimeMillis() + minToMilli(getWorkTime());
+            startWork(endTime, completedCycle);
         }
     }
 
-    public void sendPrivateMessage(User user, String content) {
-        user.openPrivateChannel().queue((channel) -> {
-            channel.sendMessage(content).queue();
-        });
-    }
 
     // Helper function for starting a work session
     private void startWork(long endTime, int i) {
@@ -103,11 +76,13 @@ public class Pomodoro implements TimerInterface {
         TimerTask task = new TimerTask() {
             public void run() {
                 if (System.currentTimeMillis() >= endTime) {
+                    long endTime = System.currentTimeMillis() + minToMilli(getBreakTime());
+                    startBreak(endTime, i);
                     timerForWork.cancel();
                 }
             }
         };
-        notifyUsers("Work period has started at " + new Date() + " (interval: " + (i+1) + ")\n");
+        notifyUsers("Work period has started at " + new Date() + " (cycle: " + (i+1) + ")\n");
         timerForWork.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -117,18 +92,18 @@ public class Pomodoro implements TimerInterface {
         TimerTask task = new TimerTask() {
             public void run() {
                 if (System.currentTimeMillis() >= endTime) {
+                    completedCycle++;
+                    long endTime = System.currentTimeMillis() + minToMilli(getWorkTime());
+                    if (completedCycle < getIteration()) {startWork(endTime, completedCycle);}
+                    else {notifyUsers("Your timer has ended at " + new Date());}
                     timerForBreak.cancel();
                 }
             }
         };
-        notifyUsers("Break period has started at " + new Date() + " (interval: " + (i+1) + ")\n");
+        notifyUsers("Break period has started at " + new Date() + " (cycle: " + (i+1) + ")\n");
         timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 
-    // To be implemented
-    public void cancel() {
-        return;
-    }
 
     // Getters for Pomodoro
     @Override
@@ -160,6 +135,18 @@ public class Pomodoro implements TimerInterface {
         return  this.name + " - " +
                 map.get("workTime") + " minutes of work, " + map.get("breakTime") +
                 " minutes of break for " + map.get("iteration") + " time(s)";
+    }
+
+    private void notifyUsers(String message) {
+        for (User user : users) {
+            sendPrivateMessage(user, message);
+        }
+    }
+
+    public void sendPrivateMessage(User user, String content) {
+        user.openPrivateChannel().queue((channel) -> {
+            channel.sendMessage(content).queue();
+        });
     }
 
     // A helper function for converting minute to millisecond
