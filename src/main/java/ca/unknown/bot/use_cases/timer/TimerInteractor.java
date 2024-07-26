@@ -4,10 +4,15 @@ import ca.unknown.bot.data_access.timer.TimerDAO;
 import ca.unknown.bot.entities.timer.Pomodoro;
 import ca.unknown.bot.interface_adapter.timer.TimerController;
 import ca.unknown.bot.interface_adapter.timer.TimerPresenter;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +28,8 @@ public class TimerInteractor extends ListenerAdapter {
      *
      * @param event represents a SlashCommandInteraction event.
      */
+
+    private static Pomodoro timer;
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
@@ -98,25 +105,29 @@ public class TimerInteractor extends ListenerAdapter {
                 else {timer.addUser(three);}
             }
 
-
-
             if (timer == null) {
                 event.reply("The requested timer is not found.").queue();
             } else {
-                event.reply(timer.getName() + " is starting... Check your DM.").queue();
-                timer.startTimer();
+                this.timer = timer;
+                event.reply(timer.getName() + " is starting... Check your DM.")
+                        .addActionRow(Button.primary("cancel", "Cancel")).queue();
+//                timer.startTimer();
             }
-
-        }
-        if (event.getName().equals("timer_cancel")) { // Command for cancelling a timer
-            sendPrivateMessage(event.getUser(), "LOL");
-            event.reply("testing").queue();
         }
     }
 
-    public void sendPrivateMessage(User user, String content) {
-    user.openPrivateChannel().queue((channel) -> {
-        channel.sendMessage(content).queueAfter(5, TimeUnit.SECONDS);
-    });
-}
+
+    public void onButtonInteraction(ButtonInteractionEvent event) {
+       if (event.getComponentId().equals("cancel")) {
+           timer.removeUser(event.getUser());
+           timer = null;
+           event.reply("Timer Cancelled!").queue();
+       }
+   }
+
+   public void sendPrivateMessage(User user, String content) {
+        user.openPrivateChannel().queue((channel) -> {
+            channel.sendMessage(content).queueAfter(20, TimeUnit.MINUTES);
+        });
+    }
 }

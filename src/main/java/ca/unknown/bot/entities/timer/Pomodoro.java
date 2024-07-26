@@ -81,7 +81,7 @@ public class Pomodoro implements TimerInterface {
                 e.printStackTrace();
             }
         }
-        notifyUsers("Your timer has ended at " + new Date() + "\n\nUse /timer_create or " +
+        notifyUsers("\nYour timer has ended at " + new Date() + "\nUse /timer_create or " +
                 "/timer_start to start another timer.");
     }
 
