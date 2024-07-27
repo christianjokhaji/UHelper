@@ -104,10 +104,11 @@ You can find all the user stories and other details in our blueprint from [here]
 - **Timer** ⏱️
   - [X] Create a timer preset by providing the amount of time wanted for work and break (July 3)
   and record it in a json file. (July 18)
-  - [X] (NEW) Provide a list of the timers that are created by the caller when requested (July 18)
-  - [ ] Start a timer by giving the bot the name of that timer and notify users when time is up 
-  via DM. In doing so, the user can invite other users so that they'd be also notified.
-  - [ ] Cancel an ongoing timer.
+  - [X] Provide a list of the timers that are created by the caller when requested (July 18)
+  - [X] Start a timer by giving the bot the name of that timer and notify users when time is up 
+  via DM. In doing so, the user can invite other users so that they'd be also notified. (July 25)
+  - [X] Cancel an ongoing timer. (July 26)
+  - [X] (NEW) Delete a timer preset by its name. (July 27)
 
 - **Minigames** 🎮
   - [X] Rock-paper-scissors

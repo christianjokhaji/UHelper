@@ -36,8 +36,6 @@ public class Main {
         StudyInteractor studyInteractor = new StudyInteractor(jda);
         jda.addEventListener(studyInteractor);
 
-        OptionData invite = new OptionData(OptionType.USER, "invitee", "Invitee", false);
-
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")

@@ -1,1 +1,1 @@
-{"User:havefun01(id\u003d283783079766786049)":[{"name":"test1","map":{"breakTime":0.083333,"iteration":2,"workTime":0.5}}]}
+{"User:havefun01(id\u003d283783079766786049)":[{"name":"test1","map":{"breakTime":0.083333,"iteration":2.0,"workTime":0.5}},{"name":"test2","map":{"breakTime":5.0,"iteration":2,"workTime":25.0}}]}
