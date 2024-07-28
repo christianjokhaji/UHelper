@@ -2,145 +2,69 @@ package ca.unknown.bot.use_cases.timer;
 
 import ca.unknown.bot.data_access.timer.TimerDAO;
 import ca.unknown.bot.entities.timer.Pomodoro;
-import ca.unknown.bot.interface_adapter.timer.TimerController;
 import ca.unknown.bot.interface_adapter.timer.TimerPresenter;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.Map;
 
-/**
- * A use-case interactor for timer and its features.
- */
-public class TimerInteractor extends ListenerAdapter {
-
-    /**
-     * TimerInteractor is a view model class that is responsible for handling inputs
-     * that come from SlashCommandInteractions. This gets an instance of SlashCommandInteractorEvent
-     * to interact with the TimerController and TimerPresenter to deal with various requests.
-     * Many of the methods below involves getting information about the user who call a certain
-     * command.
+public class TimerInteractor {
+     /**
+     * A use-case interactor class in the application business rule layer. This class receives the
+     * inputs from TimerController and converts to an appropriate datatype (Map) for TimerDAO to process.
      *
-     * @param event represents a SlashCommandInteraction event.
+     * A typical map that maps a Discord user onto timer looks like this. (and this is how
+     * a map is represented in timer_repository.json.)
+     *
+     * Map<String, ArrayList<LinkedTreeMap>>
+     * {userID1: <timer1, timer2>, userID2: <timer3>}
      */
 
-    private static Pomodoro timer;
+    public static void timerCreate(Map userAndTimer, SlashCommandInteractionEvent event) {
+        String userId = userAndTimer.keySet().toArray()[0].toString();
+        ArrayList timers = (ArrayList) userAndTimer.get(userId);
+        Pomodoro timer = (Pomodoro) timers.get(0);
+        String name = timer.getName();
 
-    @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equals("timer_create")) { // Slash command for creating a timer
-            try {
-                // the user who called /timer_create on Discord
-                User user = event.getUser();
+        if (TimerDAO.checkDuplicate(name, userId)) {
+            TimerPresenter.sendReply(event, "Duplicate names are not allowed " +
+                            "for timer instances. Try again with a different name.");}
 
-                // the new timer's name
-                String name = Objects.requireNonNull(event.getOption("name")).getAsString();
+        else if (TimerDAO.checkMoreThanFive(userId)) {
+            TimerPresenter.sendReply(event, "You have reached the maximum number of timers! " +
+                    "Delete one before adding a new one.");}
 
-                // the duration of work period
-                double workTime = Objects.requireNonNull(event.getOption("work")).getAsDouble();
+        else if (TimerDAO.checkEmpty("timer_repository.json")) {
+            TimerDAO.saveTimerOne(userAndTimer, "timer_repository.json");
+            TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
+                    name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
+                    timer.getBreakTime() + " minutes of break " + timer.getIteration() + " times.");}
 
-                // the duration of break period
-                double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
+        else if (!TimerDAO.checkUser(userAndTimer, "timer_repository.json")) {
+            TimerDAO.saveTimerTwo(userAndTimer, "timer_repository.json");
+            TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
+                    name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
+                    timer.getBreakTime() + " minutes of break " + timer.getIteration() + " times.");}
 
-                // One iteration of work-break routine is called an interval.
-                Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
+        else if (TimerDAO.checkUser(userAndTimer, "timer_repository.json")) {
+            TimerDAO.saveTimerThree(userAndTimer, "timer_repository.json");
+            TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
+                    name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
+                    timer.getBreakTime() + " minutes of break " + timer.getIteration() + " times.");}
 
-                // Object needed to check duplicate timers
-                TimerDAO timerDAO = new TimerDAO();
-
-                // Prevents users from creating timers with impossible settings
-                if (workTime < 0 || breakTime < 0 || iteration <= 0) {
-                    event.reply("You can't make a timer with negative numbers! Try again " +
-                            "with positive real numbers.").queue();
-                } else if (timerDAO.checkDuplicate(name, user.toString())) {
-                    event.reply("Duplicate names are not allowed for timer instances. " +
-                                    "Try again with a different name.").queue();
-                } else {
-                    TimerController.convertTimerInput(name, workTime, breakTime, iteration, user);
-                    event.reply("A timer preset has been created. \"" + name +
-                        "\" will repeat " + workTime + " minutes of work and " + breakTime
-                + " minutes of break " + iteration + " times.")
-                            .addActionRow(Button.primary("list", "View List")).queue();
-                }
-            }
-            catch (NumberFormatException e) {
-                event.reply("Exception raised: NumberFormatException").queue();
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
-                event.reply("Exception raised: ArrayIndexOutOfBoundsException").queue();
-            }
-        }
-        if (event.getName().equals("timer_list")) { // Command for loading a list of timers
-            event.reply(TimerPresenter.getTimers(event.getUser())).queue();
-        }
-        if (event.getName().equals("timer_start")) {// Command for starting a timer
-            if (timer != null) {
-                event.reply("Timer is already running! Press Cancel before starting a new one.")
-                        .queue();
-            } else {
-                User user = event.getUser();
-                User one = event.getOption("invitee1", null, OptionMapping::getAsUser);
-                User two = event.getOption("invitee2", null, OptionMapping::getAsUser);
-                User three = event.getOption("invitee3", null, OptionMapping::getAsUser);
-                String name = Objects.requireNonNull(event.getOption("name")).getAsString();
-                Pomodoro timer = TimerPresenter.fetchTimer(name, user);
-                timer.addUser(user);
-
-                if (one != null) {
-                    if (one.equals(user)) {
-                        event.reply("You can't invite yourself!").queue();
-                    } else {
-                        timer.addUser(one);
-                    }
-                }
-                if (two != null) {
-                    if (two.equals(user)) {
-                        event.reply("You can't invite yourself!").queue();
-                    } else {
-                        timer.addUser(two);
-                    }
-                }
-                if (three != null) {
-                    if (three.equals(user)) {
-                        event.reply("You can't invite yourself!").queue();
-                    } else {
-                        timer.addUser(three);
-                    }
-                }
-
-                if (timer == null) {
-                    event.reply("The requested timer is not found.").queue();}
-                else {
-                    this.timer = timer;
-                    event.reply(timer.getName() + " started. You will be notified through" +
-                                    " a private channel.")
-                            .addActionRow(Button.primary("cancel", "Cancel")).queue();
-                    timer.startTimer();}
-                }
-        }
     }
 
-    public void onButtonInteraction(ButtonInteractionEvent event) {
-       if (event.getComponentId().equals("cancel")) {
-           if (timer == null) {
-               event.reply("There is no ongoing timer!").queue();
-           } else {
-               timer.removeUser(event.getUser());
-               event.reply("You have successfully unsubscribed to " + timer.getName() +
-                   " and you will not be notified.").queue();
-               timer = null;
-               }
-           }
-       if (event.getComponentId().equals("list")) {
-           event.reply(TimerPresenter.getTimers(event.getUser())).queue();
-       }
-   }
+    public static void timerDelete(String name, String user, SlashCommandInteractionEvent event) {
+        if (TimerDAO.checkEmpty("timer_repository.json") ||
+        !TimerDAO.checkUserDelete(user, "timer_repository.json")) {
+            TimerPresenter.sendReply(event, "You don't have any presets to remove");}
+
+        else if (TimerDAO.checkUserDelete(user, "timer_repository.json")) {
+            TimerDAO.deletePomodoro(name, user, "timer_repository.json");
+            TimerPresenter.sendSuccessReply(event, name + " has been successfully removed.");
+        }
+
+    }
+
+
 }

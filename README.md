@@ -7,7 +7,6 @@ UHelper is an interactive bot that is designed to meet students' needs on Discor
 3. [Project Progresses](#project-progresses)
 4. [Important Notes](#important-notes)
 
-
 ## Overview
 
 The main goal of UHelper is to assist with time management and wellness. 
@@ -25,6 +24,7 @@ users can engage in mini-games, which track their records, to stay entertained. 
 to avoid command conflicts with other bots in the server, users can customize UHelper's command 
 lines. The customizability ensures a seamless and non-disruptive experience across various 
 functionalities.
+
 
 ## Installation Guide
 
@@ -67,7 +67,6 @@ UHelper joined the server, but it cannot listen to your commands as it is not on
 IntelliJ IDEA and go to ca.unknown.bot.app.Main. Go to Edit Configurations, click Add new run 
 configuration, and select Application.
 
-
 ![png](assets/5.png)
 
 In the edit configuration window, choose Java 11 and Project.Main under the Build and Run section.
@@ -102,13 +101,13 @@ Currently, we are working to implement the following features.
 You can find all the user stories and other details in our blueprint from [here](https://docs.google.com/document/d/1OcYBGoSZbEqtA47CwSlzFe1wVuZo28Xl-FKUkS_0AUI/edit#heading=h.rwi1fv3j8vi2).
 
 - **Timer** ⏱️
-  - [X] Create a timer preset by providing the amount of time wanted for work and break (July 3)
-  and record it in a json file. (July 18)
-  - [X] Provide a list of the timers that are created by the caller when requested (July 18)
+  - [X] Create a timer preset by providing the amount of time wanted for work and break 
+  and record it in a json file.
+  - [X] Provide a list of the timers that are created by the caller when requested 
   - [X] Start a timer by giving the bot the name of that timer and notify users when time is up 
-  via DM. In doing so, the user can invite other users so that they'd be also notified. (July 25)
-  - [X] Cancel an ongoing timer. (July 26)
-  - [X] (NEW) Delete a timer preset by its name. (July 27)
+  via DM. In doing so, the user can invite other users so that they'd be also notified.
+  - [X] Cancel an ongoing timer.
+  - [X] Delete a timer preset by its name. 
 
 - **Minigames** 🎮
   - [X] Rock-paper-scissors
@@ -148,6 +147,6 @@ You can find all the user stories and other details in our blueprint from [here]
 **July 21** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
 (Access to the course page may be restricted)
 
-**August 8** - Phase 2 & Final Presentation
+**August 8** - [Phase 2](https://q.utoronto.ca/courses/345741/pages/phase-2-10-percent?module_item_id=5764412) & [Final Presentation](https://q.utoronto.ca/courses/345741/pages/presentation-5-percent?module_item_id=5764413)
 
 **August 15** - Final Exam

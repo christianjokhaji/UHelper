@@ -4,7 +4,7 @@ import ca.unknown.bot.use_cases.recipe.RecipeInteractor;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
 import ca.unknown.bot.use_cases.utils.EventListener;
 import ca.unknown.bot.use_cases.game.GameInteractor;
-import ca.unknown.bot.use_cases.timer.TimerInteractor;
+import ca.unknown.bot.interface_adapter.timer.TimerListener;
 import ca.unknown.bot.use_cases.quiz_me.StudyInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -31,7 +31,7 @@ public class Main {
         // Adds use-case interactors to the bot instance.
         jda.addEventListener(new GameInteractor());
         jda.addEventListener(new RecipeInteractor(jda));
-        jda.addEventListener(new TimerInteractor());
+        jda.addEventListener(new TimerListener());
         jda.addEventListener(new ScheduledReminderInteractor());
         StudyInteractor studyInteractor = new StudyInteractor(jda);
         jda.addEventListener(studyInteractor);
@@ -48,6 +48,8 @@ public class Main {
                         .addOption(OptionType.NUMBER, "work", "how long a work session should be")
                         .addOption(OptionType.NUMBER, "break", "how long a break should be")
                         .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
+                        .addOption(OptionType.STRING, "name", "the name of the timer"),
+                Commands.slash("timer_delete", "Delete a Pomodoro timer")
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
                 Commands.slash("timer_list", "Provides the list of the timers you have."),
                 Commands.slash("timer_start", "Starts a timer.")

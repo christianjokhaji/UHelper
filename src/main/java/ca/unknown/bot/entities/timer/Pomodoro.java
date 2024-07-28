@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.entities.User;
 import java.util.*;
 import java.lang.Math;
 
-
 public class Pomodoro implements TimerInterface {
 
     private final String name;
@@ -13,7 +12,7 @@ public class Pomodoro implements TimerInterface {
     private final ArrayList<User> users;
     private int completedCycle;
 
-     /**
+    /**
      * Pomodoro is a representation of timer preset that discord users can configure with how long
      * their study time and break time are.
      * <p>
@@ -30,11 +29,11 @@ public class Pomodoro implements TimerInterface {
      * @param name: the name of a timer preset, which the user will refer to when calling
         */
 
+    public Pomodoro(double workTime, double breakTime, int iteration, String name){
     /**
       * The Pomodoro constructor method.
       * Note that workTime, breakTime, and iteration are all stored in a Hashmap
       */
-    public Pomodoro(double workTime, double breakTime, Integer iteration, String name){
         this.name = name;
         map = new HashMap<>();
         this.map.put("workTime", workTime);
@@ -44,31 +43,19 @@ public class Pomodoro implements TimerInterface {
         this.completedCycle = 0;
     }
 
-    public void addUser(User user){
-        users.add(user);
-    }
-
-    public void removeUser(User user){
-        users.remove(user);
-    }
-
+    public void startTimer() {
     /**
       * Starts a Pomodoro instance
       * It has two helper methods: commenceWork and commenceBreak, each of which starts own
       * respective timer.
       *
-      * This version is to test the logic of Pomodoro on Console. It will not be used when Discord
-      * needs it to serve the timer feature.
-      *
       */
-    public void startTimer() {
         int totalCycle = getIteration();
         if (completedCycle < totalCycle) {
             long endTime = System.currentTimeMillis() + minToMilli(getWorkTime());
             startWork(endTime, completedCycle);
         }
     }
-
 
     // Helper function for starting a work session
     private void startWork(long endTime, int i) {
@@ -95,7 +82,7 @@ public class Pomodoro implements TimerInterface {
                     completedCycle++;
                     long endTime = System.currentTimeMillis() + minToMilli(getWorkTime());
                     if (completedCycle < getIteration()) {startWork(endTime, completedCycle);}
-                    else {notifyUsers("Your timer has ended at " + new Date());}
+                    else {notifyUsers("Your timer ended at " + new Date());}
                     timerForBreak.cancel();
                 }
             }
@@ -137,16 +124,18 @@ public class Pomodoro implements TimerInterface {
                 " minutes of break for " + map.get("iteration") + " time(s)";
     }
 
-    private void notifyUsers(String message) {
-        for (User user : users) {
-            sendPrivateMessage(user, message);
-        }
+    public void addUser(User user){
+        users.add(user);
     }
 
-    public void sendPrivateMessage(User user, String content) {
-        user.openPrivateChannel().queue((channel) -> {
-            channel.sendMessage(content).queue();
-        });
+    public void removeUser(User user){
+        users.remove(user);
+    }
+
+    private void notifyUsers(String message) {
+        for (User user : users) {
+            user.openPrivateChannel().queue((channel) -> channel.sendMessage(message).queue());
+        }
     }
 
     // A helper function for converting minute to millisecond
