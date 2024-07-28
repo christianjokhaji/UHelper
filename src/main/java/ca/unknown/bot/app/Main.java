@@ -33,8 +33,7 @@ public class Main {
         jda.addEventListener(new RecipeInteractor(jda));
         jda.addEventListener(new TimerListener());
         jda.addEventListener(new ScheduledReminderInteractor());
-        StudyInteractor studyInteractor = new StudyInteractor(jda);
-        jda.addEventListener(studyInteractor);
+        jda.addEventListener(new StudyInteractor(jda));
 
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
@@ -105,7 +104,6 @@ public class Main {
                                 .addChoice("Study", "study")
                                 .addChoice("Save Quiz ", "savenotes")
                                 .addChoice("Load Quiz", "loadnotes"))
-
                 ).queue();
     }
 }

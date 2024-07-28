@@ -18,8 +18,8 @@ import java.util.Map;
 
 public class TimerDAO {
     /**
-     * A class in the data access layer. This class communicates with timerController and
-     * timerPresenter to do the followings :
+     * A class in the data access layer. This class communicates with TimerController and
+     * TimerPresenter to do the followings :
      * 1) determine the status of timer_repository.json
      * 2) based on its status, it selects a way to write to timer_repository.json
      * 2) fetches data into a readable data structure so that timerPresenter can process
@@ -89,76 +89,6 @@ public class TimerDAO {
            }
     }
 
-    public void savePomodoro(Map userAndTimer, String filename) {
-    /**
-    * savePomodoro receives a map structure from TimerController and inspects timer_repository to
-    * find out how to store a new Pomodoro instance.
-    *
-    * @param userAndTimer: a map from TimerController, whose key is a string-fied discord user and
-    *                    value is a new Pomodoro instance wrapped in an ArrayList
-    * @param filename: the location of the json file
-    */
-        // 1. Check timer_repository is an empty file
-        // If it is, it will just ask GSON to write userAndTimer without modifications.
-        if (checkEmpty(filename)) {
-           Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
-           GsonBuilder builder = new GsonBuilder();
-
-           // I meant to use GSONTypeAdapter here.
-           // builder.registerTypeAdapter(User.class, new GSONTypeAdapter(user)); may be used if I
-           // change the format of storing a timer setting. Right now, GSONTypeAdapter is dummy.
-            Gson gson = builder
-                   .enableComplexMapKeySerialization().create();
-
-           // Checks for exceptions since they are common with file operations
-           try (FileWriter writer = new FileWriter(filename)) {
-               JsonWriter jsonWriter = new JsonWriter(writer);
-               gson.toJson(userAndTimer, type, jsonWriter);
-           } catch (IOException e) { // This will be raised if filename DNE in local
-               e.printStackTrace();
-           }
-       }
-        // 2. Check if timer_repository doesn't contain that specific user
-        else if (!checkUser(userAndTimer, filename)){
-            Map repo = loadPomodoro(filename); // Copies the repository into a hashmap
-            String key = userAndTimer.keySet().toArray()[0].toString(); // turn user instance into a string
-            repo.put(key, userAndTimer.get(key)); // adds the new user-ArrayList<Pomodoro>
-            Gson gson = new GsonBuilder().create();
-            try (FileWriter writer = new FileWriter(filename)) {
-               JsonWriter jsonWriter = new JsonWriter(writer);
-               Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
-               gson.toJson(repo, type, jsonWriter);
-           } catch (IOException e) { // This will be raised if filename DNE in local
-               e.printStackTrace();
-           }
-        }
-
-        // 3. Check if timer_repository contains the user but no specified timer
-        else if (checkUser(userAndTimer, filename)){
-            Map repo = loadPomodoro(filename);
-            String key = userAndTimer.keySet().toArray()[0].toString();
-            ArrayList value = (ArrayList) userAndTimer.get(key);
-            ArrayList newPomodoros = (ArrayList) repo.get(key);
-            Pomodoro pomodoro = (Pomodoro) value.get(0);
-
-            // 1: Encase a Pomodoro instance from userAndTimer.get(key) in a LinkedTreeMap
-            LinkedTreeMap timer = TimerController.convertToLTM(pomodoro);
-
-            // 2: Put the new LinkedTreeMap in newPomodoros, which is an ArrayList
-            newPomodoros.add(timer);
-
-            // 3: repo.put(key, newPomodoros);
-            repo.put(key, newPomodoros);
-            Gson gson = new GsonBuilder().create();
-            try (FileWriter writer = new FileWriter(filename)) {
-               JsonWriter jsonWriter = new JsonWriter(writer);
-               Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
-               gson.toJson(repo, type, jsonWriter);
-           } catch (IOException e) { // This will be raised if filename DNE in local
-               e.printStackTrace();
-           }
-        }
-    }
 
     public static void deletePomodoro(String name, String user, String filename) {
         Map repo = loadPomodoro(filename);
@@ -226,6 +156,7 @@ public class TimerDAO {
         return false;
     }
 
+    // returns true if user has 5 or more timer instances
     public static boolean checkMoreThanFive(String user) {
         try (FileReader reader = new FileReader("timer_repository.json")) {
             JsonReader jsonReader = new JsonReader(reader);

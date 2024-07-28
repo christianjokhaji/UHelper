@@ -25,10 +25,10 @@ public class TimerController {
      */
 
 
-    public static void convertTimerInput(String name, double workTime, double breakTime, int iteration
+    public static void convertCreateInput(String name, double workTime, double breakTime, int iteration
     , User user, SlashCommandInteractionEvent event) {
      /**
-     * createTimer creates a map that looks like the example above. The map contains the user id
+     * convertCreateInput creates a map that looks like the example above. The map contains the user id
      * (String) as a key and the Pomodoro instance they want to create as a value. It will be passed
      * onto the TimerDAO for checking duplicate user and Pomodoro instances.
      *
@@ -46,8 +46,18 @@ public class TimerController {
         TimerInteractor.timerCreate(userAndTimer, event);
     }
 
-    public static void passDeleteInfo(String name, User user, SlashCommandInteractionEvent event) {
+    public static void convertDeleteInput(String name, User user, SlashCommandInteractionEvent event) {
         TimerInteractor.timerDelete(name, user.toString(), event);
+    }
+
+    public static void convertStartInput(String name, User owner, User one, User two, User three,
+                                         SlashCommandInteractionEvent event) {
+        ArrayList<User> users = new ArrayList<>();
+        users.add(owner);
+        if (one != null) {users.add(one);}
+        if (two != null) {users.add(two);}
+        if (three != null) {users.add(three);}
+        TimerInteractor.timerStart(name, users, event);
     }
 
     public static LinkedTreeMap convertToLTM(Pomodoro pomodoro){

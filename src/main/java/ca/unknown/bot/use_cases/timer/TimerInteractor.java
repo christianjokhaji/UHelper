@@ -3,6 +3,7 @@ package ca.unknown.bot.use_cases.timer;
 import ca.unknown.bot.data_access.timer.TimerDAO;
 import ca.unknown.bot.entities.timer.Pomodoro;
 import ca.unknown.bot.interface_adapter.timer.TimerPresenter;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.util.ArrayList;
@@ -26,11 +27,11 @@ public class TimerInteractor {
         Pomodoro timer = (Pomodoro) timers.get(0);
         String name = timer.getName();
 
-        if (TimerDAO.checkDuplicate(name, userId)) {
+        if (TimerDAO.checkDuplicate(name, userId)) { // Case 1
             TimerPresenter.sendReply(event, "Duplicate names are not allowed " +
                             "for timer instances. Try again with a different name.");}
 
-        else if (TimerDAO.checkMoreThanFive(userId)) {
+        else if (TimerDAO.checkMoreThanFive(userId)) { // Case 2
             TimerPresenter.sendReply(event, "You have reached the maximum number of timers! " +
                     "Delete one before adding a new one.");}
 
@@ -63,6 +64,9 @@ public class TimerInteractor {
             TimerDAO.deletePomodoro(name, user, "timer_repository.json");
             TimerPresenter.sendSuccessReply(event, name + " has been successfully removed.");
         }
+    }
+
+    public static void timerStart(String name, ArrayList<User> users, SlashCommandInteractionEvent event) {
 
     }
 

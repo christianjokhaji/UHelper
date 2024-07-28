@@ -13,8 +13,8 @@ public class Pomodoro implements TimerInterface {
     private int completedCycle;
 
     /**
-     * Pomodoro is a representation of timer preset that discord users can configure with how long
-     * their study time and break time are.
+     * Pomodoro is a representation of timer preset that Discord users can configure with how long
+     * their study time and break time are in minutes.
      * <p>
      * Representation Invariants:
      * 1) workMinute and breakMinute should be a positive rational number, while iteration
@@ -22,6 +22,7 @@ public class Pomodoro implements TimerInterface {
      * 2) name should never be equal to other Pomodoro instances.
      * <p>
      * Fun Fact: A cycle of work-break is called a pomodoro, which means tomato in Italian.
+     * Responsibility: mimic the logic of real Pomodoro timer and sends a dm to the users registered
      *
      * @param workTime: the length of a study session in a timer preset
      * @param breakTime: the length of a break session in a timer preset
@@ -32,7 +33,7 @@ public class Pomodoro implements TimerInterface {
     public Pomodoro(double workTime, double breakTime, int iteration, String name){
     /**
       * The Pomodoro constructor method.
-      * Note that workTime, breakTime, and iteration are all stored in a Hashmap
+      * Note that workTime, breakTime, and iteration are all stored in a Hashmap.
       */
         this.name = name;
         map = new HashMap<>();
@@ -45,7 +46,7 @@ public class Pomodoro implements TimerInterface {
 
     public void startTimer() {
     /**
-      * Starts a Pomodoro instance
+      * Starts a Pomodoro instance.
       * It has two helper methods: commenceWork and commenceBreak, each of which starts own
       * respective timer.
       *
