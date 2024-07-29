@@ -43,6 +43,8 @@ public class Main {
                                 .addChoice("Paper", "paper")
                                 .addChoice("Scissors", "scissors")),
                 Commands.slash("trivia", "Starts a game of trivia."),
+                Commands.slash("8ball", "Receive a Magic 8Ball reading.")
+                        .addOption(OptionType.STRING, "question", "What is the question?"),
                 Commands.slash("timer_create", "Creates a new Pomodoro timer.")
                         .addOption(OptionType.NUMBER, "work", "how long a work session should be")
                         .addOption(OptionType.NUMBER, "break", "how long a break should be")
