@@ -7,6 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+
 /**
  * A class for sending a GET request to an API endpoint.
  */
@@ -21,7 +22,9 @@ public class APIFetcher {
     public static String fetch(String url) {
         try {
             // Build the HTTP client.
-            HttpClient client = HttpClient.newHttpClient();
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.NORMAL) // Automatically follow redirects.
+                    .build();
             // Build the HTTP request.
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(url))
