@@ -55,7 +55,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             ScheduledReminderInputData scheduledReminderInputData = scheduledReminderController.getScheduledReminderInputData();
 
             // if the user tries to schedule an event in the past then stop execution
-            if(scheduledReminderInputData.getEventDate().getDate().compareTo(new Date()) < 0){
+            if(scheduledReminderInputData.getEventDate().compareTo(new Date()) < 0){
                 event.getHook().sendMessage("You can only schedule a future event!").complete();
                 return;
             }
@@ -80,7 +80,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             ScheduledReminderInputData scheduledReminderInputData = scheduledReminderController.getScheduledReminderInputData();
 
             // if the user tries to schedule an event in the past then stop execution
-            if(scheduledReminderInputData.getEventDate().getDate().compareTo(new Date()) <= 0){
+            if(scheduledReminderInputData.getEventDate().compareTo(new Date()) <= 0){
                 event.getHook().sendMessage("You can only schedule a future event!").complete();
                 return;
             }
@@ -106,7 +106,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             ScheduledReminderInputData scheduledReminderInputData = scheduledReminderController.getScheduledReminderInputData();
 
             // if the user tries to schedule an event in the past then stop execution
-            if(scheduledReminderInputData.getEventDate().getDate().compareTo(new Date()) < 0){
+            if(scheduledReminderInputData.getEventDate().compareTo(new Date()) < 0){
                 event.getHook().sendMessage("You can only schedule a future event!").complete();
                 return;
             }
@@ -144,7 +144,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 scheduleDAO.saveToFile("schedule_repository");
 
                 // alert the user of the successful event
-                event.reply("Schedule cleared successfully. You have no upcoming events.").queue();
+                event.reply("Schedule cleared successfully. You are unsubscribed from any reminder alerts.").queue();
             }
         }
     }

@@ -22,8 +22,8 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
      * @param eventDate date of this event
      * @param eventName name of this event
      */
-    public ScheduledEvent(EventDate eventDate, String eventName){
-        this.eventDate = eventDate.getDate();
+    public ScheduledEvent(Date eventDate, String eventName){
+        this.eventDate = eventDate;
         this.eventName = eventName;
     }
 

@@ -1,4 +1,5 @@
 package ca.unknown.bot.entities.schedule_reminder;
+import java.util.*;
 
 /**
  * Stores the user's assignment details.
@@ -15,7 +16,7 @@ public class Assignment extends ScheduledEvent {
      * @param assignmentName the name of this assignment
      * @param courseCode the course code of the class that this assignment is from
      */
-    public Assignment(EventDate dueDate, String assignmentName, String courseCode){
+    public Assignment(Date dueDate, String assignmentName, String courseCode){
         // assignmentName = eventName in superclass
         super(dueDate, assignmentName);
         this.courseCode = courseCode;
