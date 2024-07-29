@@ -21,7 +21,7 @@ public class ScheduledAssignmentInteractor extends ScheduledEventInteractor {
         ScheduledEvent schedAssignment = eventFactory.createAssignment(scheduledReminderInputData.getEventDate(),
                 scheduledReminderInputData.getEventName(), scheduledReminderInputData.getAssignmentCourseCode());
         scheduleDAO.getSchedule(user).addEvent(schedAssignment);
-        // scheduleDAO.saveToFile("schedule_repository");
+        scheduleDAO.saveToFile("schedule_repository");
         event.getHook().sendMessage("You have scheduled the following event: \n"+ schedAssignment.toString()).queue();
         return schedAssignment;
     }
