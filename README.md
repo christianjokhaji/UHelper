@@ -110,6 +110,7 @@ You can find all the user stories and other details in our blueprint from [here]
 - **Minigames** 🎮
   - [X] Rock-paper-scissors
   - [X] Trivia
+  - [X] Magic 8 Ball 
 
 - **Study help** 📚
   - [X] QuizMe
