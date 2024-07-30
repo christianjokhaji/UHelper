@@ -13,25 +13,28 @@ import java.util.Objects;
 
 public class TimerListener extends ListenerAdapter {
     /**
-     * TimerInteractor is a class that is responsible for gathering data from the view and view model
-     * (the Discord client) Whenever a command was made on a Discord server, it gets an instance of
+     * TimerInteractor is a listener class that is responsible for gathering data from the view and view model
+     * (the Discord client). Whenever a command was made on a Discord server, it gets an instance of
      * RestAction to interact with TimerController and TimerPresenter to deal with various requests.
-     * Many of the methods below involves getting information about the user who call a certain
+     * Its methods mostly involves getting information about the user who call a certain
      * command.
-     *
-     * As of July 27, timer only uses two types of RestAction(event): SlashCommandInteractionEvent
-     * or ButtonInteractionEvent.
+     * Responsibility: listens to inputs and pass them to the appropriate classes
      *
      * @param event represents an event, regardless of how end users invoked them.
      */
 
-    private static Pomodoro timer;
-    private static ArrayList<Pomodoro> timers;
 
+    /**
+     * onSlashCommandInteraction listens to the slash command interactions from
+     * users and will process inputs as appropriate data types. Then, it will determine what method
+     * of TimerController / TimerPresenter to use so that they can convert inputs accordingly.
+     *
+     * @param event represents an event, invoked by a slash command.
+     */
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("timer_create")) { // Slash command for creating a timer
-            // This part of the entire if-branch organizes the user inputs about creating a timer
+            // This part of the entire if-branch organizes the user inputs needed for creating a timer
             // and invokes TimerController to create an appropriate data type.
 
             // the literal user who called /timer_create on Discord
@@ -51,8 +54,8 @@ public class TimerListener extends ListenerAdapter {
 
             // Prevents users from creating timers with impossible configurations
             if (workTime < 0 || breakTime < 0 || iteration <= 0) {
-                event.reply("You can't create a timer with negative numbers! Try again " +
-                        "with positive real numbers.").queue();}
+                TimerPresenter.sendReply(event, "You can't create a timer with negative" +
+                        "numbers! Try again with positive real numbers.");}
 
             // Passes the above info onto TimerController
             TimerController.convertCreateInput(name, workTime, breakTime, iteration, user, event);
@@ -68,68 +71,45 @@ public class TimerListener extends ListenerAdapter {
             TimerController.convertDeleteInput(name, user, event);
         }
         if (event.getName().equals("timer_list")) { // Command for loading a list of timers
+            // Invokes TimerPresenter to reply with a list of timers, given the caller and event
             TimerPresenter.getTimers(event.getUser(), event);
         }
         if (event.getName().equals("timer_start")) {// Command for starting a timer
-            String name = Objects.requireNonNull(event.getOption("name")).getAsString();
+            // The user who called /timer_start; will be notified always.
             User user = event.getUser();
+
+            // The name of the timer to be started
+            String timerName = Objects.requireNonNull(event.getOption("name")).getAsString();
+
+            // The users who also want to be notified by the same timer; up to three people.
             User one = event.getOption("invitee1", null, OptionMapping::getAsUser);
             User two = event.getOption("invitee2", null, OptionMapping::getAsUser);
             User three = event.getOption("invitee3", null, OptionMapping::getAsUser);
 
-            TimerController.convertStartInput(name, one, two, three, user, event);
+            // Invokes TimerController to convert inputs
+            TimerController.convertStartInput(timerName, user, one, two, three, event);
+        }
+        if (event.getName().equals("timer_cancel")) {
+            // The user who wish to be no longer notified
+            User user = event.getUser();
 
+            // The name of the timer to unsubscribe from
+            String timerName = Objects.requireNonNull(event.getOption("name")).getAsString();
 
-//            Pomodoro timer = TimerPresenter.fetchTimer(name, user);
-//            timer.addUser(user);
-//
-//            if (one != null) {
-//                    if (one.equals(user)) {
-//                        event.reply("You can't invite yourself!").queue();
-//                    } else {
-//                        timer.addUser(one);
-//                    }
-//                }
-//            if (two != null) {
-//                    if (two.equals(user)) {
-//                        event.reply("You can't invite yourself!").queue();
-//                    } else {
-//                        timer.addUser(two);
-//                    }
-//                }
-//            if (three != null) {
-//                    if (three.equals(user)) {
-//                        event.reply("You can't invite yourself!").queue();
-//                    } else {
-//                        timer.addUser(three);
-//                    }
-//                }
-
-//                if (timer == null) {
-//                    event.reply("The requested timer is not found.").queue();}
-//                else {
-//                    this.timer = timer;
-//                    event.reply(timer.getName() + " started. You will be notified through" +
-//                                    " a private channel.")
-//                            .addActionRow(Button.primary("cancel", "Cancel")).queue();
-//                    timer.startTimer();
-//                }
-
+            // Invokes TimerController to process inputs appropriately to the purpose of cancelling
+            TimerController.convertCancelInput(timerName, user, event);
         }
     }
 
+    /**
+     * onButtonInteraction is similar to onSlashCommandInteraction, except for the fact that this
+     * deals with the button interaction of Discord.
+     *
+     * @param event represents an event, invoked by a button.
+     */
     public void onButtonInteraction(ButtonInteractionEvent event) {
-       if (event.getComponentId().equals("cancel")) {
-           if (timer == null) {
-               event.reply("There is no ongoing timer!").queue();
-           } else {
-               timer.removeUser(event.getUser());
-               event.reply("You have successfully unsubscribed to " + timer.getName() +
-                   " and you will not be notified.").queue();
-               timer = null;
-               }
-           }
        if (event.getComponentId().equals("list")) {
+           // Invokes TimerPresenter to prepare a list of timers created by this particular user
            TimerPresenter.getTimersButton(event.getUser(), event);
        }
    }

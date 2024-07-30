@@ -33,6 +33,7 @@ public class TimerPresenter {
         event.reply(message).addActionRow(Button.primary("list", "View List")).queue();
     }
 
+
     public static void getTimers(User user, SlashCommandInteractionEvent event) {
      /**
      * A presenter method that is used for /timer_list. This fetches an ArrayList of LinkedTreeMaps

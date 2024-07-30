@@ -7,6 +7,8 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class TimerInteractor {
@@ -20,6 +22,8 @@ public class TimerInteractor {
      * Map<String, ArrayList<LinkedTreeMap>>
      * {userID1: <timer1, timer2>, userID2: <timer3>}
      */
+
+     private static ArrayList<Pomodoro> timerList = new ArrayList<>();
 
     public static void timerCreate(Map userAndTimer, SlashCommandInteractionEvent event) {
         String userId = userAndTimer.keySet().toArray()[0].toString();
@@ -35,19 +39,19 @@ public class TimerInteractor {
             TimerPresenter.sendReply(event, "You have reached the maximum number of timers! " +
                     "Delete one before adding a new one.");}
 
-        else if (TimerDAO.checkEmpty("timer_repository.json")) {
+        else if (TimerDAO.checkEmpty("timer_repository.json")) { // Case 3
             TimerDAO.saveTimerOne(userAndTimer, "timer_repository.json");
             TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
                     name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
                     timer.getBreakTime() + " minutes of break " + timer.getIteration() + " times.");}
 
-        else if (!TimerDAO.checkUser(userAndTimer, "timer_repository.json")) {
+        else if (!TimerDAO.checkUser(userAndTimer, "timer_repository.json")) { // Case 4
             TimerDAO.saveTimerTwo(userAndTimer, "timer_repository.json");
             TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
                     name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
                     timer.getBreakTime() + " minutes of break " + timer.getIteration() + " times.");}
 
-        else if (TimerDAO.checkUser(userAndTimer, "timer_repository.json")) {
+        else if (TimerDAO.checkUser(userAndTimer, "timer_repository.json")) { // Case 5
             TimerDAO.saveTimerThree(userAndTimer, "timer_repository.json");
             TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
                     name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
@@ -66,9 +70,50 @@ public class TimerInteractor {
         }
     }
 
-    public static void timerStart(String name, ArrayList<User> users, SlashCommandInteractionEvent event) {
-
+    public static void timerStart(String timerName, ArrayList<User> users, SlashCommandInteractionEvent event) {
+        User owner = users.get(0);
+        Pomodoro timer = TimerDAO.fetchTimer(timerName, owner.toString());
+        if (timer == null) {TimerPresenter.sendReply(event, "The requested timer is not found");}
+        else {
+            if (checkTimerRunning(owner)) {
+                TimerPresenter.sendReply(event, "There is a timer already running!");
+            } else {
+                for (User user : users) {
+                    timer.addUser(user);}
+                cleanTimerList();
+                timer.startTimer();
+                timerList.add(timer);
+                TimerPresenter.sendReply(event, timerName + " has started.");
+            }
+        }
     }
+
+    public static void TimerCancel(String timerName, User user, SlashCommandInteractionEvent event) {
+        for (Pomodoro timer : timerList) {
+            if (timer.getName().equals(timerName)) {
+                timer.removeUser(user);
+                TimerPresenter.sendReply(event, "Timer successfully cancelled.");
+                break;
+            }
+        }
+        cleanTimerList();
+        TimerPresenter.sendReply(event, "Timer is not found.");
+    }
+
+    private static boolean checkTimerRunning(User user) {
+        for (Pomodoro timer : timerList) {
+            if (timer.containsUser(user)) {return true;}
+        }
+        return false;
+    }
+
+    private static void cleanTimerList() {
+        for (Pomodoro timer : timerList) {
+            if (timer.getUsers().isEmpty()) {
+                timerList.remove(timer);}
+        }
+    }
+
 
 
 }

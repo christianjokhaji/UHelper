@@ -15,29 +15,25 @@ import java.util.Map;
 public class TimerController {
      /**
      * A controller class in the Interface Adapters layer. This class receives the inputs from
-     * TimerListener and converts to an appropriate datatype (Map) for TimerInteractor to process.
-     *
-     * A typical map that maps a Discord user onto timer looks like this. (and this is how
-     * a map is represented in timer_repository.json.)
-     *
-     * Map<String, ArrayList<LinkedTreeMap>>
-     * {userID1: <timer1, timer2>, userID2: <timer3>}
+     * TimerListener and converts to an appropriate datatype for TimerInteractor to process.
+      * How are the inputs like user information and timer settings processed? It depends on what
+      * RestAction the caller (user) requested.
+      *
      */
 
 
     public static void convertCreateInput(String name, double workTime, double breakTime, int iteration
     , User user, SlashCommandInteractionEvent event) {
      /**
-     * convertCreateInput creates a map that looks like the example above. The map contains the user id
-     * (String) as a key and the Pomodoro instance they want to create as a value. It will be passed
-     * onto the TimerDAO for checking duplicate user and Pomodoro instances.
-     *
+      * convertCreateInput creates a HashMap whose key is the user and value is the timer, covered in an
+      * ArrayList. It will be passed onto the TimerInteractor for checking duplicate user and Pomodoro instances.
+      *
       * @param name : the name of the new timer instance
       * @param workTime : the duration of a work period (within an interval)
       * @param breakTime : the duration of a break period (within an interval)
       * @param iteration : the number of intervals for a timer instance
       * @param user : the Discord user who used /timer_create
-     */
+      */
         Pomodoro newTimer = new Pomodoro(workTime, breakTime, iteration, name);
         ArrayList<Pomodoro> value = new ArrayList<>();
         value.add(newTimer);
@@ -47,17 +43,29 @@ public class TimerController {
     }
 
     public static void convertDeleteInput(String name, User user, SlashCommandInteractionEvent event) {
+    /**
+      * convertCreateInput creates a HashMap whose key is the user and value is the timer, covered in an
+      * ArrayList. It will be passed onto the TimerInteractor for checking duplicate user and Pomodoro instances.
+      *
+      * @param name : the name of the new timer instance
+      * @param user : the Discord user who called timer_cancel
+      * @oaram event : the event, which the JDA instance requires to make a proper reply message
+      */
         TimerInteractor.timerDelete(name, user.toString(), event);
     }
 
-    public static void convertStartInput(String name, User owner, User one, User two, User three,
+    public static void convertStartInput(String timerName, User owner, User one, User two, User three,
                                          SlashCommandInteractionEvent event) {
         ArrayList<User> users = new ArrayList<>();
         users.add(owner);
-        if (one != null) {users.add(one);}
-        if (two != null) {users.add(two);}
-        if (three != null) {users.add(three);}
-        TimerInteractor.timerStart(name, users, event);
+        if (one != null && one != owner) {users.add(one);}
+        if (two != null && two != owner) {users.add(two);}
+        if (three != null && three != owner) {users.add(three);}
+        TimerInteractor.timerStart(timerName, users, event);
+    }
+
+    public static void convertCancelInput(String timerName, User user, SlashCommandInteractionEvent event) {
+        TimerInteractor.TimerCancel(timerName, user, event);
     }
 
     public static LinkedTreeMap convertToLTM(Pomodoro pomodoro){

@@ -56,6 +56,8 @@ public class Main {
                         .addOption(OptionType.USER, "invitee1", "the first user to share a timer (Optional)", false)
                         .addOption(OptionType.USER, "invitee2", "the second user to share a timer (Optional)", false)
                         .addOption(OptionType.USER, "invitee3", "the third user to share a timer (Optional)", false),
+                Commands.slash("timer_cancel", "Cancels the specified timer if it's running")
+                        .addOption(OptionType.STRING, "name", "the name of the timer"),
                 Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                         .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
                         .addOption(OptionType.INTEGER, "count", "Enter a positive integer", true)

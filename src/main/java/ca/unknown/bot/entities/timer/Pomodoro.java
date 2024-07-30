@@ -9,7 +9,7 @@ public class Pomodoro implements TimerInterface {
 
     private final String name;
     private final HashMap<String, Object> map;
-    private final ArrayList<User> users;
+    private ArrayList<User> users;
     private int completedCycle;
 
     /**
@@ -83,7 +83,10 @@ public class Pomodoro implements TimerInterface {
                     completedCycle++;
                     long endTime = System.currentTimeMillis() + minToMilli(getWorkTime());
                     if (completedCycle < getIteration()) {startWork(endTime, completedCycle);}
-                    else {notifyUsers("Your timer ended at " + new Date());}
+                    else {
+                        notifyUsers("Your timer ended at " + new Date());
+                        users.clear();
+                    }
                     timerForBreak.cancel();
                 }
             }
@@ -117,6 +120,8 @@ public class Pomodoro implements TimerInterface {
     @Override
     public HashMap getMap() {return this.map;}
 
+    public ArrayList<User> getUsers() {return this.users;}
+
     // A string representation of the Pomodoro class
     @Override
     public String toString() {
@@ -131,6 +136,10 @@ public class Pomodoro implements TimerInterface {
 
     public void removeUser(User user){
         users.remove(user);
+    }
+
+    public boolean containsUser(User user){
+        return users.contains(user);
     }
 
     private void notifyUsers(String message) {

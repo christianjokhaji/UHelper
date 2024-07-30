@@ -142,6 +142,7 @@ public class TimerDAO {
         return false;
     }
 
+    // Same as above, but uses a simplified parameter for the deleting purpose
     public static boolean checkUserDelete(String user, String filename) {
         try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
@@ -192,7 +193,23 @@ public class TimerDAO {
         return false;
     }
 
-    public ArrayList<LinkedTreeMap> loadTimers(String user, String filename) {
+    public static Pomodoro fetchTimer(String name, String user) {
+        ArrayList<LinkedTreeMap> timers = (ArrayList) loadTimers(user,"timer_repository.json");
+        for (LinkedTreeMap timer : timers) {
+            if (((LinkedTreeMap<?, ?>) timer).get("name").equals(name)) {
+                String timerName = timer.get("name").toString();
+                LinkedTreeMap spec = (LinkedTreeMap) timer.get("map");
+                double breakTime = Double.parseDouble(spec.get("breakTime").toString());
+                double workTime = Double.parseDouble(spec.get("workTime").toString());
+                Double it = Double.parseDouble(spec.get("iteration").toString());
+                int iteration = it.intValue();
+                return new Pomodoro(workTime, breakTime, iteration, timerName);
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<LinkedTreeMap> loadTimers(String user, String filename) {
    /**
     * loadTimers returns an ArrayList that consists of Pomodoro instances.
     *
