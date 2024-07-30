@@ -18,8 +18,8 @@ import java.util.Map;
 
 public class TimerDAO {
     /**
-     * A class in the data access layer. This class communicates with TimerController and
-     * TimerPresenter to do the followings :
+     * A class in the data access layer. This class communicates with TimerProcessor
+     * to do the followings :
      * 1) determine the status of timer_repository.json
      * 2) based on its status, it selects a way to write to timer_repository.json
      * 2) fetches data into a readable data structure so that timerPresenter can process
@@ -51,42 +51,42 @@ public class TimerDAO {
     }
 
     public static void saveTimerTwo(Map userAndTimer, String filename) {
-            Map repo = loadPomodoro(filename); // Copies the repository into a hashmap
-            String key = userAndTimer.keySet().toArray()[0].toString(); // turn user instance into a string
-            repo.put(key, userAndTimer.get(key)); // adds the new user-ArrayList<Pomodoro>
-            Gson gson = new GsonBuilder().create();
-            try (FileWriter writer = new FileWriter(filename)) {
-               JsonWriter jsonWriter = new JsonWriter(writer);
-               Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
-               gson.toJson(repo, type, jsonWriter);
-           } catch (IOException e) { // This will be raised if filename DNE in local
-               e.printStackTrace();
-           }
+        Map repo = loadPomodoro(filename); // Copies the repository into a hashmap
+        String key = userAndTimer.keySet().toArray()[0].toString(); // turn user instance into a string
+        repo.put(key, userAndTimer.get(key)); // adds the new user-ArrayList<Pomodoro>
+        Gson gson = new GsonBuilder().create();
+        try (FileWriter writer = new FileWriter(filename)) {
+            JsonWriter jsonWriter = new JsonWriter(writer);
+            Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
+            gson.toJson(repo, type, jsonWriter);
+        } catch (IOException e) { // This will be raised if filename DNE in local
+            e.printStackTrace();
+        }
     }
 
     public static void saveTimerThree(Map userAndTimer, String filename) {
-            Map repo = loadPomodoro(filename);
-            String key = userAndTimer.keySet().toArray()[0].toString();
-            ArrayList value = (ArrayList) userAndTimer.get(key);
-            ArrayList newPomodoros = (ArrayList) repo.get(key);
-            Pomodoro pomodoro = (Pomodoro) value.get(0);
+        Map repo = loadPomodoro(filename);
+        String key = userAndTimer.keySet().toArray()[0].toString();
+        ArrayList value = (ArrayList) userAndTimer.get(key);
+        ArrayList newPomodoros = (ArrayList) repo.get(key);
+        Pomodoro pomodoro = (Pomodoro) value.get(0);
 
-            // 1: Encase a Pomodoro instance from userAndTimer.get(key) in a LinkedTreeMap
-            LinkedTreeMap timer = TimerController.convertToLTM(pomodoro);
+        // 1: Encase a Pomodoro instance from userAndTimer.get(key) in a LinkedTreeMap
+        LinkedTreeMap timer = TimerController.convertToLTM(pomodoro);
 
-            // 2: Put the new LinkedTreeMap in newPomodoros, which is an ArrayList
-            newPomodoros.add(timer);
+        // 2: Put the new LinkedTreeMap in newPomodoros, which is an ArrayList
+        newPomodoros.add(timer);
 
-            // 3: repo.put(key, newPomodoros);
-            repo.put(key, newPomodoros);
-            Gson gson = new GsonBuilder().create();
-            try (FileWriter writer = new FileWriter(filename)) {
-               JsonWriter jsonWriter = new JsonWriter(writer);
-               Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
-               gson.toJson(repo, type, jsonWriter);
-           } catch (IOException e) { // This will be raised if filename DNE in local
-               e.printStackTrace();
-           }
+        // 3: repo.put(key, newPomodoros);
+        repo.put(key, newPomodoros);
+        Gson gson = new GsonBuilder().create();
+        try (FileWriter writer = new FileWriter(filename)) {
+            JsonWriter jsonWriter = new JsonWriter(writer);
+            Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
+            gson.toJson(repo, type, jsonWriter);
+        } catch (IOException e) { // This will be raised if filename DNE in local
+            e.printStackTrace();
+        }
     }
 
 

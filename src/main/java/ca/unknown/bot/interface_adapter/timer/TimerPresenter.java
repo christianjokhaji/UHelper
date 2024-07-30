@@ -26,10 +26,23 @@ public class TimerPresenter {
      */
 
     public static void sendReply(SlashCommandInteractionEvent event, String message) {
+    /**
+     * A generic reply method for TimerPresenter. event determines what interaction to react to, and
+     * the bot will print message as a reaction to the event.
+     *
+     * @param event : the RestAction event that the bot intends to respond
+     * @param message : the message to print
+     */
         event.reply(message).queue();
     }
 
     public static void sendSuccessReply(SlashCommandInteractionEvent event, String message) {
+    /**
+     * A reply method for instances where a new timer instance is successfully stored.
+     *
+     * @param event : the RestAction event that the bot intends to respond
+     * @param message : the message to print
+     */
         event.reply(message).addActionRow(Button.primary("list", "View List")).queue();
     }
 
@@ -67,9 +80,7 @@ public class TimerPresenter {
 
     public static void getTimersButton(User user, ButtonInteractionEvent event) {
      /**
-     * A presenter method that is used for /timer_list. This fetches an ArrayList of LinkedTreeMaps
-     * and converts them into a Pomodoro instance and an appropriate message for the discord bot
-     * to reply with.
+     * Another method for presenting the list of timers
      *
      * @param user : the user who requested to see their list of timers
      * @return message : the message that timerInteractor needs to pass onto a jda instance
@@ -98,10 +109,8 @@ public class TimerPresenter {
 
     public static Pomodoro fetchTimer(String name, User user) {
     /**
-     * fetchTimer is used when a Discord user requests to use a timer instance through /timer_start.
-     *
-     * @param name : the name of the requested timer
-     * @param user : the Discord user who called /timer_start
+     * This method is deprecated, but I am leaving it for future references.
+     * I just thought Presenter working directly with a DAO was weird.
      */
         TimerDAO timerDAO = new TimerDAO();
         ArrayList listTimers = timerDAO.loadTimers(user.toString(), "timer_repository.json");

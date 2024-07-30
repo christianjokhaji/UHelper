@@ -9,7 +9,7 @@ public class Pomodoro implements TimerInterface {
 
     private final String name;
     private final HashMap<String, Object> map;
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
     private int completedCycle;
 
     /**
@@ -49,7 +49,6 @@ public class Pomodoro implements TimerInterface {
       * Starts a Pomodoro instance.
       * It has two helper methods: commenceWork and commenceBreak, each of which starts own
       * respective timer.
-      *
       */
         int totalCycle = getIteration();
         if (completedCycle < totalCycle) {
@@ -95,7 +94,6 @@ public class Pomodoro implements TimerInterface {
         timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 
-
     // Getters for Pomodoro
     @Override
     public double getWorkTime() {
@@ -138,6 +136,7 @@ public class Pomodoro implements TimerInterface {
         users.remove(user);
     }
 
+    // returns true if user exists in users
     public boolean containsUser(User user){
         return users.contains(user);
     }
