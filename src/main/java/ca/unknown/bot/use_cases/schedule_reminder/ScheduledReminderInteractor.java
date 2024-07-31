@@ -132,6 +132,33 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 event.reply(scheduleDAO.getSchedule(username).toString()).queue();
             }
         }
+        else if(event.getName().equals("clear_event")){
+            // if the user doesn't have an existing schedule in the cache, then alert them that there is no schedule
+            // to clear
+            if(!scheduleDAO.existsByUser(username)){
+                event.reply("There is no ongoing schedule to clear.").queue();
+            }
+            else{
+                String eventName = Objects.requireNonNull(event.getOption("event")).getAsString();
+
+                // check if the event is in the user schedule
+                if(scheduleDAO.getSchedule(username).hasEvent(eventName)){
+                    // clear the event
+                    scheduleDAO.getSchedule(username).clearSingle(eventName);
+
+                    // remove reminder alert for that event
+                    scheduleDAO.removeCheck(username, eventName);
+
+                    // update repo
+                    scheduleDAO.saveToFile("schedule_repository");
+
+                    event.reply("You have been unsubscribed from the following event: " + eventName).queue();
+                }
+                else{
+                    event.reply("There is no event by this name in your schedule.").queue();
+                }
+            }
+        }
         else if(event.getName().equals("clear_schedule")){
             // if the user doesn't have an existing schedule in the cache, then alert them that there is no schedule
             // to clear
@@ -142,6 +169,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 // otherwise, use the DAO to access the user's schedule and clear it
                 scheduleDAO.getSchedule(username).clearSched();
 
+                // unsubscribe user from all reminder alerts
                 scheduleDAO.removeAllChecks(username);
 
                 // update repo with the new cache containing the cleared schedule

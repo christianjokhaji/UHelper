@@ -28,6 +28,12 @@ public interface Schedule {
     void clearSched();
 
     /**
+     * Clears a single event from this schedule.
+     * @param eventName the event to clear
+     */
+    void clearSingle(String eventName);
+
+    /**
      * Returns the user that this schedule belongs to.
      * @return the user of this <code>Schedule</code>
      */
@@ -38,4 +44,11 @@ public interface Schedule {
      * @return true if this <code>Schedule</code> is empty
      */
     boolean hasNoEvents();
+
+    /**
+     * Returns whether this schedule contains a specified event.
+     * @param eventName the event to search for
+     * @return true if the specified event is in this schedule
+     */
+    boolean hasEvent(String eventName);
 }

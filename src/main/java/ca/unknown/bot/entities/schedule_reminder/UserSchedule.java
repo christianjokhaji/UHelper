@@ -48,11 +48,29 @@ public class UserSchedule implements Schedule {
         events.clear();
     }
 
+    public void clearSingle(String eventName){
+        for(ScheduledEvent s: events){
+            if(s.getEventName().equals(eventName)){
+                events.remove(s);
+                break;
+            }
+        }
+    }
+
     public String getUser(){
         return user;
     }
 
     public boolean hasNoEvents(){
         return events.isEmpty();
+    }
+
+    public boolean hasEvent(String eventName){
+        for(ScheduledEvent s: events){
+            if(s.getEventName().equals(eventName)){
+                return true;
+            }
+        }
+        return false;
     }
 }
