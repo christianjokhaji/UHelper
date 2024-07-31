@@ -21,6 +21,7 @@ public class ScheduledExamInteractor extends ScheduledEventInteractor {
         ScheduledEvent schedExam = eventFactory.createExam(scheduledReminderInputData.getEventDate(),
                 scheduledReminderInputData.getEventName(), scheduledReminderInputData.getLocation());
         scheduleDAO.getSchedule(user).addEvent(schedExam);
+        scheduleDAO.addCheck(user, schedExam.getEventName());
         scheduleDAO.saveToFile("schedule_repository");
         event.getHook().sendMessage("You have scheduled the following event: \n"+ schedExam.toString()).queue();
         return schedExam;

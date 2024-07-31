@@ -2,7 +2,9 @@ package ca.unknown.bot.use_cases.schedule_reminder;
 
 import ca.unknown.bot.data_access.schedule_reminder.ScheduledReminderDataAccessInterface;
 import ca.unknown.bot.entities.schedule_reminder.ScheduledEvent;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
+
 import java.util.*;
 
 import java.util.concurrent.TimeUnit;
@@ -27,7 +29,6 @@ public class SendReminderInteractor {
 
     /**
      * Calculates the delay associated with sending a direct message reminder alert for a user scheduled event.
-     * Calls a private method to send the actual message following the calculation.
      * @param user the user of this interaction
      * @param scheduledEvent the event that a reminder must be scheduled for
      */
@@ -56,7 +57,7 @@ public class SendReminderInteractor {
             delay = (eventDate - 3600000L) - currentDate;
         }
 
-        this.sendPrivateMessage(user, content, delay);
+        this.sendPrivateMessage(user, content, delay, scheduledEvent.getEventName());
     }
 
     /**
@@ -65,7 +66,8 @@ public class SendReminderInteractor {
      * @param content the reminder alert which is being messaged to the user
      * @param delay the reminder delay measured in milliseconds
      */
-    private void sendPrivateMessage(User user, String content, long delay){
-        user.openPrivateChannel().queue( (channel) -> channel.sendMessage(content).queueAfter(delay, TimeUnit.MILLISECONDS));
+    private void sendPrivateMessage(User user, String content, long delay, String event){
+        user.openPrivateChannel().queueAfter(delay, TimeUnit.MILLISECONDS,
+                (channel) -> channel.sendMessage(content).setCheck(() -> scheduleDAO.getChecks(user.getName(), event)).queue());
     }
 }

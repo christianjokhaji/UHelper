@@ -4,6 +4,7 @@ import ca.unknown.bot.data_access.schedule_reminder.ScheduledReminderDAO;
 import ca.unknown.bot.data_access.schedule_reminder.ScheduledReminderDataAccessInterface;
 import ca.unknown.bot.entities.schedule_reminder.*;
 import ca.unknown.bot.interface_adapter.schedule_reminder.ScheduledReminderController;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -24,6 +25,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
      * The factory used to create new user schedules.
      */
     ScheduleFactory scheduleFactory = new UserScheduleFactory();
+
 
     /**
      * Performs the event interaction based on a slash command entered by the user.
@@ -139,6 +141,8 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             else{
                 // otherwise, use the DAO to access the user's schedule and clear it
                 scheduleDAO.getSchedule(username).clearSched();
+
+                scheduleDAO.removeAllChecks(username);
 
                 // update repo with the new cache containing the cleared schedule
                 scheduleDAO.saveToFile("schedule_repository");
