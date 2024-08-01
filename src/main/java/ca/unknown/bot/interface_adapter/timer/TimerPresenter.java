@@ -4,6 +4,9 @@ import ca.unknown.bot.entities.timer.Pomodoro;
 import ca.unknown.bot.data_access.timer.TimerDAO;
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.util.ArrayList;
 
@@ -22,7 +25,29 @@ public class TimerPresenter {
      * another LinkedTreeMap.
      */
 
-    public static String getTimers(User user) {
+    public static void sendReply(SlashCommandInteractionEvent event, String message) {
+    /**
+     * A generic reply method for TimerPresenter. event determines what interaction to react to, and
+     * the bot will print message as a reaction to the event.
+     *
+     * @param event : the RestAction event that the bot intends to respond
+     * @param message : the message to print
+     */
+        event.reply(message).queue();
+    }
+
+    public static void sendSuccessReply(SlashCommandInteractionEvent event, String message) {
+    /**
+     * A reply method for instances where a new timer instance is successfully stored.
+     *
+     * @param event : the RestAction event that the bot intends to respond
+     * @param message : the message to print
+     */
+        event.reply(message).addActionRow(Button.primary("list", "View List")).queue();
+    }
+
+
+    public static void getTimers(User user, SlashCommandInteractionEvent event) {
      /**
      * A presenter method that is used for /timer_list. This fetches an ArrayList of LinkedTreeMaps
      * and converts them into a Pomodoro instance and an appropriate message for the discord bot
@@ -33,19 +58,79 @@ public class TimerPresenter {
      *
      */
         TimerDAO timerDAO = new TimerDAO();
-        String message = new String("You have the following timer(s):" + "\n");
         ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
-        for (int i = 0; i < list.size(); i++) {
-            LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
-            String name = treeMap.get("name").toString();
-            LinkedTreeMap spec = (LinkedTreeMap) treeMap.get("map");
-            double workTime = (double) spec.get("workTime");
-            double breakTime = (double) spec.get("breakTime");
-            Double iteration = (Double) spec.get("iteration");
-            Integer it = iteration.intValue();
-            Pomodoro pomodoro = new Pomodoro(workTime,breakTime,it,name);
-            message = message + pomodoro.toString() + "\n";
+        if (list == null || list.size() == 0) {
+            event.reply("You have no timer presets!").queue();
+        } else {
+            String message = new String("You have the following timer(s):" + "\n\n");
+            for (int i = 0; i < list.size(); i++) {
+                LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
+                String name = treeMap.get("name").toString();
+                LinkedTreeMap spec = (LinkedTreeMap) treeMap.get("map");
+                double workTime = (double) spec.get("workTime");
+                double breakTime = (double) spec.get("breakTime");
+                Double iteration = (Double) spec.get("iteration");
+                int it = iteration.intValue();
+                Pomodoro pomodoro = new Pomodoro(workTime,breakTime,it,name);
+                message = message + pomodoro.toString() + "\n";
+            }
+            event.reply(message).queue();
         }
-        return message;
+    }
+
+    public static void getTimersButton(User user, ButtonInteractionEvent event) {
+     /**
+     * Another method for presenting the list of timers
+     *
+     * @param user : the user who requested to see their list of timers
+     * @return message : the message that timerInteractor needs to pass onto a jda instance
+     *
+     */
+        TimerDAO timerDAO = new TimerDAO();
+        ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
+        if (list == null || list.size() == 0) {
+            event.reply("You have no timer presets!").queue();
+        } else {
+            String message = new String("You have the following timer(s):" + "\n\n");
+            for (int i = 0; i < list.size(); i++) {
+                LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
+                String name = treeMap.get("name").toString();
+                LinkedTreeMap spec = (LinkedTreeMap) treeMap.get("map");
+                double workTime = (double) spec.get("workTime");
+                double breakTime = (double) spec.get("breakTime");
+                Double iteration = (Double) spec.get("iteration");
+                int it = iteration.intValue();
+                Pomodoro pomodoro = new Pomodoro(workTime,breakTime,it,name);
+                message = message + pomodoro.toString() + "\n";
+            }
+            event.reply(message).queue();
+        }
+    }
+
+    public static Pomodoro fetchTimer(String name, User user) {
+    /**
+     * This method is deprecated, but I am leaving it for future references.
+     * I just thought Presenter working directly with a DAO was weird.
+     */
+        TimerDAO timerDAO = new TimerDAO();
+        ArrayList listTimers = timerDAO.loadTimers(user.toString(), "timer_repository.json");
+        for (Object map : listTimers) {
+            map = (LinkedTreeMap) map;
+            if (((LinkedTreeMap<?, ?>) map).get("name").equals(name)) {
+                Pomodoro timer = convertToPomodoro((LinkedTreeMap) map);
+                return timer;
+            }
+        }
+        return null;
+    }
+
+    private static Pomodoro convertToPomodoro(LinkedTreeMap timer) {
+        String name = timer.get("name").toString();
+        LinkedTreeMap spec = (LinkedTreeMap) timer.get("map");
+        double breakTime = Double.parseDouble(spec.get("breakTime").toString());
+        double workTime = Double.parseDouble(spec.get("workTime").toString());
+        Double it = Double.parseDouble(spec.get("iteration").toString());
+        int iteration = it.intValue();
+        return new Pomodoro(workTime, breakTime, iteration, name);
     }
 }

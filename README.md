@@ -7,7 +7,6 @@ UHelper is an interactive bot that is designed to meet students' needs on Discor
 3. [Project Progresses](#project-progresses)
 4. [Important Notes](#important-notes)
 
-
 ## Overview
 
 The main goal of UHelper is to assist with time management and wellness. 
@@ -67,20 +66,19 @@ UHelper joined the server, but it cannot listen to your commands as it is not on
 IntelliJ IDEA and go to ca.unknown.bot.app.Main. Go to Edit Configurations, click Add new run 
 configuration, and select Application.
 
-
 ![png](assets/5.png)
 
 In the edit configuration window, choose Java 11 and Project.Main under the Build and Run section.
-For the main class box, type ca.unknown.bot.app.Main. Next, importantly, you should add a bot 
-token as an environmental variable... but where is the token, you ask? Discord enforces 
+For the main class box, type ca.unknown.bot.app.Main. Next, importantly, you should add some bot 
+tokens as an environmental variable... but where are the tokens, you ask? Discord enforces 
 strict rules to its bot developers and one of them is that you can't post
 any bot token online due to security reasons. If you do, it will immediately detect the token and 
-automatically disable it. But, you can still have access to the UHelper's token! We've attached the 
-token via the comment section of the Phase 1 submission.
+automatically disable it. But, you can still have access to the UHelper's tokens! We've attached the 
+tokens via the comment section of the Phase 1 submission.
 
 ![png](assets/TOKEN=.png)
 
-Once you find the token, set it up as an environmental variable. To do so, type TYPE={your_token}
+Once you find the tokens, set them up as the environmental variables. To do so, type TYPE={your_token}
 in the environmental variables box, as shown in the above screenshot. Click the apply button to save 
 these changes. Finally, run the main.java class. 
 
@@ -93,25 +91,26 @@ offline.
 ![png](assets/7.png)
 
 Most of the UHelper's features are slash commands interaction, so you can type / in the chat to see 
-the list of commands it offers! Please note that, as of July 21, some features are not implemented 
+the list of commands it offers! Please note that, as of July 30, some features are not implemented 
 yet.
-
 
 ## Project Progresses
 Currently, we are working to implement the following features. 
 You can find all the user stories and other details in our blueprint from [here](https://docs.google.com/document/d/1OcYBGoSZbEqtA47CwSlzFe1wVuZo28Xl-FKUkS_0AUI/edit#heading=h.rwi1fv3j8vi2).
 
 - **Timer** ⏱️
-  - [X] Create a timer preset by providing the amount of time wanted for work and break (July 3)
-  and record it in a json file. (July 18)
-  - [X] (NEW) Provide a list of the timers that are created by the caller when requested (July 18)
-  - [ ] Start a timer by giving the bot the name of that timer and notify users when time is up 
+  - [X] Create a timer preset by providing the amount of time wanted for work and break 
+  and record it in a json file.
+  - [X] Provide a list of the timers that are created by the caller when requested 
+  - [X] Start a timer by giving the bot the name of that timer and notify users when time is up 
   via DM. In doing so, the user can invite other users so that they'd be also notified.
-  - [ ] Cancel an ongoing timer.
+  - [X] Cancel an ongoing timer.
+  - [X] Delete a timer preset by its name. 
 
 - **Minigames** 🎮
   - [X] Rock-paper-scissors
   - [X] Trivia
+  - [X] Magic 8 Ball 
 
 - **Study help** 📚
   - [X] QuizMe
@@ -141,12 +140,11 @@ You can find all the user stories and other details in our blueprint from [here]
 
 - **Customizable Commands** ⚙️
 
-
 ## Important Notes
 
 **July 21** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
 (Access to the course page may be restricted)
 
-**August 8** - Phase 2 & Final Presentation
+**August 8** - [Phase 2](https://q.utoronto.ca/courses/345741/pages/phase-2-10-percent?module_item_id=5764412) & [Final Presentation](https://q.utoronto.ca/courses/345741/pages/presentation-5-percent?module_item_id=5764413)
 
-**August 15** - Final Exam
+**August 15** - Final Exam (7-10 PM)
