@@ -31,8 +31,18 @@ public class RecipeApiHandler {
     public RecipeApiHandler(String query, int n, HashMap<String, String> params){
         this.n = n;
         this.recipes = new ArrayList<>();
-        String app_id = System.getenv("EDAMAM_ID");
-        String app_key = System.getenv("EDAMAM_KEY");
+        String app_id;
+        String app_key;
+
+        if (System.getenv("EDAMAM_ID") == null || System.getenv("EDAMAM_KEY") == null) {
+            app_id = System.getProperty("EDAMAM_ID");
+            app_key = System.getProperty("EDAMAM_KEY");
+        }
+        else {
+            app_id = System.getenv("EDAMAM_ID");
+            app_key = System.getenv("EDAMAM_KEY");
+        }
+
         String q = URLEncoder.encode(query, StandardCharsets.UTF_8);
         String recipeApi = "https://api.edamam.com/api/recipes/v2?type=public&q=" +
                 q + "&app_id=" + app_id + "&app_key=" + app_key;
