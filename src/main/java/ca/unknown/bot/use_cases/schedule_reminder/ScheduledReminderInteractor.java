@@ -61,6 +61,11 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 event.getHook().sendMessage("You can only schedule a future event!").complete();
                 return;
             }
+            else if(scheduleDAO.getSchedule(username).hasDuplicateEvent(scheduledReminderInputData.getEventName(),
+                    scheduledReminderInputData.getEventDate())){
+                event.getHook().sendMessage("You have already scheduled this event!").complete();
+                return;
+            }
 
             // call subordinate interactor to schedule new generic event and return it
             ScheduledEvent newEvent = new ScheduledEventInteractor(scheduleDAO).execute(scheduledReminderInputData, username, event);
@@ -84,6 +89,10 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             // if the user tries to schedule an event in the past then stop execution
             if(scheduledReminderInputData.getEventDate().compareTo(new Date()) <= 0){
                 event.getHook().sendMessage("You can only schedule a future event!").complete();
+                return;
+            }
+            else if(scheduleDAO.getSchedule(username).hasDuplicateExam(scheduledReminderInputData.getEventDate())){
+                event.getHook().sendMessage("You already have an exam scheduled at this time!").complete();
                 return;
             }
 
@@ -112,12 +121,18 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 event.getHook().sendMessage("You can only schedule a future event!").complete();
                 return;
             }
+            else if(scheduleDAO.getSchedule(username).hasDuplicateAssignment(scheduledReminderInputData.getEventName(),
+                    scheduledReminderInputData.getAssignmentCourseCode())){
+                event.getHook().sendMessage("You have already scheduled this assignment!").complete();
+                return;
+            }
 
             // call subordinate interactor to schedule new assignment event and return it
             ScheduledEvent newAssignment = new ScheduledAssignmentInteractor(scheduleDAO).execute(scheduledReminderInputData, username, event);
 
             // call subordinate interactor to set up a delayed queue for sending a private message reminder to the user
             new SendReminderInteractor(scheduleDAO).execute(discordUser, newAssignment);
+
 
         }
         else if (event.getName().equals("current_schedule")){
@@ -141,6 +156,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             else{
                 String eventName = Objects.requireNonNull(event.getOption("event")).getAsString();
 
+                /*
                 // check if the event is in the user schedule
                 if(scheduleDAO.getSchedule(username).hasEvent(eventName)){
                     // clear the event
@@ -156,7 +172,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 }
                 else{
                     event.reply("There is no event by this name in your schedule.").queue();
-                }
+                } */
             }
         }
         else if(event.getName().equals("clear_schedule")){

@@ -73,4 +73,33 @@ public class UserSchedule implements Schedule {
         }
         return false;
     }
+
+    public boolean hasDuplicateEvent(String eventName, Date eventDate){
+        for(ScheduledEvent s: events){
+            if(!(s instanceof Exam || s instanceof Assignment))
+                if(s.getEventName().equals(eventName) && s.getEventDate().equals(eventDate)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasDuplicateExam(Date examDate){
+        for(ScheduledEvent s: events){
+            if(s instanceof Exam && s.getEventDate().equals(examDate)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasDuplicateAssignment(String assignmentName, String courseCode){
+        for(ScheduledEvent s: events){
+            if(s instanceof Assignment && s.getEventName().equals(assignmentName) &&
+                    ((Assignment) s).getCourseCode().equals(courseCode)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -1,5 +1,7 @@
 package ca.unknown.bot.entities.schedule_reminder;
 
+import java.util.*;
+
 /**
  * Abstraction of a user schedule which stores a collection of scheduled events and manipulates them.
  */
@@ -45,10 +47,27 @@ public interface Schedule {
      */
     boolean hasNoEvents();
 
+
     /**
-     * Returns whether this schedule contains a specified event.
-     * @param eventName the event to search for
+     * Returns whether this schedule already contains a specified event by name and date.
+     * @param eventName the name of the event
+     * @param eventDate the date of the event
      * @return true if the specified event is in this schedule
      */
-    boolean hasEvent(String eventName);
+    boolean hasDuplicateEvent(String eventName, Date eventDate);
+
+    /**
+     * Returns whether this schedule already has an exam scheduled at the given time.
+     * @param eventDate the date to search by
+     * @return true if the user already has an exam scheduled at this time
+     */
+    boolean hasDuplicateExam(Date eventDate);
+
+    /**
+     * Returns whether this schedule already has an assignment by the given name.
+     * @param assignmentName the name to search by
+     * @param courseCode the class which the assignment is from
+     * @return true if the user already has scheduled this assignment
+     */
+    boolean hasDuplicateAssignment(String assignmentName, String courseCode);
 }
