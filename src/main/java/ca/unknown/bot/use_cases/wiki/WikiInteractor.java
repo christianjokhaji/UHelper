@@ -37,7 +37,7 @@ public class WikiInteractor extends ListenerAdapter {
                 "6. (In Development) `Check Scores`: " +
                 "Check scores across multiple study sessions to see if you have been improving.";
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Study Help :writing_hand:");
+        eb.setTitle("Study Help :books:");
         eb.setAuthor("Dusan");
         eb.setDescription("Help students study by allowing them to create quizzes to practice " +
                         "off\n\n");
@@ -65,7 +65,7 @@ public class WikiInteractor extends ListenerAdapter {
         eb.setTitle("Timer :timer:");
         eb.setDescription("A customizable pomodoro timer\n\n");
         eb.addField("Features", Timer_description, false);
-        eb.setColor(Color.magenta);
+        eb.setColor(Color.decode("#ED73FA"));
         return eb;
     }
 
@@ -78,7 +78,7 @@ public class WikiInteractor extends ListenerAdapter {
                 "UHelper can generate more specific recipes to suit your needs.";
         EmbedBuilder eb = new EmbedBuilder();
         eb.setAuthor("Cindy / Xinyue");
-        eb.setTitle("Recipe :yum:");
+        eb.setTitle("Find Recipe :yum:");
         eb.setDescription("Find recipes with ingredients and nutritional info.");
         eb.addField("Feature", Recipe_description, false);
         eb.setColor(Color.orange);
