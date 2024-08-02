@@ -19,10 +19,19 @@ public class Main {
      *
      * @param args Stores Java command-line arguments
      */
+
     public static void main(String[] args) {
         // Creates an instance of the bot with general permissions.
-        // "TOKEN" is an environment variable.
-        JDA jda = JDABuilder.createDefault(System.getenv("TOKEN"),
+        // "TOKEN" is an environment variable unless args.length > 0.
+        String token;
+        if (args.length == 0) {
+            token = System.getenv("TOKEN");
+        }
+        else {
+            token = System.getProperty("TOKEN");
+        }
+
+        JDA jda = JDABuilder.createDefault(token,
                 GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT).build();
 
         // Adds a simple event listener for testing purposes.
@@ -102,12 +111,12 @@ public class Main {
                 Commands.slash("clear_schedule", "Clears the user's current schedule."),
                 Commands.slash("study-help", "Get Study Help!")
                         .addOptions(new OptionData(OptionType.STRING, "choice",
-                                        "How can we help with studying?")
+                                "How can we help with studying?")
                                 .addChoice("Reset Notes", "resetnotes")
                                 .addChoice("Add Question", "addquestion")
                                 .addChoice("Study", "study")
                                 .addChoice("Save Quiz ", "savenotes")
                                 .addChoice("Load Quiz", "loadnotes"))
-                ).queue();
+        ).queue();
     }
 }
