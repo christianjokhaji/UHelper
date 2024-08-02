@@ -59,8 +59,17 @@ public class GUI extends JFrame {
             System.setProperty("EDAMAM_ID", idText);
             System.setProperty("EDAMAM_KEY", keyText);
 
-            // Start the app.
-            Main.main(new String[]{tokenText, idText, keyText});
+            // Start/stop the app.
+            if (startButton.getText() == "Stop UHelper") {
+                // Stop
+                System.exit(0);
+            }
+            else {
+                // Start
+                Main.main(new String[]{tokenText, idText, keyText});
+                // Update startButton
+                startButton.setText("Stop UHelper");
+            }
         });
         start.add(startButton);
     }
