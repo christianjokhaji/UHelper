@@ -13,10 +13,14 @@ import java.util.Objects;
 
 public class WikiInteractor extends ListenerAdapter {
     private final JDA jda;
+    private SlashCommandInteractionEvent event;
 
     public WikiInteractor(JDA jda){
         // This allows the event listener to work
         this.jda = jda;
+    }
+    public void setEvent(SlashCommandInteractionEvent event){
+        this.event = event;
     }
 
     private EmbedBuilder getStudyHelperEmbed(){
@@ -85,8 +89,14 @@ public class WikiInteractor extends ListenerAdapter {
         List<EmbedBuilder> embeds = new ArrayList<>();
         embeds.add(new EmbedBuilder()
                 .setTitle("Welcome to UHelper Wiki! :partying_face:")
-                .setAuthor("UHelper Team")
-                .setColor(Color.blue)
+                .setAuthor("UHelper Team",
+                        null,
+                        event.getJDA().getSelfUser().getAvatarUrl())
+//                          not working as the sample expected:
+//                          https://gist.github.com/zekroTJA/c8ed671204dafbbdf89c36fc3a1827e1
+//                        "https://github.com/zekro-archive/DiscordBot/blob/master/" +
+//                                ".websrc/zekroBot_Logo_-_round_small.png")
+                .setColor(Color.decode("#5E80A2"))
                 .addField("", "Thank you for using UHelper!\n\n" +
                         "Feel free to use the buttons below" +
                         " to explore what you can do with UHelper :raised_hands:", false)
@@ -104,8 +114,10 @@ public class WikiInteractor extends ListenerAdapter {
 
         switch (feature) {
             case "general":
+                WikiInteractor interactor = new WikiInteractor(jda);
+                interactor.setEvent(event);
                 event.deferReply().queue();
-                jda.addEventListener(new Paginator(event, getGeneralEmbed()));
+                jda.addEventListener(new Paginator(event, interactor.getGeneralEmbed()));
                 break;
             case "study_helper":
                 EmbedBuilder study_help_eb = getStudyHelperEmbed();
