@@ -6,6 +6,7 @@ import ca.unknown.bot.use_cases.utils.EventListener;
 import ca.unknown.bot.use_cases.game.GameInteractor;
 import ca.unknown.bot.use_cases.timer.TimerInteractor;
 import ca.unknown.bot.use_cases.quiz_me.StudyInteractor;
+import ca.unknown.bot.use_cases.wiki.WikiInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -34,6 +35,7 @@ public class Main {
         jda.addEventListener(new TimerInteractor());
         jda.addEventListener(new ScheduledReminderInteractor());
         jda.addEventListener(new StudyInteractor(jda));
+        jda.addEventListener(new WikiInteractor(jda));
 
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
@@ -107,7 +109,15 @@ public class Main {
                                 .addChoice("Add Question", "addquestion")
                                 .addChoice("Study", "study")
                                 .addChoice("Save Quiz ", "savenotes")
-                                .addChoice("Load Quiz", "loadnotes"))
+                                .addChoice("Load Quiz", "loadnotes")),
+                Commands.slash("uhelper-wiki", "A quick guide to UHelper's commands.")
+                        .addOptions(new OptionData(OptionType.STRING, "feature",
+                                "Which feature do u want to explore?", true)
+                                .addChoice("General", "general")
+                                .addChoice("Study Helper", "study_helper")
+                                .addChoice("Timer", "timer")
+                                .addChoice("Find Recipe", "find_recipe")
+                        )
                 ).queue();
     }
 }
