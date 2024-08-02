@@ -144,6 +144,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             }
             else{
                 // otherwise displays a String representation of the user's ongoing event schedule
+                scheduleDAO.getSchedule(username).sort();
                 event.reply(scheduleDAO.getSchedule(username).toString()).queue();
             }
         }
@@ -154,25 +155,15 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 event.reply("There is no ongoing schedule to clear.").queue();
             }
             else{
-                String eventName = Objects.requireNonNull(event.getOption("event")).getAsString();
+                event.deferReply().queue();
 
-                /*
-                // check if the event is in the user schedule
-                if(scheduleDAO.getSchedule(username).hasEvent(eventName)){
-                    // clear the event
-                    scheduleDAO.getSchedule(username).clearSingle(eventName);
+                scheduleDAO.getSchedule(username).sort();
+                event.getHook().sendMessage(scheduleDAO.getSchedule(username).toString()).queue();
+                event.getHook().sendMessage("\nPlease reply with the index of the event you wish to clear.").queue();
 
-                    // remove reminder alert for that event
-                    scheduleDAO.removeCheck(username, eventName);
+                JDA jda = event.getJDA();
+                jda.addEventListener(new ClearEventListener(scheduleDAO.getSchedule(username).size(), scheduleDAO, jda));
 
-                    // update repo
-                    scheduleDAO.saveToFile("schedule_repository");
-
-                    event.reply("You have been unsubscribed from the following event: " + eventName).queue();
-                }
-                else{
-                    event.reply("There is no event by this name in your schedule.").queue();
-                } */
             }
         }
         else if(event.getName().equals("clear_schedule")){

@@ -19,6 +19,12 @@ public interface Schedule {
     void sort();
 
     /**
+     * Returns the number of events in this schedule.
+     * @return an int of the number of events in this <code>Schedule</code>
+     */
+    int size();
+
+    /**
      * Returns a String representation of all the events in this schedule.
      * @return a String representation of this <code>Schedule</code>
      */
@@ -31,9 +37,10 @@ public interface Schedule {
 
     /**
      * Clears a single event from this schedule.
-     * @param eventName the event to clear
+     * @param eventIndex the index of the event to clear
+     * @return the name of the event that was cleared
      */
-    void clearSingle(String eventName);
+    String clearSingle(int eventIndex);
 
     /**
      * Returns the user that this schedule belongs to.
@@ -46,6 +53,8 @@ public interface Schedule {
      * @return true if this <code>Schedule</code> is empty
      */
     boolean hasNoEvents();
+
+    boolean hasEvent(String eventName);
 
 
     /**

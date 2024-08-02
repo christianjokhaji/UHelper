@@ -33,13 +33,19 @@ public class UserSchedule implements Schedule {
         Collections.sort(events);
     }
 
+    public int size(){
+        return events.size();
+    }
+
     public String toString(){
         sort();
         StringBuilder output = new StringBuilder("Here is your upcoming schedule: \n");
         String temp = "";
+        int i = 1;
         for(ScheduledEvent s: events){
-            temp = s.toString() + "\n";
+            temp = i + ". " + s.toString() + "\n";
             output.append(temp);
+            i++;
         }
         return output.toString();
     }
@@ -48,13 +54,11 @@ public class UserSchedule implements Schedule {
         events.clear();
     }
 
-    public void clearSingle(String eventName){
-        for(ScheduledEvent s: events){
-            if(s.getEventName().equals(eventName)){
-                events.remove(s);
-                break;
-            }
-        }
+    public String clearSingle(int index){
+        String eventName = events.get(index).getEventName();
+        events.remove(index);
+
+        return eventName;
     }
 
     public String getUser(){
