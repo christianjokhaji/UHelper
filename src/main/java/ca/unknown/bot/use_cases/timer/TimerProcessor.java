@@ -102,7 +102,7 @@ public class TimerProcessor {
         if (timer == null) {TimerPresenter.sendReply(event, "The requested timer is not found");}
         else {
             if (checkTimerRunning(owner)) {
-                TimerPresenter.sendReply(event, "There is a timer already running!");
+                TimerPresenter.sendReply(event, "There is a timer already running! " + timer.getName());
             } else {
                 for (User user : users) {
                     timer.addUser(user);}
@@ -119,12 +119,12 @@ public class TimerProcessor {
         for (Pomodoro timer : timerList) {
             if (timer.getName().equals(timerName)) {
                 timer.removeUser(user);
-                TimerPresenter.sendReply(event, "Timer successfully cancelled.");
+                TimerPresenter.sendReply(event,  timer.getName() + " has been cancelled.");
                 break;
             }
         }
         cleanTimerList();
-        TimerPresenter.sendReply(event, "Timer is not found.");
+        TimerPresenter.sendReply(event, timerName + " is not running or does not exist.");
     }
 
     // checks if user has a timer running in the background
