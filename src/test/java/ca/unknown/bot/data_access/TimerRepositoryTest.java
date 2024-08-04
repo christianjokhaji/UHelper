@@ -83,6 +83,7 @@ public class TimerRepositoryTest {
         userAndTimer.put(mockUser1.toString(), value);
 
         TimerDAO.saveTimerOne(userAndTimer, fileName);
+
         try (FileReader reader = new FileReader(fileName)) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
@@ -102,6 +103,57 @@ public class TimerRepositoryTest {
         }
     }
 
+    @Test // Tests whether deleting a timer works
+    void checkDeletePomodoro() {
+        ArrayList<Pomodoro> value = new ArrayList<>();
+        value.add(timer);
+        Map userAndTimer = new HashMap();
+        userAndTimer.put(mockUser1.toString(), value);
+
+        TimerDAO.saveTimerOne(userAndTimer, fileName);
+
+        TimerDAO.deletePomodoro("test", mockUser1.toString(), fileName);
+
+        try (FileReader reader = new FileReader(fileName)) {
+            JsonReader jsonReader = new JsonReader(reader);
+            Gson gson = new Gson();
+            TypeToken<Map<String, ArrayList>> typeToken= new TypeToken
+                    <Map<String,ArrayList>>(){};
+            Map result = gson.fromJson(jsonReader, typeToken.getType());
+            assert(result.containsKey(mockUser1.toString()));
+            ArrayList content = (ArrayList) result.get(mockUser1.toString());
+            assert(content.isEmpty());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test // Check TimerDAO.checkEmpty()
+    void checkCheckEmpty() {
+        assertEquals(false, TimerDAO.checkEmpty(fileName));
+
+        ArrayList<Pomodoro> value = new ArrayList<>();
+        value.add(timer);
+        Map userAndTimer = new HashMap();
+        userAndTimer.put(mockUser1.toString(), value);
+
+        TimerDAO.saveTimerOne(userAndTimer, fileName);
+        assertEquals(false, TimerDAO.checkEmpty(fileName));
+    }
+
+    @Test // Check if it returns true for an existing user and false for a non-existing user
+    void checkCheckUser() {
+        ArrayList<Pomodoro> value = new ArrayList<>();
+        value.add(timer);
+        Map userAndTimer = new HashMap();
+        userAndTimer.put(mockUser1.toString(), value);
+
+        TimerDAO.saveTimerOne(userAndTimer, fileName);
+
+        assertEquals(true, TimerDAO.checkUser(mockUser1.toString(), fileName));
+        assertEquals(false, TimerDAO.checkUser(mockUser2.toString(), fileName));
+    }
 
     @AfterEach
     void cleanUp() throws IOException {
