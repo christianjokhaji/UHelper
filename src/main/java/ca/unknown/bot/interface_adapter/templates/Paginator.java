@@ -40,7 +40,13 @@ public class Paginator extends ListenerAdapter {
         buttons.add(nextButton);
         buttons.add(lastButton);
 
-        event.getHook().sendMessageEmbeds(pages.get(0).build())
+        // add UHelper Team to the first page of the event
+        EmbedBuilder firstPage = pages.get(0);
+        firstPage.setAuthor("UHelper Team",
+                null,
+                event.getJDA().getSelfUser().getAvatarUrl());
+
+        event.getHook().sendMessageEmbeds(firstPage.build())
                 .addActionRow(buttons)
                 .setEphemeral(true)
                 .queue();

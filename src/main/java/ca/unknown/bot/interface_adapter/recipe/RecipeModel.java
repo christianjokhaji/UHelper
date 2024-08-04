@@ -60,8 +60,9 @@ public class RecipeModel {
     ) {
         List<EmbedBuilder> embeds = new ArrayList<>();
         EmbedBuilder recipeSummary = new EmbedBuilder()
-                .setColor(Color.green)
-                .addField("Here is a summary of your search:", getSummary(query, n, params, recipes), false)
+                .setColor(Color.decode("#5E80A2"))
+                .addField("Here is a summary of your search:",
+                        getSummary(query, n, params, recipes), false)
                 .setFooter("Search results provided by Edamam API")
                 .setTimestamp(Instant.now());
         embeds.add(recipeSummary);

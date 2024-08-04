@@ -114,8 +114,10 @@ public class Main {
                         .addOptions(new OptionData(OptionType.STRING, "feature",
                                 "Which feature do u want to explore?", true)
                                 .addChoice("General", "general")
-                                .addChoice("Study Helper", "study_helper")
+                                .addChoice("Scheduled Reminders", "scheduled_reminders")
                                 .addChoice("Timer", "timer")
+                                .addChoice("Study Helper", "study_helper")
+                                .addChoice("Mini Games", "mini_games")
                                 .addChoice("Find Recipe", "find_recipe")
                         )
                 ).queue();

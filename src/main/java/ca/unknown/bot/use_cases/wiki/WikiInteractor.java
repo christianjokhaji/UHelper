@@ -24,7 +24,7 @@ public class WikiInteractor extends ListenerAdapter {
     }
 
     private EmbedBuilder getStudyHelperEmbed(){
-        String StudyHelper_description = "1. `Add Question`: Allows a user to add a question, " +
+        String StudyHelper_features = "1. `Add Question`: Allows a user to add a question, " +
                 "answer and optional hint to the current quiz\n" +
                 "2. `Reset Notes`: Reset current quiz to be empty\n" +
                 "3. `Study`: Allows the user to study the quiz, " +
@@ -37,17 +37,20 @@ public class WikiInteractor extends ListenerAdapter {
                 "6. (In Development) `Check Scores`: " +
                 "Check scores across multiple study sessions to see if you have been improving.";
         EmbedBuilder eb = new EmbedBuilder();
+        eb.setAuthor("UHelper Team",
+                null,
+                event.getJDA().getSelfUser().getAvatarUrl());
         eb.setTitle("Study Help :books:");
-        eb.setAuthor("Dusan");
         eb.setDescription("Help students study by allowing them to create quizzes to practice " +
                         "off\n\n");
-        eb.addField("Features", StudyHelper_description, false);
+        eb.addField("Features", StudyHelper_features, false);
         eb.setColor(Color.green);
+        eb.setFooter("Written by Dusan");
         return eb;
     }
 
     private EmbedBuilder getTimerEmbed(){
-        String Timer_description = "1. `Add timer`: Users can configure how much they want to " +
+        String Timer_features = "1. `Add timer`: Users can configure how much they want to " +
                 "spend on work and how much they want to spend on breaks. They can input an " +
                 "integer" + "to specify how many times they'd like to repeat. Discord users can " +
                 "make their own custom timer that suits their study habits, instead of the " +
@@ -61,27 +64,95 @@ public class WikiInteractor extends ListenerAdapter {
                 "But, cancelling doesn't involve deactivating it; " +
                 "it's rather making it stop notifying you. ";
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setAuthor("Min");
+        eb.setAuthor("UHelper Team",
+                null,
+                event.getJDA().getSelfUser().getAvatarUrl());
         eb.setTitle("Timer :timer:");
         eb.setDescription("A customizable pomodoro timer\n\n");
-        eb.addField("Features", Timer_description, false);
+        eb.addField("Features", Timer_features, false);
         eb.setColor(Color.decode("#ED73FA"));
+        eb.setFooter("Written by Min");
         return eb;
     }
 
-    private EmbedBuilder getRecipeEmbed(){
-        String Recipe_description = "`find-recipe`: By entering a food and a number(the number of" +
+    private EmbedBuilder getFindRecipeEmbed(){
+        String Recipe_features = "`/find-recipe`: By entering a food and a number(the number of" +
                 " recipes you want), UHelper will help you find related recipes. " +
                 "This feature is powered by Edamam API, providing sources for recipes, " +
                 "ingredients you need and nutritional information. " +
                 "By choosing optional parameters, " +
                 "UHelper can generate more specific recipes to suit your needs.";
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setAuthor("Cindy / Xinyue");
+        eb.setAuthor("UHelper Team",
+                null,
+                event.getJDA().getSelfUser().getAvatarUrl());
         eb.setTitle("Find Recipe :yum:");
         eb.setDescription("Find recipes with ingredients and nutritional info.");
-        eb.addField("Feature", Recipe_description, false);
+        eb.addField("Feature", Recipe_features, false);
         eb.setColor(Color.orange);
+        eb.setFooter("Written by Cindy(Xinyue)");
+        return eb;
+    }
+
+    private EmbedBuilder getMiniGamesEmbed(){
+        String minigames_features = "Whenever you have a break or free time, " +
+                "call on one of the following commands to start it:\n" +
+                "- `/rock-paper-scissors` `your_choice` Starts a game of rock paper scissors.\n" +
+                "- `/trivia` Starts a game of true/false trivia.\n" +
+                "- `/8ball` Receive a Magic 8Ball reading.";
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setAuthor("UHelper Team",
+                null,
+                event.getJDA().getSelfUser().getAvatarUrl());
+        eb.setAuthor("UHelper Team",
+                null,
+                event.getJDA().getSelfUser().getAvatarUrl());
+        eb.setTitle("Mini Games :video_game:");
+        eb.addField("Feature", minigames_features, false);
+        eb.setColor(Color.cyan);
+        eb.setFooter("Written by Christian");
+        return eb;
+    }
+
+    private EmbedBuilder getScheduledReminderEmbed(){
+        String scheduledReminder_description = "UHelper can schedule any ongoing exams, " +
+                "assignments, or general events for you and send you reminders " +
+                "via direct message 24 hours before your event, or an hour before the event " +
+                "if it was scheduled less than a day before. " +
+                "It will also automatically remove events from your schedule once they have " +
+                "passed.";
+        String scheduledReminder_features1 = "- `/schedule_event`: Enter the name of your event, " +
+                "the date in YYYY MM DD HR MIN format and " +
+                "UHelper will add this event to your schedule! " +
+                "You cannot schedule events in the past or duplicate events " +
+                "(ie. events with the exact same name and time).\n" +
+                "- `/schedule_exam`: Enter the course code of your exam, the location of your " +
+                "exam, the date in YYYY MM DD HR MIN format and UHelper will add this exam to " +
+                "your schedule! You cannot schedule exams in the past or duplicate exams " +
+                "(ie. exams at the same time).\n";
+        String scheduledReminder_features2 =
+                "- `/schedule_assignment`: Enter the course code of the class that the assignment "+
+                "is from, the name of the assignment, the due date in YYYY MM DD HR MIN format " +
+                "and UHelper will add this assignment to your schedule! " +
+                "You cannot schedule assignments in the past or duplicate assignments " +
+                "(ie. assignments with the same course code AND the same name).\n" +
+                "- `/current_schedule`: Displays the user's ongoing scheduled events.\n" +
+                "- `/clear_event`: Allows the user to remove a specific event from their schedule" +
+                ". UHelper will display your current schedule in an indexed list and " +
+                "allow you to choose which indexed event you want to remove. " +
+                "You will also be unsubscribed from that event's reminder alert.\n" +
+                "- `/clear_schedule`: Clears all ongoing events from the user's schedule and " +
+                "unsubscribes them from all event reminders.";
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setAuthor("UHelper Team",
+                null,
+                event.getJDA().getSelfUser().getAvatarUrl());
+        eb.setTitle("Schedule Reminder :calendar:");
+        eb.setDescription(scheduledReminder_description);
+        eb.addField("Features", scheduledReminder_features1, false);
+        eb.addField("", scheduledReminder_features2, false);
+        eb.setColor(Color.pink);
+        eb.setFooter("Written by Aria");
         return eb;
     }
 
@@ -92,47 +163,53 @@ public class WikiInteractor extends ListenerAdapter {
                 .setAuthor("UHelper Team",
                         null,
                         event.getJDA().getSelfUser().getAvatarUrl())
-//                          not working as the sample expected:
-//                          https://gist.github.com/zekroTJA/c8ed671204dafbbdf89c36fc3a1827e1
-//                        "https://github.com/zekro-archive/DiscordBot/blob/master/" +
-//                                ".websrc/zekroBot_Logo_-_round_small.png")
                 .setColor(Color.decode("#5E80A2"))
                 .addField("", "Thank you for using UHelper!\n\n" +
                         "Feel free to use the buttons below" +
                         " to explore what you can do with UHelper :raised_hands:", false)
                 .addBlankField(false)
         );
-        embeds.add(getStudyHelperEmbed());
+        embeds.add(getScheduledReminderEmbed());
         embeds.add(getTimerEmbed());
-        embeds.add(getRecipeEmbed());
+        embeds.add(getStudyHelperEmbed());
+        embeds.add(getMiniGamesEmbed());
+        embeds.add(getFindRecipeEmbed());
         return embeds;
     }
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        String feature = Objects.requireNonNull(event.getOption("feature")).getAsString();
+        if (event.getName().equals("uhelper-wiki")) {
+            String feature = Objects.requireNonNull(event.getOption("feature")).getAsString();
 
-        switch (feature) {
-            case "general":
-                WikiInteractor interactor = new WikiInteractor(jda);
-                interactor.setEvent(event);
-                event.deferReply().queue();
-                jda.addEventListener(new Paginator(event, interactor.getGeneralEmbed()));
-                break;
-            case "study_helper":
-                EmbedBuilder study_help_eb = getStudyHelperEmbed();
-                event.getChannel().sendMessageEmbeds(study_help_eb.build()).queue();
-                break;
-            case "timer":
-                EmbedBuilder timer_eb = getTimerEmbed();
-                event.getChannel().sendMessageEmbeds(timer_eb.build()).queue();
-                break;
-            case "find_recipe":
-                EmbedBuilder recipe_eb = getRecipeEmbed();
-                event.getChannel().sendMessageEmbeds(recipe_eb.build()).queue();
-            default:
-                event.reply("This is an invalid command. Please try again!").queue();
-                break;
+            switch (feature) {
+                case "general":
+                    WikiInteractor interactor = new WikiInteractor(jda);
+                    interactor.setEvent(event);
+                    event.deferReply().queue();
+                    jda.addEventListener(new Paginator(event, interactor.getGeneralEmbed()));
+                    break;
+                case "schedule_reminder":
+                    EmbedBuilder schedule_eb = getFindRecipeEmbed();
+                    event.getChannel().sendMessageEmbeds(schedule_eb.build()).queue();
+                case "timer":
+                    EmbedBuilder timer_eb = getTimerEmbed();
+                    event.getChannel().sendMessageEmbeds(timer_eb.build()).queue();
+                    break;
+                case "study_helper":
+                    EmbedBuilder study_help_eb = getStudyHelperEmbed();
+                    event.getChannel().sendMessageEmbeds(study_help_eb.build()).queue();
+                    break;
+                case "mini_games":
+                    EmbedBuilder games_eb = getFindRecipeEmbed();
+                    event.getChannel().sendMessageEmbeds(games_eb.build()).queue();
+                case "find_recipe":
+                    EmbedBuilder recipe_eb = getFindRecipeEmbed();
+                    event.getChannel().sendMessageEmbeds(recipe_eb.build()).queue();
+                default:
+                    event.reply("This is an invalid command. Please try again!").queue();
+                    break;
+            }
         }
     }
 }
