@@ -105,7 +105,7 @@
             quizMe.addQuestionAndAnswer("What is Python?", "Another programming language.", "Think about snakes.");
             MessageChannel mockChannel = mock(MessageChannel.class);
             when(mockButtonEvent.getChannel()).thenReturn((MessageChannelUnion) mockChannel);
-            quizMe.showNextQuestion(mockButtonEvent, 0);
+            quizMe.showNextQuestion(mockButtonEvent, 0,"Test");
 
             verify(mockChannel).sendMessage("Question: What is Python?")
                     .setActionRow(any(Button.class), any(Button.class)).queue();
