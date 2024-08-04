@@ -32,7 +32,7 @@ public class TimerInteractor extends ListenerAdapter {
      */
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equals("timer_create")) { // Slash command for creating a timer
+        if (event.getName().equals("timer-create")) {
             User user = event.getUser();
             String name = Objects.requireNonNull(event.getOption("name")).getAsString();
             double workTime = Objects.requireNonNull(event.getOption("work")).getAsDouble();
@@ -45,16 +45,16 @@ public class TimerInteractor extends ListenerAdapter {
                         "numbers! Try again with positive real numbers.");}
             else {TimerController.convertCreateInput(name, workTime, breakTime, iteration, user, event);}
         }
-        if (event.getName().equals("timer_delete")) { // Commanding a deleting a timer instance
+        if (event.getName().equals("timer-delete")) {
             User user = event.getUser();
             String name = Objects.requireNonNull(event.getOption("name")).getAsString();
             TimerController.convertDeleteInput(name, user, event);
         }
-        if (event.getName().equals("timer_list")) { // Command for loading a list of timers
+        if (event.getName().equals("timer-list")) {
             // Invokes TimerPresenter to reply with a list of timers, given the caller and event
             TimerPresenter.getTimers(event.getUser(), event);
         }
-        if (event.getName().equals("timer_start")) {// Command for starting a timer
+        if (event.getName().equals("timer-start")) {
             User user = event.getUser();
             String timerName = Objects.requireNonNull(event.getOption("name")).getAsString();
 
@@ -66,7 +66,7 @@ public class TimerInteractor extends ListenerAdapter {
             // Invokes TimerController to convert inputs
             TimerController.convertStartInput(timerName, user, one, two, three, event);
         }
-        if (event.getName().equals("timer_cancel")) {
+        if (event.getName().equals("timer-cancel")) {
             User user = event.getUser();
             String timerName = Objects.requireNonNull(event.getOption("name")).getAsString();
 
