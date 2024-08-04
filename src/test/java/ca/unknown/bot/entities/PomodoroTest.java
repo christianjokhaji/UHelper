@@ -29,8 +29,6 @@
 
     /**
     * A unit test class for the Pomodoro entity
-    *
-    *
     */
 
         private Pomodoro timer;
@@ -52,7 +50,6 @@
 
             InteractionHook mockInteractionHook = mock(InteractionHook.class);
             when(mockButtonEvent.reply(anyString())).thenReturn(mock(ReplyCallbackAction.class));
-
         }
 
         @Test // Check if the constructor and getters of Pomodoro works correctly

@@ -3,10 +3,14 @@ package ca.unknown.bot.data_access;
 import ca.unknown.bot.entities.quiz_me.QuizMe;
 import ca.unknown.bot.entities.timer.Pomodoro;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.UserSnowflake;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -16,6 +20,7 @@ import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,7 +28,9 @@ import org.mockito.Mockito;
 import ca.unknown.bot.data_access.timer.TimerDAO;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,8 +51,8 @@ public class TimerRepositoryTest {
     private ButtonInteractionEvent mockButtonEvent;
     private SlashCommandInteractionEvent mockSlashEvent;
 
-    private User mockUser1;
-    private User mockUser2;
+    private UserSnowflake mockUser1;
+    private UserSnowflake mockUser2;
     private String fileName;
     private Pomodoro timer;
 
@@ -55,9 +62,8 @@ public class TimerRepositoryTest {
         mockSlashEvent = new SlashCommandInteractionEvent(mockJDA, interactionId, mockInteraction);
         mockButtonEvent = mock(ButtonInteractionEvent.class);
         fileName = "src/test/java/ca/unknown/bot/data_access/timer_repository_test.json";
-        mockUser1 = (User) User.fromId(12345L);
-        mockUser2 = (User) User.fromId(67890L);
-
+        mockUser1 = User.fromId(123L);
+        mockUser2 = User.fromId(456L);
 
         try (FileReader reader = new FileReader(fileName)) {
             JsonReader jsonReader = new JsonReader(reader);
@@ -65,10 +71,11 @@ public class TimerRepositoryTest {
             TypeToken<Map<String, ArrayList>> typeToken= new TypeToken
                     <Map<String,ArrayList>>(){};
         } catch (IOException e) {
-            e.printStackTrace();}
+            e.printStackTrace();
         }
+    }
 
-    @Test //
+    @Test // Tests when a single user adds their timer for the first time
     void newTimerWhenEmpty() {
         ArrayList<Pomodoro> value = new ArrayList<>();
         value.add(timer);
@@ -83,8 +90,31 @@ public class TimerRepositoryTest {
                     <Map<String,ArrayList>>(){};
             Map result = gson.fromJson(jsonReader, typeToken.getType());
             assert(result.containsKey(mockUser1.toString()));
+            ArrayList content = (ArrayList) result.get(mockUser1.toString());
+            LinkedTreeMap timer = (LinkedTreeMap) content.get(0);
+            assertEquals("test", timer.get("name"));
+            LinkedTreeMap spec = (LinkedTreeMap) timer.get("map");
+            assertEquals(5.0, spec.get("breakTime"));
+            assertEquals(25.0, spec.get("workTime"));
+            assertEquals(3.0, spec.get("iteration"));
         } catch (IOException e) {
-            e.printStackTrace();}
+            e.printStackTrace();
         }
-
     }
+
+
+    @AfterEach
+    void cleanUp() throws IOException {
+        Map clean = new HashMap();
+
+        Gson gson = new GsonBuilder().create();
+        try (FileWriter writer = new FileWriter(fileName)) {
+            JsonWriter jsonWriter = new JsonWriter(writer);
+            Type type = new TypeToken<Map<String,ArrayList<Pomodoro>>>(){}.getType();
+            gson.toJson(clean, type, jsonWriter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
