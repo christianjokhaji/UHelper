@@ -38,12 +38,12 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
         // collects the user's discord username
         String username = discordUser.getName();
 
-        // this is supposed to load the persisted repo onto the cache but it doesn't work yet...
+         // this is supposed to load the persisted repo onto the cache but it doesn't work yet...
 //        if(scheduleDAO.emptyCache("schedule_repository")){
 //            scheduleDAO.loadRepo("schedule_repository");
 //        }
 
-        if (event.getName().equals("schedule_event")) {
+        if (event.getName().equals("schedule-event")) {
             // Tell discord we received the command, send a thinking... message to the user
             event.deferReply().queue();
 
@@ -76,7 +76,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             // call subordinate interactor to clean up event from schedule after its passed
             new RemovePassedEventInteractor(scheduleDAO).execute(username, newEvent);
         }
-        else if (event.getName().equals("schedule_exam")) {
+        else if (event.getName().equals("schedule-exam")) {
             // Tell discord we received the command, send a thinking... message to the user
             event.deferReply().queue();
 
@@ -109,7 +109,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             new RemovePassedEventInteractor(scheduleDAO).execute(username, newExam);
 
         }
-        else if (event.getName().equals("schedule_assignment")){
+        else if (event.getName().equals("schedule-assignment")){
             // Tell discord we received the command, send a thinking... message to the user
             event.deferReply().queue();
 
@@ -145,12 +145,15 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
 
         }
-        else if (event.getName().equals("current_schedule")){
+        else if (event.getName().equals("current-schedule")){
             // if the user has never scheduled an event before (so their schedule doesn't exist in the cache) or
             // they have an existing schedule with no ongoing events, then alert the user that there are no events
             // to be displayed
-            if(!scheduleDAO.existsByUser(username) || scheduleDAO.getSchedule(username).hasNoEvents()){
+            if(!scheduleDAO.existsByUser(username)){
                 event.reply("You have no scheduled events.").queue();
+            }
+            else if(scheduleDAO.getSchedule(username).hasNoEvents()){
+                event.reply("There is no ongoing schedule to clear.").queue();
             }
             else{
                 // otherwise displays a String representation of the user's ongoing event schedule
@@ -158,10 +161,13 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 event.reply(scheduleDAO.getSchedule(username).toString()).queue();
             }
         }
-        else if(event.getName().equals("clear_event")){
+        else if(event.getName().equals("clear-event")){
             // if the user doesn't have an existing schedule in the cache, then alert them that there is no schedule
             // to clear
             if(!scheduleDAO.existsByUser(username)){
+                event.reply("There is no ongoing schedule to clear.").queue();
+            }
+            else if(scheduleDAO.getSchedule(username).hasNoEvents()){
                 event.reply("There is no ongoing schedule to clear.").queue();
             }
             else{
@@ -176,10 +182,13 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             }
         }
-        else if(event.getName().equals("clear_schedule")){
+        else if(event.getName().equals("clear-schedule")){
             // if the user doesn't have an existing schedule in the cache, then alert them that there is no schedule
             // to clear
             if(!scheduleDAO.existsByUser(username)){
+                event.reply("There is no ongoing schedule to clear.").queue();
+            }
+            else if(scheduleDAO.getSchedule(username).hasNoEvents()){
                 event.reply("There is no ongoing schedule to clear.").queue();
             }
             else{
