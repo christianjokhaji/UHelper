@@ -105,7 +105,7 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Start a timer by giving the bot the name of that timer and notify users when time is up 
   via DM. In doing so, the user can invite other users so that they'd be also notified.
   - [X] Cancel an ongoing timer.
-  - [X] Delete a timer preset by its name. 
+  - [X] Delete a timer preset by giving its name. 
 
 - **Minigames** 🎮
   - [X] Rock-paper-scissors
@@ -131,7 +131,7 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Handling parameters input for API calls
     - [X] Encoding whitespace
     - [X] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
-  - [ ] Style recipe suggestions with Embed Builder
+  - [X] Style recipe suggestions with Embed Builder
     - [X] Add directions to external recipes
     - [X] images(if possible) of the cuisine 
     - [X] Add Nutritional Information

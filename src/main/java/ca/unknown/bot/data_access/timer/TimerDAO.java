@@ -22,7 +22,7 @@ public class TimerDAO {
      * to do the followings :
      * 1) determine the status of timer_repository.json
      * 2) based on its status, it selects a way to write to timer_repository.json
-     * 2) fetches data into a readable data structure so that timerPresenter can process
+     * 3) fetches data into a readable data structure so that timerPresenter can process
      *
      * Pomodoro instances are stored in the following format as a json file.
      * {user_id: [{"name": "name_of_timer, "map": {"breakTime":5.0,"iteration":3,"workTime":25.0}}]}
@@ -146,7 +146,7 @@ public class TimerDAO {
            }
     }
 
-    // helper function: returns true if the designated json file is totally empty
+    // returns true if the designated json file is totally empty
     public static boolean checkEmpty(String filename) {
         try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
@@ -154,22 +154,7 @@ public class TimerDAO {
             TypeToken<Map<String,ArrayList>> typeToken= new TypeToken
                     <Map<String,ArrayList>>(){};
             Map map = gson.fromJson(jsonReader, typeToken.getType());
-            return map == null; //
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    // helper function: returns true if the input user is not found in the json file
-    public static boolean checkUser(Map userAndTimer, String filename) {
-        try (FileReader reader = new FileReader(filename)) {
-            JsonReader jsonReader = new JsonReader(reader);
-            Gson gson = new Gson();
-            TypeToken<Map<String,ArrayList>> typeToken= new TypeToken
-                    <Map<String,ArrayList>>(){};
-            Map map = gson.fromJson(jsonReader, typeToken.getType());
-            return map.containsKey(userAndTimer.keySet().toArray()[0]);
+            return map == null;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -177,7 +162,7 @@ public class TimerDAO {
     }
 
     // Same as above, but uses a simplified parameter for the deleting purpose
-    public static boolean checkUserDelete(String user, String filename) {
+    public static boolean checkUser(String user, String filename) {
         try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
@@ -191,9 +176,25 @@ public class TimerDAO {
         return false;
     }
 
+    public static boolean checkTimer(String user, String timerName, String filename) {
+        try (FileReader reader = new FileReader(filename)) {
+            JsonReader jsonReader = new JsonReader(reader);
+            Gson gson = new Gson();
+            TypeToken<Map<String,ArrayList>> typeToken= new TypeToken
+                    <Map<String,ArrayList>>(){};
+            Map map = gson.fromJson(jsonReader, typeToken.getType());
+            ArrayList<LinkedTreeMap> timers = (ArrayList) map.get(user);
+            for (LinkedTreeMap timer : timers){
+                if (timer.containsValue(timerName)){return true;}}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     // returns true if user has 5 or more timer instances
     public static boolean checkMoreThanFive(String user) {
-        try (FileReader reader = new FileReader("timer_repository.json")) {
+        try (FileReader reader = new FileReader("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
             TypeToken<Map<String,ArrayList>> typeToken= new TypeToken
@@ -211,8 +212,8 @@ public class TimerDAO {
 
     // returns true if the input name is already used for any timer that user has
     public static boolean checkDuplicate(String name, String user) {
-        try (FileReader reader = new FileReader("timer_repository.json")) {
-            Map repo = loadPomodoro("timer_repository.json");
+        try (FileReader reader = new FileReader("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
+            Map repo = loadPomodoro("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
             if (repo == null) {return false;}
             else if (!repo.containsKey(user)) {return false;}
             ArrayList Pomodoros = (ArrayList) repo.get(user);
@@ -228,7 +229,8 @@ public class TimerDAO {
     }
 
     public static Pomodoro fetchTimer(String name, String user) {
-        ArrayList<LinkedTreeMap> timers = (ArrayList) loadTimers(user,"timer_repository.json");
+        ArrayList<LinkedTreeMap> timers = (ArrayList) loadTimers(user,
+                "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
         for (LinkedTreeMap timer : timers) {
             if (((LinkedTreeMap<?, ?>) timer).get("name").equals(name)) {
                 String timerName = timer.get("name").toString();
