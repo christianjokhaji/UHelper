@@ -23,11 +23,15 @@ import java.util.List;
  **/
 
 public class RecipeApiHandler {
+    /**
+     *
+     * @param json represents a JSON string.
+     * @return a JsonObject for further data manipulation and/or access.
+     */
     private final int n;
     private final String recipeApi;
     private List<Recipe> recipes;
 
-    // initialize the RecipeApiHandler
     public RecipeApiHandler(String query, int n, HashMap<String, String> params){
         this.n = n;
         this.recipes = new ArrayList<>();
@@ -52,6 +56,32 @@ public class RecipeApiHandler {
             recipeApi += paramURL;
         }
         this.recipeApi = recipeApi;
+    }
+
+    public List<Recipe> fetchRecipes() {
+        JsonArray allResults = getHitsArray(recipeApi);
+
+        // Iterate over each element in the "hits" array
+        for (int i = 0; i < n && i < allResults.size(); i++) {
+            JsonObject recipeObject = allResults.get(i).getAsJsonObject().getAsJsonObject("recipe");
+
+            String label = recipeObject.get("label").getAsString();
+            String image = recipeObject.get("image").getAsString();
+            String source = recipeObject.get("source").getAsString();
+            String url = recipeObject.get("url").getAsString();
+            String shareAs = recipeObject.get("shareAs").getAsString();
+
+            JsonArray ingredients = recipeObject.get("ingredientLines").getAsJsonArray();
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<String>>() {}.getType();
+            List<String> ingredientLines = gson.fromJson(ingredients, listType);
+
+            recipes.add(new Recipe(label, image, source, url, shareAs, ingredientLines));
+        }
+
+        Collections.shuffle(recipes);
+
+        return recipes;
     }
 
     private JsonObject fetchedAndParsed(String URL){
@@ -79,30 +109,5 @@ public class RecipeApiHandler {
         return hitsArray;
     }
 
-    public List<Recipe> fetchRecipes() {
-        JsonArray allResults = getHitsArray(recipeApi);
 
-        // Iterate over each element in the "hits" array
-        for (int i = 0; i < n && i < allResults.size(); i++) {
-            JsonObject recipeObject = allResults.get(i).getAsJsonObject().getAsJsonObject("recipe");
-
-            String label = recipeObject.get("label").getAsString();
-            String image = recipeObject.get("image").getAsString();
-            String source = recipeObject.get("source").getAsString();
-            String url = recipeObject.get("url").getAsString();
-            String shareAs = recipeObject.get("shareAs").getAsString();
-            // parse ingredientLines
-            JsonArray ingredients = recipeObject.get("ingredientLines").getAsJsonArray();
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<String>>() {}.getType();
-            List<String> ingredientLines = gson.fromJson(ingredients, listType);
-            // TODO: Add more fields as needed
-
-            recipes.add(new Recipe(label, image, source, url, shareAs, ingredientLines));
-        }
-
-        Collections.shuffle(recipes);
-
-        return recipes;
-    }
 }

@@ -1,5 +1,6 @@
 package ca.unknown.bot.app;
 
+import ca.unknown.bot.commands.RecipeCommands;
 import ca.unknown.bot.use_cases.recipe.RecipeInteractor;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
 import ca.unknown.bot.use_cases.utils.EventListener;
@@ -46,6 +47,7 @@ public class Main {
 
         // Adds commands to the bot instance.
         jda.updateCommands().addCommands(
+                RecipeCommands.getFindRecipesCommand(),
                 Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
                         .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
                                 .addChoice("Rock", "rock")
@@ -69,15 +71,27 @@ public class Main {
                         .addOption(OptionType.USER, "invitee3", "the third user to share a timer (Optional)", false),
                 Commands.slash("timer-cancel", "Cancels the specified timer if it's running")
                         .addOption(OptionType.STRING, "name", "the name of the timer"),
-                Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
-                        .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
-                        .addOption(OptionType.INTEGER, "count", "Enter a positive integer", true)
-                        .addOptions(new OptionData(OptionType.STRING, "meal_type", "Choose a type of meal.")
-                                .addChoice("Breakfast", "breakfast")
-                                .addChoice("Lunch", "lunch")
-                                .addChoice("Snack", "snack")
-                                .addChoice("Teatime", "teatime")
-                                .addChoice("Dinner", "dinner")),
+//                Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
+//                        .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
+//                        .addOption(OptionType.INTEGER, "count", "Enter a positive integer", true)
+//                        .addOptions(new OptionData(OptionType.STRING, "meal-type", "Choose a type" +
+//                                " of meal.")
+//                                .addChoice("Breakfast", "breakfast")
+//                                .addChoice("Lunch", "lunch")
+//                                .addChoice("Snack", "snack")
+//                                .addChoice("Teatime", "teatime")
+//                                .addChoice("Dinner", "dinner"))
+//                        .addOptions(new OptionData(OptionType.STRING, "dish-type", "Choose a type" +
+//                                " of dish.")
+//                                .addChoice("Biscuits and cookies", "biscuits and cookies")
+//                                .addChoice("Bread", "bread")
+//                                .addChoice("Cereals", "cereals")
+//                                .addChoice("Condiments and sauces", "condiments and sauces")
+//                                .addChoice("Desserts", "desserts")
+//                                .addChoice("Drinks", "drinks")
+//                                .addChoice("Main course", "main course")
+//                                .addChoice("Pancake", "pancake")
+//                                .addChoice("Preps", "preps")),
                 Commands.slash("schedule_exam", "Schedules a new exam reminder. Please format your date as " +
                                 " YYYY MM DD HR MIN SEC.")
                         .addOption(OptionType.STRING, "course", "The course code of the exam.", true)
