@@ -84,11 +84,9 @@ public class TimerProcessor {
      */
         if (TimerDAO.checkEmpty("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json") || !TimerDAO.checkUser(user, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
             TimerPresenter.sendReply(event, "You don't have any presets to remove.");}
-
         else if (!TimerDAO.checkTimer(user, name,"src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
             TimerPresenter.sendReply(event, "The requested timer is not found!");
         }
-
         else {
             TimerDAO.deletePomodoro(name, user, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
             TimerPresenter.sendSuccessReply(event, name + " has been successfully removed.");
@@ -119,12 +117,14 @@ public class TimerProcessor {
         for (Pomodoro timer : timerList) {
             if (timer.getName().equals(timerName)) {
                 timer.removeUser(user);
-                TimerPresenter.sendReply(event,  timer.getName() + " has been cancelled.");
+                TimerPresenter.sendReply(event,  timer.getName() + " has been cancelled and " +
+                        "you will not be notified.");
                 break;
             }
         }
         cleanTimerList();
-        TimerPresenter.sendReply(event, timerName + " is not running or does not exist.");
+        TimerPresenter.sendReply(event, timerName + " is not running or does not exist. " +
+                "Please check that you have entered a correct name.");
     }
 
     // checks if user has a timer running in the background
