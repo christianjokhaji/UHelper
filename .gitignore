@@ -55,3 +55,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/schedule_repository.json
