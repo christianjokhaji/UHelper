@@ -13,6 +13,7 @@ import java.util.Objects;
 
 public class GUI extends JFrame {
     private final JPanel main = new JPanel();
+    private final JPanel icon = new JPanel();
     private final JPanel discordAPI = new JPanel();
     private final JPanel mealPrepID = new JPanel();
     private final JPanel mealPrepKey = new JPanel();
@@ -32,17 +33,29 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
+        setResizable(false);
+        setTitle("UHelper by Team Unknown");
     }
 
     private void buildGUI() {
+        // Create icon.
+        JLabel iconImage = new JLabel(new ImageIcon("src/main/java/ca/unknown/bot/gui/GUI.png"));
+        JLabel attribution = new JLabel("<html><a href=" +
+                "'https://pngtree.com/freepng/little-cute-robot-funny-virtual-assistant-bot_14551911.html'>" +
+                "Icon by Ghulam Asghar</a></html>");
+
         // Initialize main and add subsections.
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
+        main.add(icon);
         main.add(discordAPI);
         main.add(mealPrepID);
         main.add(mealPrepKey);
         main.add(start);
 
         // Set up FlowLayout for each subsection.
+        icon.setLayout(new FlowLayout(FlowLayout.CENTER));
+        icon.add(iconImage);
+        icon.add(attribution);
         discordAPI.setLayout(new FlowLayout(FlowLayout.LEFT));
         mealPrepID.setLayout(new FlowLayout(FlowLayout.LEFT));
         mealPrepKey.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -55,6 +68,7 @@ public class GUI extends JFrame {
         // Create hyperlinks.
         devLink.setForeground(Color.BLUE.darker());
         edamamLink.setForeground(Color.BLUE.darker());
+        attribution.setForeground(Color.BLUE.darker());
 
         // Add components to each subsection.
         discordAPI.add(discordAPIToken);
@@ -93,6 +107,25 @@ public class GUI extends JFrame {
         });
 
         // Add hyperlink functionality.
+        attribution.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://pngtree.com/freepng/little-cute-robot-funny-virtual" +
+                            "-assistant-bot_14551911.html"));
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                attribution.setText("<html><a href='https://pngtree.com/freepng/little-cute-robot-funny-virtual-" +
+                        "assistant-bot_14551911.html'>" +
+                        "Icon by Ghulam Asghar</a></html>");
+            }
+        });
+
         devLink.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
