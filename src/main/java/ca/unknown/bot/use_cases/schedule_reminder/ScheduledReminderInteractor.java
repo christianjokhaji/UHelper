@@ -72,6 +72,9 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             // call subordinate interactor to set up a delayed queue for sending a private message reminder to the user
             new SendReminderInteractor(scheduleDAO).execute(discordUser, newEvent);
+
+            // call subordinate interactor to clean up event from schedule after its passed
+            new RemovePassedEventInteractor(scheduleDAO).execute(username, newEvent);
         }
         else if (event.getName().equals("schedule_exam")) {
             // Tell discord we received the command, send a thinking... message to the user
@@ -101,6 +104,9 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             // call subordinate interactor to set up a delayed queue for sending a private message reminder to the user
             new SendReminderInteractor(scheduleDAO).execute(discordUser, newExam);
+
+            // call subordinate interactor to clean up event from schedule after its passed
+            new RemovePassedEventInteractor(scheduleDAO).execute(username, newExam);
 
         }
         else if (event.getName().equals("schedule_assignment")){
@@ -132,6 +138,10 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             // call subordinate interactor to set up a delayed queue for sending a private message reminder to the user
             new SendReminderInteractor(scheduleDAO).execute(discordUser, newAssignment);
+
+
+            // call subordinate interactor to clean up event from schedule after its passed
+            new RemovePassedEventInteractor(scheduleDAO).execute(username, newAssignment);
 
 
         }

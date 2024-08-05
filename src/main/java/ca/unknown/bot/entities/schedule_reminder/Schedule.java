@@ -19,6 +19,11 @@ public interface Schedule {
     void sort();
 
     /**
+     * Removes a passed event from this schedule.
+     */
+    void removePassedEvent(ScheduledEvent s);
+
+    /**
      * Returns the number of events in this schedule.
      * @return an int of the number of events in this <code>Schedule</code>
      */
@@ -54,7 +59,12 @@ public interface Schedule {
      */
     boolean hasNoEvents();
 
-    boolean hasEvent(String eventName);
+    /**
+     * Returns whether this schedule has the given event.
+     * @param s the event to search for
+     * @return true if the scheduled event is found in this <code>Schedule</code>
+     */
+    boolean hasEvent(ScheduledEvent s);
 
 
     /**

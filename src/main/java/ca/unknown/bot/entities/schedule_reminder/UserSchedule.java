@@ -29,6 +29,10 @@ public class UserSchedule implements Schedule {
         events.add(s);
     }
 
+    public void removePassedEvent(ScheduledEvent s){
+        events.remove(s);
+    }
+
     public void sort(){
         Collections.sort(events);
     }
@@ -69,13 +73,8 @@ public class UserSchedule implements Schedule {
         return events.isEmpty();
     }
 
-    public boolean hasEvent(String eventName){
-        for(ScheduledEvent s: events){
-            if(s.getEventName().equals(eventName)){
-                return true;
-            }
-        }
-        return false;
+    public boolean hasEvent(ScheduledEvent s){
+        return events.contains(s);
     }
 
     public boolean hasDuplicateEvent(String eventName, Date eventDate){
