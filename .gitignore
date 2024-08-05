@@ -16,6 +16,21 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+### assets ###
+assets/0.png
+assets/1.png
+assets/2.png
+assets/3.png
+assets/4.png
+assets/5.png
+assets/6.png
+assets/7.png
+assets/TOKEN=.png
+
+### Data Repository ###
+src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json
+src/test/java/ca/unknown/bot/data_access/timer_repository_test.json
+
 ### Eclipse ###
 .apt_generated
 .classpath

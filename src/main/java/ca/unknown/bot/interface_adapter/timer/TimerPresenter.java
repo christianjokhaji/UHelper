@@ -58,7 +58,7 @@ public class TimerPresenter {
      *
      */
         TimerDAO timerDAO = new TimerDAO();
-        ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
+        ArrayList list = timerDAO.loadTimers(user.toString(), "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
         if (list == null || list.size() == 0) {
             event.reply("You have no timer presets!").queue();
         } else {
@@ -87,7 +87,7 @@ public class TimerPresenter {
      *
      */
         TimerDAO timerDAO = new TimerDAO();
-        ArrayList list = timerDAO.loadTimers(user.toString(), "timer_repository.json");
+        ArrayList list = timerDAO.loadTimers(user.toString(), "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
         if (list == null || list.size() == 0) {
             event.reply("You have no timer presets!").queue();
         } else {
@@ -113,7 +113,7 @@ public class TimerPresenter {
      * I just thought Presenter working directly with a DAO was weird.
      */
         TimerDAO timerDAO = new TimerDAO();
-        ArrayList listTimers = timerDAO.loadTimers(user.toString(), "timer_repository.json");
+        ArrayList listTimers = timerDAO.loadTimers(user.toString(), "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
         for (Object map : listTimers) {
             map = (LinkedTreeMap) map;
             if (((LinkedTreeMap<?, ?>) map).get("name").equals(name)) {

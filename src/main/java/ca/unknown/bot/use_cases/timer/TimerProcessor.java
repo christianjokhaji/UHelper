@@ -54,20 +54,20 @@ public class TimerProcessor {
             TimerPresenter.sendReply(event, "You have reached the maximum number of timers! " +
                     "Delete one before adding a new one.");}
 
-        else if (TimerDAO.checkEmpty("timer_repository.json")) { // Case 1
-            TimerDAO.saveTimerOne(userAndTimer, "timer_repository.json");
+        else if (TimerDAO.checkEmpty("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) { // Case 1
+            TimerDAO.saveTimerOne(userAndTimer, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
             TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
                     name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
                     timer.getBreakTime() + " minutes of break " + timer.getIteration() + " times.");}
 
-        else if (!TimerDAO.checkUser(userAndTimer, "timer_repository.json")) { // Case 2
-            TimerDAO.saveTimerTwo(userAndTimer, "timer_repository.json");
+        else if (!TimerDAO.checkUser(userId, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) { // Case 2
+            TimerDAO.saveTimerTwo(userAndTimer, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
             TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
                     name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
                     timer.getBreakTime() + " minutes of break " + timer.getIteration() + " times.");}
 
-        else if (TimerDAO.checkUser(userAndTimer, "timer_repository.json")) { // Case 3
-            TimerDAO.saveTimerThree(userAndTimer, "timer_repository.json");
+        else if (TimerDAO.checkUser(userId, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) { // Case 3
+            TimerDAO.saveTimerThree(userAndTimer, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
             TimerPresenter.sendSuccessReply(event, "A timer preset has been created. " +
                     name + " will repeat " + timer.getWorkTime() + " minutes of work and " +
                     timer.getBreakTime() + " minutes of break " + timer.getIteration() + " times.");}
@@ -82,25 +82,27 @@ public class TimerProcessor {
      * @param event : the event to reply that either the requested timer preset doesn't exist or it
      *              is removed.
      */
+        if (TimerDAO.checkEmpty("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json") || !TimerDAO.checkUser(user, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
+            TimerPresenter.sendReply(event, "You don't have any presets to remove.");}
 
-        if (TimerDAO.checkEmpty("timer_repository.json") ||
-        !TimerDAO.checkUserDelete(user, "timer_repository.json")) {
-            TimerPresenter.sendReply(event, "You don't have any presets to remove");}
+        else if (!TimerDAO.checkTimer(user, name,"src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
+            TimerPresenter.sendReply(event, "The requested timer is not found!");
+        }
 
-        else if (TimerDAO.checkUserDelete(user, "timer_repository.json")) {
-            TimerDAO.deletePomodoro(name, user, "timer_repository.json");
+        else {
+            TimerDAO.deletePomodoro(name, user, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
             TimerPresenter.sendSuccessReply(event, name + " has been successfully removed.");
         }
     }
 
-    // Starts a timer
+
     public static void timerStart(String timerName, ArrayList<User> users, SlashCommandInteractionEvent event) {
         User owner = users.get(0);
         Pomodoro timer = TimerDAO.fetchTimer(timerName, owner.toString());
         if (timer == null) {TimerPresenter.sendReply(event, "The requested timer is not found");}
         else {
             if (checkTimerRunning(owner)) {
-                TimerPresenter.sendReply(event, "There is a timer already running!");
+                TimerPresenter.sendReply(event, "There is a timer already running! " + timer.getName());
             } else {
                 for (User user : users) {
                     timer.addUser(user);}
@@ -117,12 +119,12 @@ public class TimerProcessor {
         for (Pomodoro timer : timerList) {
             if (timer.getName().equals(timerName)) {
                 timer.removeUser(user);
-                TimerPresenter.sendReply(event, "Timer successfully cancelled.");
+                TimerPresenter.sendReply(event,  timer.getName() + " has been cancelled.");
                 break;
             }
         }
         cleanTimerList();
-        TimerPresenter.sendReply(event, "Timer is not found.");
+        TimerPresenter.sendReply(event, timerName + " is not running or does not exist.");
     }
 
     // checks if user has a timer running in the background
