@@ -63,7 +63,7 @@ public class RecipeModel {
                 .setColor(Color.decode("#5E80A2"))
                 .addField("Here is a summary of your search:",
                         getSummary(query, n, params, recipes), false)
-                .setFooter("Search results provided by Edamam API")
+                .setFooter("Search results powered by [Edmaman API](https://www.edamam.com/).")
                 .setTimestamp(Instant.now());
         embeds.add(recipeSummary);
 
