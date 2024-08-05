@@ -1,77 +1,90 @@
 package ca.unknown.bot.use_cases.timer;
 
-import ca.unknown.bot.data_access.timer.TimerDAO;
 import ca.unknown.bot.interface_adapter.timer.TimerController;
 import ca.unknown.bot.interface_adapter.timer.TimerPresenter;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.util.Objects;
 
-/**
- * A use-case interactor for timer and its features.
- */
 public class TimerInteractor extends ListenerAdapter {
-
     /**
-     * TimerInteractor allows a bot to create, initiate, and cancel a timer. Many of the methods
-     * below involves getting information about the user who call a certain command.
+     * TimerInteractor is a listener class that is responsible for gathering data from the view and view model
+     * (the Discord client). Whenever a command was made on a Discord server, it gets an instance of
+     * RestAction to interact with TimerController and TimerPresenter to deal with various requests.
+     * Its methods mostly involves getting information about the user who call a certain
+     * command.
+     * Responsibility: listens to inputs and pass them to the appropriate classes
      *
-     * @param event represents a SlashCommandInteraction event.
+     * @param event represents an event, regardless of how end users invoked them.
      */
 
+
+    /**
+     * onSlashCommandInteraction listens to the slash command interactions from
+     * users and will process inputs as appropriate data types. Then, it will determine what method
+     * of TimerController / TimerPresenter to use so that they can convert inputs accordingly.
+     *
+     * @param event represents an event, invoked by a slash command.
+     */
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equals("timer_create")) { // Slash command for creating a timer
-            try {
-                // the user called /timer_create on Discord
-                User user = event.getUser(); // Who called /timer_create on Discord
+        if (event.getName().equals("timer-create")) {
+            User user = event.getUser();
+            String name = Objects.requireNonNull(event.getOption("name")).getAsString();
+            double workTime = Objects.requireNonNull(event.getOption("work")).getAsDouble();
+            double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
+            int iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
 
-                // the new timer's name
-                String name = Objects.requireNonNull(event.getOption("name")).getAsString();
-
-                // the duration of work period
-                double workTime = Objects.requireNonNull(event.getOption("work")).getAsDouble();
-
-                // the duration of break period
-                double breakTime = Objects.requireNonNull(event.getOption("break")).getAsDouble();
-
-                // One iteration of work-break routine is called an interval.
-                Integer iteration = Objects.requireNonNull(event.getOption("iteration")).getAsInt();
-
-                // Object needed to check duplicate timers
-                TimerDAO timerDAO = new TimerDAO();
-
-                // Prevents users from creating timers with impossible settings
-                if (workTime < 0 || breakTime < 0 || iteration <= 0) {
-                    event.reply("You can't make a timer with negative numbers! Try again " +
-                            "with positive real numbers.").queue();
-                } else if (timerDAO.checkDuplicate(name, user.toString())) {
-                    event.reply("Duplicate names are not allowed for timer instances. " +
-                                    "Try again with a different name.").queue();
-                } else {
-                    TimerController.convertTimerInput(name, workTime, breakTime, iteration, user);
-                    event.reply("A timer preset has been created. \"" + name +
-                        "\" will repeat " + workTime + " minutes of work and " + breakTime
-                + " minutes of break " + iteration + " times.").queue();
-                }
-            }
-            catch (NumberFormatException e) {
-                event.reply("Exception raised: NumberFormatException").queue();
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
-                event.reply("Exception raised: ArrayIndexOutOfBoundsException").queue();
-            }
+            // Prevents users from creating timers with impossible configurations
+            if (workTime < 0 || breakTime < 0 || iteration <= 0) {
+                TimerPresenter.sendReply(event, "You can't create a timer with negative" +
+                        "numbers! Try again with positive real numbers.");}
+            else {TimerController.convertCreateInput(name, workTime, breakTime, iteration, user, event);}
         }
-        if (event.getName().equals("timer_list")) { // Command for loading a list of timers
-            event.reply(TimerPresenter.getTimers(event.getUser())).queue();
+        if (event.getName().equals("timer-delete")) {
+            User user = event.getUser();
+            String name = Objects.requireNonNull(event.getOption("name")).getAsString();
+            TimerController.convertDeleteInput(name, user, event);
         }
-        if (event.getName().equals("timer_start")) { // Command for starting a timer
-            event.reply("Coming soon!").queue();
+        if (event.getName().equals("timer-list")) {
+            // Invokes TimerPresenter to reply with a list of timers, given the caller and event
+            TimerPresenter.getTimers(event.getUser(), event);
         }
-        if (event.getName().equals("timer_cancel")) { // Command for cancelling a timer
-            event.reply("Coming soon!").queue();
+        if (event.getName().equals("timer-start")) {
+            User user = event.getUser();
+            String timerName = Objects.requireNonNull(event.getOption("name")).getAsString();
+
+            // The users who also want to be notified by the same timer; up to three people.
+            User one = event.getOption("invitee1", null, OptionMapping::getAsUser);
+            User two = event.getOption("invitee2", null, OptionMapping::getAsUser);
+            User three = event.getOption("invitee3", null, OptionMapping::getAsUser);
+
+            // Invokes TimerController to convert inputs
+            TimerController.convertStartInput(timerName, user, one, two, three, event);
+        }
+        if (event.getName().equals("timer-cancel")) {
+            User user = event.getUser();
+            String timerName = Objects.requireNonNull(event.getOption("name")).getAsString();
+
+            // Invokes TimerController to process inputs appropriately to the purpose of cancelling
+            TimerController.convertCancelInput(timerName, user, event);
         }
     }
+
+    /**
+     * onButtonInteraction is similar to onSlashCommandInteraction, except for the fact that this
+     * deals with the button interaction of Discord.
+     *
+     * @param event represents an event, invoked by a button.
+     */
+    public void onButtonInteraction(ButtonInteractionEvent event) {
+       if (event.getComponentId().equals("list")) {
+           // Invokes TimerPresenter to prepare a list of timers created by this particular user
+           TimerPresenter.getTimersButton(event.getUser(), event);
+       }
+   }
 }

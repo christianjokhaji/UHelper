@@ -13,6 +13,7 @@ import ca.unknown.bot.entities.game.Game;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A use-case interactor for starting a game.
@@ -39,6 +40,15 @@ public class GameInteractor extends ListenerAdapter {
             String answer = StringEscapeUtils.unescapeHtml4(dict.get("correct_answer").getAsString());
             Game trivia = new Trivia(question, answer);
             trivia.startGame(event);
+        }
+        else if (event.getName().equals("8ball")) {
+            String question = Objects.requireNonNull(event.getOption("question"))
+                    .getAsString().replace(" ", "+");
+            String response = APIFetcher.fetch("https://eightballapi.com/api/biased?question="
+                    + question + "&lucky=false");
+            Map<String, JsonElement> parsed = Parser.parse(response).asMap();
+            String result = String.valueOf(parsed.get("reading"));
+            event.reply(result).queue();
         }
     }
 }
