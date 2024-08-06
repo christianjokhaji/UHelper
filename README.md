@@ -90,9 +90,13 @@ offline.
 
 ![png](assets/7.png)
 
-Most of the UHelper's features are slash commands interaction, so you can type / in the chat to see 
-the list of commands it offers! Please note that, as of July 30, some features are not implemented 
-yet.
+Most of the UHelper's features are accessed through slash commands interaction, so you can simply type `/` in the chat 
+to see the commands available! For a quick and friendly guide to all our commands, 
+you can use the handy `\uhelper-wiki` guide. This guide allows you to view the entire list of commands 
+or dive into a specific feature to see related commands. Explore and enjoy all the awesome capabilities 
+UHelper has to offer! 🚀
+
+
 
 ## Project Progresses
 Currently, we are working to implement the following features. 
@@ -131,23 +135,26 @@ You can find all the user stories and other details in our blueprint from [here]
 
 - **Recipe** 🍽️
   - [X] Implement the API call to fetch recipe data (July 6)
-  - [X] Handling parameters input for API calls
-    - [X] Encoding whitespace
-    - [X] Support multiple parameters for API calls (e.g., meal type, diet, dish type, etc.) 
-  - [X] Style recipe suggestions with Embed Builder
-    - [X] Add directions to external recipes
-    - [X] images(if possible) of the cuisine 
-    - [X] Add Nutritional Information
+  - [X] Handle multiple optional parameters for recipe search 
+    - [X] Encode whitespace and support multiple parameters for API calls 
+          (e.g., meal type, diet, dish type, etc.) (July 12)
+    - [X] Style parameters and its value for recipe summary (Aug 5)
+  - [X] Style recipe suggestions with Embed Builder 
+    - [X] Add directions to external recipes, images of the cuisine and Nutritional Information (July 14)
+    - [X] Create Paginator template for smoother navigation of recipes (July 18)
 
-- **Motivational Quotes** 💪
+- **Wiki** 🔍
+  - [X] Implement UHelper Wiki with paginator (Aug 4)
 
-- **Customizable Commands** ⚙️
+~~- **Motivational Quotes** 💪~~
+
+~~- **Customizable Commands** ⚙️~~
 
 ## Important Notes
 
-**July 21** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
+- [X] **July 21** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
 (Access to the course page may be restricted)
 
-**August 8** - [Phase 2](https://q.utoronto.ca/courses/345741/pages/phase-2-10-percent?module_item_id=5764412) & [Final Presentation](https://q.utoronto.ca/courses/345741/pages/presentation-5-percent?module_item_id=5764413)
+- [ ] **August 8** - [Phase 2](https://q.utoronto.ca/courses/345741/pages/phase-2-10-percent?module_item_id=5764412) & [Final Presentation](https://q.utoronto.ca/courses/345741/pages/presentation-5-percent?module_item_id=5764413)
 
-**August 15** - Final Exam (7-10 PM)
+- [ ] **August 15** - Final Exam (7-10 PM)

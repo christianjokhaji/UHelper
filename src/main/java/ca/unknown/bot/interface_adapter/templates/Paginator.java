@@ -10,6 +10,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Paginator is a utility class for creating and handling paginated embeds in a Discord bot.
+ * It manages pagination buttons and updates the displayed embed based on user interactions.
+ * Currently, only 1 style of button groups are set. However, customization of button groups are
+ * also available via setters in the future.
+ */
+
 public class Paginator extends ListenerAdapter {
     public List<EmbedBuilder> pages;
     public Button firstButton;
@@ -21,6 +28,12 @@ public class Paginator extends ListenerAdapter {
     public List<Button> buttons;
     public SlashCommandInteractionEvent event;
 
+    /**
+     * Constructs a new Paginator instance.
+     *
+     * @param event The SlashCommandInteractionEvent that triggered the pagination.
+     * @param pages The list of EmbedBuilder instances representing the pages.
+     */
     public Paginator(SlashCommandInteractionEvent event, List<EmbedBuilder> pages) {
         this.event = event;
         this.pages = pages;
@@ -46,7 +59,7 @@ public class Paginator extends ListenerAdapter {
                 .queue();
     }
 
-    // change buttons for pagination
+    // change buttons for pagination via setters
     public void setFirstButton(Button firstButton) {
         this.firstButton = firstButton;
     }
@@ -63,17 +76,19 @@ public class Paginator extends ListenerAdapter {
         this.lastButton = lastButton;
     }
 
-    // Handle button interactions
+    /**
+     * Handles button interactions for pagination.
+     *
+     * @param e The ButtonInteractionEvent triggered by a button click.
+     */
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent e) {
         e.deferEdit().queue();
-        // check if the pages are not empty
         if (pages == null || pages.isEmpty()) {
             e.getHook().sendMessage("No pages available.").setEphemeral(true).queue();
             return;
         }
 
-        // update the page number
         String buttonID = e.getComponent().getId();
         assert buttonID != null;
         if (buttonID.equals("to_first")) {
@@ -86,7 +101,6 @@ public class Paginator extends ListenerAdapter {
             currPage = pages.size() - 1;
         }
 
-        // Enable / disable buttons
         if (currPage == 0) {
             firstButton = firstButton.asDisabled();
             prevButton = prevButton.asDisabled();
@@ -114,7 +128,6 @@ public class Paginator extends ListenerAdapter {
             lastButton = lastButton.asEnabled();
         }
 
-        // update the paginating button in the middle
         currButton = Button.secondary(
                 "curr_button", String.format("%d / %d", this.currPage, pages.size()-1)
         ).withDisabled(true);
