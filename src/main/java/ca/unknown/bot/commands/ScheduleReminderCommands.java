@@ -60,6 +60,9 @@ public class ScheduleReminderCommands {
     public static SlashCommandData getCurrentScheduleCommand(){
         return Commands.slash("current-schedule", "Displays the user's upcoming event schedule.");
     }
+    public static SlashCommandData getClearEventCommand(){
+        return  Commands.slash("clear-event", "Clears an event from the user's current schedule.");
+    }
 
     public static SlashCommandData getClearScheduleCommand(){
         return Commands.slash("clear-schedule", "Clears the user's current schedule.");

@@ -17,10 +17,10 @@ public class CommandManager {
     public static void registerCommands(JDA jda) {
         CommandListUpdateAction commands = jda.updateCommands();
         commands.addCommands(
-                RecipeCommands.getFindRecipesCommand(),
                 GameCommands.getRockPaperScissorsCommand(),
                 GameCommands.getTriviaCommand(),
                 GameCommands.get8BallCommand(),
+                RecipeCommands.getFindRecipesCommand(),
                 TimerCommands.getTimerCreateCommand(),
                 TimerCommands.getTimerDeleteCommand(),
                 TimerCommands.getTimerListCommand(),
@@ -30,6 +30,7 @@ public class CommandManager {
                 ScheduleReminderCommands.getScheduleAssignmentCommand(),
                 ScheduleReminderCommands.getScheduleEventCommand(),
                 ScheduleReminderCommands.getCurrentScheduleCommand(),
+                ScheduleReminderCommands.getClearEventCommand(),
                 ScheduleReminderCommands.getClearScheduleCommand(),
                 StudyHelpCommands.getStudyHelpCommand()
         ).queue();
