@@ -38,10 +38,10 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
         // collects the user's discord username
         String username = discordUser.getName();
 
-         // this is supposed to load the persisted repo onto the cache but it doesn't work yet...
-//        if(scheduleDAO.emptyCache("schedule_repository")){
-//            scheduleDAO.loadRepo("schedule_repository");
-//        }
+         // loads the persisted repo onto the cache
+        if(scheduleDAO.emptyCache("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json")){
+            scheduleDAO.loadRepo("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
+        }
 
         if (event.getName().equals("schedule-event")) {
             // Tell discord we received the command, send a thinking... message to the user
@@ -199,7 +199,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 scheduleDAO.removeAllChecks(username);
 
                 // update repo with the new cache containing the cleared schedule
-                scheduleDAO.saveToFile("schedule_repository");
+                scheduleDAO.saveToFile("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
 
                 // alert the user of the successful event
                 event.reply("Schedule cleared successfully. You are unsubscribed from any reminder alerts.").queue();

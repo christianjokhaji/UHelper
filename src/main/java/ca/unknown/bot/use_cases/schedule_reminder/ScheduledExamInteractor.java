@@ -22,7 +22,7 @@ public class ScheduledExamInteractor extends ScheduledEventInteractor {
                 scheduledReminderInputData.getEventName(), scheduledReminderInputData.getLocation());
         scheduleDAO.getSchedule(user).addEvent(schedExam);
         scheduleDAO.addCheck(user, schedExam.getEventName());
-        scheduleDAO.saveToFile("schedule_repository");
+        scheduleDAO.saveToFile("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
         event.getHook().sendMessage("You have scheduled the following event: \n"+ schedExam.toString()).queue();
         return schedExam;
     }

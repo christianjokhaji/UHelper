@@ -42,7 +42,7 @@ public class ScheduledEventInteractor {
                 scheduledReminderInputData.getEventName());
         scheduleDAO.getSchedule(user).addEvent(schedEvent);
         scheduleDAO.addCheck(user, schedEvent.getEventName());
-        scheduleDAO.saveToFile("schedule_repository");
+        scheduleDAO.saveToFile("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
         event.getHook().sendMessage("You have scheduled the following event: \n"+ schedEvent.toString()).queue();
         return schedEvent;
     }
