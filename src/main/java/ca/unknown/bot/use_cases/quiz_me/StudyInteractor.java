@@ -26,29 +26,32 @@ public class StudyInteractor extends ListenerAdapter {
      */
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        String option = Objects.requireNonNull(event.getOption("choice")).getAsString();
 
-        switch (option) {
-            case "resetnotes":
-                quizMe.resetNotes(event);
-                break;
-            case "addquestion":
-                new AddQuestionInteractor(quizMe).handleContinuousAddQuestion(event);
-                break;
-            case "study":
-                quizMe.study(event);
-                break;
-            case "savenotes":
-                new SaveNotesInteractor(quizMe).promptSaveNotes(event);
-                break;
-            case "loadnotes":
-                new LoadNotesInteractor(quizMe).displaySavedQuizzes(event);
-                // Register LoadNotesListener
-                jda.addEventListener(new LoadNotesListener(jda, quizMe));
-                break;
-            default:
-                event.reply("Invalid command.").queue();
-                break;
+        if(event.getName().equals("study-help")) {
+            String option = Objects.requireNonNull(event.getOption("choice")).getAsString();
+
+            switch (option) {
+                case "resetnotes":
+                    quizMe.resetNotes(event);
+                    break;
+                case "addquestion":
+                    new AddQuestionInteractor(quizMe).handleContinuousAddQuestion(event);
+                    break;
+                case "study":
+                    quizMe.study(event);
+                    break;
+                case "savenotes":
+                    new SaveNotesInteractor(quizMe).promptSaveNotes(event);
+                    break;
+                case "loadnotes":
+                    new LoadNotesInteractor(quizMe).displaySavedQuizzes(event);
+                    // Register LoadNotesListener
+                    jda.addEventListener(new LoadNotesListener(jda, quizMe));
+                    break;
+                default:
+                    event.reply("Invalid command.").queue();
+                    break;
+            }
         }
     }
 

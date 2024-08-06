@@ -29,17 +29,27 @@ public class UserSchedule implements Schedule {
         events.add(s);
     }
 
+    public void removePassedEvent(ScheduledEvent s){
+        events.remove(s);
+    }
+
     public void sort(){
         Collections.sort(events);
+    }
+
+    public int size(){
+        return events.size();
     }
 
     public String toString(){
         sort();
         StringBuilder output = new StringBuilder("Here is your upcoming schedule: \n");
         String temp = "";
+        int i = 1;
         for(ScheduledEvent s: events){
-            temp = s.toString() + "\n";
+            temp = i + ". " + s.toString() + "\n";
             output.append(temp);
+            i++;
         }
         return output.toString();
     }
@@ -48,11 +58,51 @@ public class UserSchedule implements Schedule {
         events.clear();
     }
 
+    public String clearSingle(int index){
+        String eventName = events.get(index).getEventName();
+        events.remove(index);
+
+        return eventName;
+    }
+
     public String getUser(){
         return user;
     }
 
     public boolean hasNoEvents(){
         return events.isEmpty();
+    }
+
+    public boolean hasEvent(ScheduledEvent s){
+        return events.contains(s);
+    }
+
+    public boolean hasDuplicateEvent(String eventName, Date eventDate){
+        for(ScheduledEvent s: events){
+            if(!(s instanceof Exam || s instanceof Assignment))
+                if(s.getEventName().equals(eventName) && s.getEventDate().equals(eventDate)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasDuplicateExam(Date examDate){
+        for(ScheduledEvent s: events){
+            if(s instanceof Exam && s.getEventDate().equals(examDate)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasDuplicateAssignment(String assignmentName, String courseCode){
+        for(ScheduledEvent s: events){
+            if(s instanceof Assignment && s.getEventName().equals(assignmentName) &&
+                    ((Assignment) s).getCourseCode().equals(courseCode)){
+                return true;
+            }
+        }
+        return false;
     }
 }

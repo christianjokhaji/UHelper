@@ -11,6 +11,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
+/**
+ * A class that represents a GUI frame.
+ */
 public class GUI extends JFrame {
     private final JPanel main = new JPanel();
     private final JPanel icon = new JPanel();
@@ -27,6 +30,9 @@ public class GUI extends JFrame {
     private final JLabel mealPrepKeyText = new JLabel("Meal Prep Key:");
     private final JTextField key = new JTextField(20);
 
+    /**
+     * The GUI constructor method.
+     */
     GUI() {
         buildGUI();
         setContentPane(main);
@@ -37,6 +43,9 @@ public class GUI extends JFrame {
         setTitle("UHelper by Team Unknown");
     }
 
+    /**
+     * Builds the GUI along with all of its Java Swing components.
+     */
     private void buildGUI() {
         // Create icon.
         JLabel iconImage = new JLabel(new ImageIcon("src/main/java/ca/unknown/bot/gui/GUI.png"));
@@ -173,6 +182,10 @@ public class GUI extends JFrame {
         start.add(startButton);
     }
 
+    /**
+     * Main entryway for the GUI.
+     * @param args Stores Java command-line arguments.
+     */
     public static void main(String[] args) {
         new GUI();
     }
