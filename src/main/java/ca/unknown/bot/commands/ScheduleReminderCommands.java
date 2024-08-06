@@ -8,7 +8,7 @@ public class ScheduleReminderCommands {
     public static SlashCommandData getScheduleExamCommand(){
         return Commands.slash("schedule-exam",
                         "Schedules a new exam reminder. Please format your date as " +
-                                "YYYY MM DD HR MIN SEC.")
+                                "YYYY MM DD HR MIN.")
                 .addOption(OptionType.STRING, "course",
                         "The course code of the exam.", true)
                 .addOption(OptionType.STRING, "location",
@@ -28,7 +28,7 @@ public class ScheduleReminderCommands {
     public static SlashCommandData getScheduleAssignmentCommand(){
         return Commands.slash("schedule-assignment",
                         "Schedules a new assignment reminder. " +
-                                "Please format your date as YYYY MM DD HR MIN SEC.")
+                                "Please format your date as YYYY MM DD HR MIN.")
                 .addOption(OptionType.STRING, "course",
                         "The course code of the assignment.", true)
                 .addOption(OptionType.STRING, "assignment",
@@ -48,7 +48,7 @@ public class ScheduleReminderCommands {
     public static SlashCommandData getScheduleEventCommand(){
         return Commands.slash("schedule-event",
                         "Schedules a generic event reminder. " +
-                                "Please format your date as YYYY MM DD HR MIN SEC.")
+                                "Please format your date as YYYY MM DD HR MIN.")
                 .addOption(OptionType.STRING, "event", "The name of your event.", true)
                 .addOption(OptionType.INTEGER, "year", "The year of your event.", true)
                 .addOption(OptionType.INTEGER, "month", "The numeric month of your event.", true)
