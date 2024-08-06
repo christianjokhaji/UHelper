@@ -1,5 +1,6 @@
 package ca.unknown.bot.app;
 
+import ca.unknown.bot.commands.CommandManager;
 import ca.unknown.bot.commands.RecipeCommands;
 import ca.unknown.bot.use_cases.recipe.RecipeInteractor;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
@@ -46,31 +47,32 @@ public class Main {
         jda.addEventListener(new StudyInteractor(jda));
 
         // Adds commands to the bot instance.
-        jda.updateCommands().addCommands(
-                RecipeCommands.getFindRecipesCommand(),
-                Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
-                        .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
-                                .addChoice("Rock", "rock")
-                                .addChoice("Paper", "paper")
-                                .addChoice("Scissors", "scissors")),
-                Commands.slash("trivia", "Starts a game of trivia."),
-                Commands.slash("8ball", "Receive a Magic 8Ball reading.")
-                        .addOption(OptionType.STRING, "question", "What is the question?"),
-                Commands.slash("timer-create", "Creates a new Pomodoro timer.")
-                        .addOption(OptionType.NUMBER, "work", "how long a work session should be")
-                        .addOption(OptionType.NUMBER, "break", "how long a break should be")
-                        .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
-                        .addOption(OptionType.STRING, "name", "the name of the timer"),
-                Commands.slash("timer-delete", "Delete a Pomodoro timer")
-                        .addOption(OptionType.STRING, "name", "the name of the timer"),
-                Commands.slash("timer-list", "Provides the list of the timers you have."),
-                Commands.slash("timer-start", "Starts a timer.")
-                        .addOption(OptionType.STRING, "name", "the name of the timer instance")
-                        .addOption(OptionType.USER, "invitee1", "the first user to share a timer (Optional)", false)
-                        .addOption(OptionType.USER, "invitee2", "the second user to share a timer (Optional)", false)
-                        .addOption(OptionType.USER, "invitee3", "the third user to share a timer (Optional)", false),
-                Commands.slash("timer-cancel", "Cancels the specified timer if it's running")
-                        .addOption(OptionType.STRING, "name", "the name of the timer"),
+        CommandManager.registerCommands(jda);
+//        jda.updateCommands().addCommands(
+//                RecipeCommands.getFindRecipesCommand(),
+//                Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
+//                        .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
+//                                .addChoice("Rock", "rock")
+//                                .addChoice("Paper", "paper")
+//                                .addChoice("Scissors", "scissors")),
+//                Commands.slash("trivia", "Starts a game of trivia."),
+//                Commands.slash("8ball", "Receive a Magic 8Ball reading.")
+//                        .addOption(OptionType.STRING, "question", "What is the question?"),
+//                Commands.slash("timer-create", "Creates a new Pomodoro timer.")
+//                        .addOption(OptionType.NUMBER, "work", "how long a work session should be")
+//                        .addOption(OptionType.NUMBER, "break", "how long a break should be")
+//                        .addOption(OptionType.INTEGER, "iteration", "how many times you want a cycle to repeat")
+//                        .addOption(OptionType.STRING, "name", "the name of the timer"),
+//                Commands.slash("timer-delete", "Delete a Pomodoro timer")
+//                        .addOption(OptionType.STRING, "name", "the name of the timer"),
+//                Commands.slash("timer-list", "Provides the list of the timers you have."),
+//                Commands.slash("timer-start", "Starts a timer.")
+//                        .addOption(OptionType.STRING, "name", "the name of the timer instance")
+//                        .addOption(OptionType.USER, "invitee1", "the first user to share a timer (Optional)", false)
+//                        .addOption(OptionType.USER, "invitee2", "the second user to share a timer (Optional)", false)
+//                        .addOption(OptionType.USER, "invitee3", "the third user to share a timer (Optional)", false),
+//                Commands.slash("timer-cancel", "Cancels the specified timer if it's running")
+//                        .addOption(OptionType.STRING, "name", "the name of the timer"),
 //                Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
 //                        .addOption(OptionType.STRING, "food", "Enter the name of a food.", true)
 //                        .addOption(OptionType.INTEGER, "count", "Enter a positive integer", true)
@@ -92,45 +94,45 @@ public class Main {
 //                                .addChoice("Main course", "main course")
 //                                .addChoice("Pancake", "pancake")
 //                                .addChoice("Preps", "preps")),
-                Commands.slash("schedule_exam", "Schedules a new exam reminder. Please format your date as " +
-                                " YYYY MM DD HR MIN SEC.")
-                        .addOption(OptionType.STRING, "course", "The course code of the exam.", true)
-                        .addOption(OptionType.STRING, "location", "The location of your exam.", true)
-                        .addOption(OptionType.INTEGER, "year", "The year of your exam.", true)
-                        .addOption(OptionType.INTEGER, "month", "The numeric month of your exam.", true)
-                        .addOption(OptionType.INTEGER, "day", "The numeric day of your exam.", true)
-                        .addOption(OptionType.INTEGER, "hour", "The military hour of your exam.", true)
-                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your exam time.", true)
-                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your exam time.", true),
-                Commands.slash("schedule_assignment", "Schedules a new assignment reminder. Please " +
-                                "format your date as YYYY MM DD HR MIN SEC.")
-                        .addOption(OptionType.STRING, "course", "The course code of the assignment.", true)
-                        .addOption(OptionType.STRING, "assignment", "The name of your assignment.", true)
-                        .addOption(OptionType.INTEGER, "year", "The year of your assignment due date.", true)
-                        .addOption(OptionType.INTEGER, "month", "The numeric month of your assignment due date.", true)
-                        .addOption(OptionType.INTEGER, "day", "The numeric day of your assignment due date.", true)
-                        .addOption(OptionType.INTEGER, "hour", "The military hour of your assignment due date.", true)
-                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your assignment due date.", true)
-                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your assignment due date.", true),
-                Commands.slash("schedule_event", "Schedules a generic event reminder. Please " +
-                                "format your date as YYYY MM DD HR MIN SEC.")
-                        .addOption(OptionType.STRING, "event", "The name of your event.", true)
-                        .addOption(OptionType.INTEGER, "year", "The year of your event.", true)
-                        .addOption(OptionType.INTEGER, "month", "The numeric month of your event.", true)
-                        .addOption(OptionType.INTEGER, "day", "The numeric day of your event.", true)
-                        .addOption(OptionType.INTEGER, "hour", "The military hour of your event.", true)
-                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true)
-                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true),
-                Commands.slash("current_schedule", "Displays the user's upcoming event schedule."),
-                Commands.slash("clear_schedule", "Clears the user's current schedule."),
-                Commands.slash("study-help", "Get Study Help!")
-                        .addOptions(new OptionData(OptionType.STRING, "choice",
-                                "How can we help with studying?")
-                                .addChoice("Reset Notes", "resetnotes")
-                                .addChoice("Add Question", "addquestion")
-                                .addChoice("Study", "study")
-                                .addChoice("Save Quiz ", "savenotes")
-                                .addChoice("Load Quiz", "loadnotes"))
-        ).queue();
+//                Commands.slash("schedule_exam", "Schedules a new exam reminder. Please format your date as " +
+//                                " YYYY MM DD HR MIN SEC.")
+//                        .addOption(OptionType.STRING, "course", "The course code of the exam.", true)
+//                        .addOption(OptionType.STRING, "location", "The location of your exam.", true)
+//                        .addOption(OptionType.INTEGER, "year", "The year of your exam.", true)
+//                        .addOption(OptionType.INTEGER, "month", "The numeric month of your exam.", true)
+//                        .addOption(OptionType.INTEGER, "day", "The numeric day of your exam.", true)
+//                        .addOption(OptionType.INTEGER, "hour", "The military hour of your exam.", true)
+//                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your exam time.", true)
+//                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your exam time.", true),
+//                Commands.slash("schedule_assignment", "Schedules a new assignment reminder. Please " +
+//                                "format your date as YYYY MM DD HR MIN SEC.")
+//                        .addOption(OptionType.STRING, "course", "The course code of the assignment.", true)
+//                        .addOption(OptionType.STRING, "assignment", "The name of your assignment.", true)
+//                        .addOption(OptionType.INTEGER, "year", "The year of your assignment due date.", true)
+//                        .addOption(OptionType.INTEGER, "month", "The numeric month of your assignment due date.", true)
+//                        .addOption(OptionType.INTEGER, "day", "The numeric day of your assignment due date.", true)
+//                        .addOption(OptionType.INTEGER, "hour", "The military hour of your assignment due date.", true)
+//                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your assignment due date.", true)
+//                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your assignment due date.", true),
+//                Commands.slash("schedule_event", "Schedules a generic event reminder. Please " +
+//                                "format your date as YYYY MM DD HR MIN SEC.")
+//                        .addOption(OptionType.STRING, "event", "The name of your event.", true)
+//                        .addOption(OptionType.INTEGER, "year", "The year of your event.", true)
+//                        .addOption(OptionType.INTEGER, "month", "The numeric month of your event.", true)
+//                        .addOption(OptionType.INTEGER, "day", "The numeric day of your event.", true)
+//                        .addOption(OptionType.INTEGER, "hour", "The military hour of your event.", true)
+//                        .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true)
+//                        .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true),
+//                Commands.slash("current_schedule", "Displays the user's upcoming event schedule."),
+//                Commands.slash("clear_schedule", "Clears the user's current schedule."),
+//                Commands.slash("study-help", "Get Study Help!")
+//                        .addOptions(new OptionData(OptionType.STRING, "choice",
+//                                "How can we help with studying?")
+//                                .addChoice("Reset Notes", "resetnotes")
+//                                .addChoice("Add Question", "addquestion")
+//                                .addChoice("Study", "study")
+//                                .addChoice("Save Quiz ", "savenotes")
+//                                .addChoice("Load Quiz", "loadnotes"))
+//        ).queue();
     }
 }
