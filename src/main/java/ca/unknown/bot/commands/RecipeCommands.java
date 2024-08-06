@@ -50,7 +50,6 @@ public class RecipeCommands {
                         "(Optional) Choose a type of cuisine.", false)
                         .addChoice("American", "american")
                         .addChoice("Asian", "asian")
-                        .addChoice("American", "american")
                         .addChoice("British", "british")
                         .addChoice("Caribbean", "caribbean")
                         .addChoice("Central Europe", "central europe")

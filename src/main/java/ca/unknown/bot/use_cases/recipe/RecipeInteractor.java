@@ -14,12 +14,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * A use-case interactor for finding recipes.
+ */
 public class RecipeInteractor extends ListenerAdapter {
+    /**
+     * Extract food query, number of recipes, and optional parameters and generate a recipe search.
+     *
+     * @param event represents a SlashCommandInteraction event.
+     * @param jda creates an alias of jda to make the paginator event listener to work
+     *
+     *  Expected output: send the user a pagination with summary and recipe(s) requested.
+     */
 
     private final JDA jda;
 
     public RecipeInteractor(JDA jda){
-        // This allows the event listener to work
         this.jda = jda;
     }
 

@@ -2,9 +2,10 @@ package ca.unknown.bot.entities.schedule_reminder;
 import java.util.*;
 
 /**
- * Stores custom event dates and is sortable by <code>Date</code> properties.
+ * Creates Date objects that store cutsom event dates using Calendar Builder, to accommodate for
+ * the deprecation of many Date functionalities.
  */
-public class EventDate implements Comparable<EventDate> {
+public class EventDate {
 
     /**
      * <code>Calendar</code> object storing this event date.
@@ -33,14 +34,4 @@ public class EventDate implements Comparable<EventDate> {
             return date.build().getTime();
     }
 
-    /**
-     * Compares two event dates for chronological order.
-     * @param e the event date to be compared to
-     * @return a negative integer, zero, or a positive integer as this date is before, at the same time,
-     * or after the specified event date
-     */
-    @Override
-    public int compareTo(EventDate e){
-        return getDate().compareTo(e.getDate());
-    }
 }

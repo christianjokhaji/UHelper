@@ -19,8 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This is a class for retrieving recipe
- **/
+ * This class is responsible for retrieving recipe data from an API.
+ * It processes and parses JSON responses to a list of Recipe class instances.
+ */
 
 public class RecipeApiHandler {
     /**

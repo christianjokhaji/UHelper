@@ -21,13 +21,17 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
     private Map<String, Schedule> userSchedules = new HashMap<>();
 
     /**
+     * Stores the events that users should be alerted of.
+     */
+    private Map<String, ArrayList<String>> alertCheck = new HashMap<>();
+
+    /**
      * Class constructor.
      */
     public ScheduledReminderDAO(){
 
     }
 
-    @Override
     public boolean existsByUser(String user) {
         return userSchedules.containsKey(user);
     }
@@ -44,6 +48,7 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
 
     public void saveNewUser(Schedule sched){
         userSchedules.put(sched.getUser(), sched);
+        alertCheck.put(sched.getUser(), new ArrayList<String>());
     }
 
     @Override
@@ -57,6 +62,22 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
 
     public Schedule getSchedule(String user){
         return userSchedules.get(user);
+    }
+
+    public boolean getChecks(String user, String eventName){
+        return alertCheck.get(user).contains(eventName);
+    }
+
+    public void addCheck(String user, String event){
+        alertCheck.get(user).add(event);
+    }
+
+    public void removeCheck(String user, String event){
+        alertCheck.get(user).remove(event);
+    }
+
+    public void removeAllChecks(String user){
+        alertCheck.get(user).clear();
     }
 
     /**
@@ -93,7 +114,7 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
             // data which was written to it when saving the cache to a repo
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Schedule.class, new ScheduleInstanceCreator(""));
-            Gson gson = builder.create();
+            Gson gson = new Gson();
             TypeToken<Map<String,Schedule>> typeToken = new TypeToken<>(){};
             Map<String,Schedule> repo = gson.fromJson(jsonReader, typeToken.getType());
             return repo;

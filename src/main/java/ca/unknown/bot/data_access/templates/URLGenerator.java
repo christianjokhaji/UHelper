@@ -3,10 +3,13 @@ package ca.unknown.bot.data_access.templates;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+/**
+ * This class provides utility methods for generating URL parameters.
+ * It helps encode key-value pairs for inclusion in URLs, ensuring that special characters
+ * are properly escaped according to the `UTF-8` encoding scheme.
+ */
 
 public class URLGenerator {
-
-    // Method to encode a string value using `UTF-8` encoding scheme
     private static String encodeValue(String value) {
         return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }

@@ -5,8 +5,8 @@ import java.util.regex.Matcher;
 
 
 /**
-* This template is used for styling strings. Currently, its methods is only suitable for converting
- Camel Case and lower case phrase to phrase start with upper case and have natural space.
+ * This template is used for styling strings. Currently, its methods are suitable for converting
+ * CamelCase and lowercase phrases to phrases starting with an uppercase letter and natural spacing.
  */
 
 public class StylingStrings {

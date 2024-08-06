@@ -1,4 +1,5 @@
 package ca.unknown.bot.entities.schedule_reminder;
+import java.util.*;
 
 /**
  * Stores the user's exam details.
@@ -16,7 +17,7 @@ public class Exam extends ScheduledEvent {
      * @param courseCode the course code of this exam
      * @param location the location of this exam
      */
-    public Exam(EventDate examDate, String courseCode, String location){
+    public Exam(Date examDate, String courseCode, String location){
         // courseCode = eventName in superclass
         super(examDate, courseCode);
         this.location = location;
