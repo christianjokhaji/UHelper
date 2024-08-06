@@ -17,7 +17,7 @@ public class Main {
     /**
      * Main entryway for the program. It serves as a factory for building the bot's functionality.
      *
-     * @param args Stores Java command-line arguments
+     * @param args Stores Java command-line arguments.
      */
 
     public static void main(String[] args) {
