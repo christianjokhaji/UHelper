@@ -113,7 +113,8 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Magic 8 Ball 
 
 - **Study help** 📚
-  - [X] QuizMe
+  - [X] Create quizzes, save them and load them later
+  - [X] Practice answering them and see progress of score overtime
 
 - **Scheduled Reminders** 📅
   - [X] Create a scheduled event by providing the event name and date (day + time) of the event. (July 14)

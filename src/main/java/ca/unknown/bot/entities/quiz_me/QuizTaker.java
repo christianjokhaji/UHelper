@@ -31,8 +31,15 @@ public class QuizTaker {
         return currentScore;
     }
 
+    public Map<String, Integer> getCorrectAnswers() {
+        return correctAnswers;
+    }
 
-    // Setters
+    public Map<String, Integer> getQuestionAttempts() {
+        return questionAttempts;
+    }
+
+    // Increase and reset score
     public void incrementScore() {
         currentScore++;
     }
