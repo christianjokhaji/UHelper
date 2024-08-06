@@ -1,5 +1,7 @@
 package ca.unknown.bot.entities.schedule_reminder;
 
+import java.util.*;
+
 /**
  * Factory class which creates a new scheduled event: generic events, exams, and assignments.
  */
@@ -11,7 +13,7 @@ public class ScheduledEventFactory {
      * @param eventName the name of this new event
      * @return a new <code>ScheduledEvent</code> object
      */
-    public ScheduledEvent createEvent(EventDate eventDate, String eventName){
+    public ScheduledEvent createEvent(Date eventDate, String eventName){
         return new ScheduledEvent(eventDate, eventName);
     }
 
@@ -22,7 +24,7 @@ public class ScheduledEventFactory {
      * @param location the location of this new exam
      * @return a new <code>Exam</code> object
      */
-    public ScheduledEvent createExam(EventDate eventDate, String eventName, String location){
+    public ScheduledEvent createExam(Date eventDate, String eventName, String location){
         return new Exam(eventDate, eventName, location);
     }
 
@@ -33,7 +35,7 @@ public class ScheduledEventFactory {
      * @param courseCode the course code of the class which this assignment is from
      * @return a new <code>Assignment</code> object
      */
-    public ScheduledEvent createAssignment(EventDate eventDate, String eventName, String courseCode){
+    public ScheduledEvent createAssignment(Date eventDate, String eventName, String courseCode){
         return new Assignment(eventDate, eventName, courseCode);
     }
 }
