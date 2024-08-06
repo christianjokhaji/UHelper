@@ -90,9 +90,13 @@ offline.
 
 ![png](assets/7.png)
 
-Most of the UHelper's features are slash commands interaction, so you can type / in the chat to see 
-the list of commands it offers! Please note that, as of July 30, some features are not implemented 
-yet.
+Most of the UHelper's features are accessed through slash commands interaction, so you can simply type `/` in the chat 
+to see the commands available! For a quick and friendly guide to all our commands, 
+you can use the handy `\uhelper-wiki` guide. This guide allows you to view the entire list of commands 
+or dive into a specific feature to see related commands. Explore and enjoy all the awesome capabilities 
+UHelper has to offer! 🚀
+
+
 
 ## Project Progresses
 Currently, we are working to implement the following features. 
