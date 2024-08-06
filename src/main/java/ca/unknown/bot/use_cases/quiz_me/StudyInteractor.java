@@ -27,7 +27,7 @@ public class StudyInteractor extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
 
-        if (event.getName().equals("study-help")) {
+        if(event.getName().equals("study-help")) {
             String option = Objects.requireNonNull(event.getOption("choice")).getAsString();
 
             switch (option) {

@@ -30,6 +30,7 @@ assets/TOKEN=.png
 ### Data Repository ###
 src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json
 src/test/java/ca/unknown/bot/data_access/timer_repository_test.json
+src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json
 
 ### Eclipse ###
 .apt_generated

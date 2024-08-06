@@ -119,12 +119,15 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Create a scheduled event by providing the event name and date (day + time) of the event. (July 14)
     - [X] Create a scheduled assignment by providing the course code, due date, and name of the assignment. (July 5)
     - [X] Create a scheduled exam by providing the course code, location, and date (day + time) of the exam. (July 5)
-  - [ ] Bot sends scheduled direct message reminders the day before each event.
+  - [X] Bot sends scheduled direct message reminders the day before each event or one hour before the event if it was 
+  scheduled less than a day away. (July 26)
   - [X] Bot displays a schedule with ongoing events (incl. assignments, general events, and exams). (July 17)
   - [X] Bot clears the user's current schedule. (July 17)
-    - [ ] Deletes reminder alerts
+    - [X] Deletes reminder alerts (July 30)
+  - [X] Bot clears individual events from the schedule and unsubscribes the user from the reminder alert. (Aug 1)
   - [X] Bot persists the schedule repo to a .json file. (July 20)
   - [ ] Schedule repo is persisted if program restarts (in progress)
+  - [X] Bot removes passed events from the user's schedule automatically. (August 3)
 
 - **Recipe** 🍽️
   - [X] Implement the API call to fetch recipe data (July 6)

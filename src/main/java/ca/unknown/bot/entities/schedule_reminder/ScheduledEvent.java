@@ -10,7 +10,7 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
     /**
      * Date of this event.
      */
-    private EventDate eventDate;
+    private Date eventDate;
 
     /**
      * Name of this event.
@@ -22,7 +22,7 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
      * @param eventDate date of this event
      * @param eventName name of this event
      */
-    public ScheduledEvent(EventDate eventDate, String eventName){
+    public ScheduledEvent(Date eventDate, String eventName){
         this.eventDate = eventDate;
         this.eventName = eventName;
     }
@@ -32,7 +32,7 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
      * @return a <code>Date</code> object representation of this event's date
      */
     public Date getEventDate(){
-        return eventDate.getDate();
+        return eventDate;
     }
 
 
@@ -60,7 +60,7 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
      * @return a String representation of this <code>ScheduledEvent</code>'s reminder alert
      */
     public String reminderAlert(){
-        return "Reminder! You have an event '" + eventName +  "' on " + eventDate.getDate();
+        return "Reminder! You have an event '" + eventName +  "' on " + eventDate;
     }
 
     /**
@@ -68,6 +68,6 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
      * @return a String representation of this <code>ScheduledEvent</code>
      */
     public String toString(){
-        return "Event: " + eventName + " \t Date: " + eventDate.getDate();
+        return "Event: " + eventName + " \t Date: " + eventDate;
     }
 }
