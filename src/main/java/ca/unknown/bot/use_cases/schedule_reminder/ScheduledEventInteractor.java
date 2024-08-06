@@ -35,12 +35,15 @@ public class ScheduledEventInteractor {
      * @param scheduledReminderInputData the formatted input data to create a new scheduled event
      * @param user the given user
      * @param event the current slash command event interaction
+     * @return the new scheduled event
      */
-    public void execute(ScheduledReminderInputData scheduledReminderInputData, String user, SlashCommandInteractionEvent event){
+    public ScheduledEvent execute(ScheduledReminderInputData scheduledReminderInputData, String user, SlashCommandInteractionEvent event){
         ScheduledEvent schedEvent = eventFactory.createEvent(scheduledReminderInputData.getEventDate(),
                 scheduledReminderInputData.getEventName());
         scheduleDAO.getSchedule(user).addEvent(schedEvent);
+        scheduleDAO.addCheck(user, schedEvent.getEventName());
         scheduleDAO.saveToFile("schedule_repository");
-        event.reply("You have scheduled the following event: \n"+ schedEvent.toString()).queue();
+        event.getHook().sendMessage("You have scheduled the following event: \n"+ schedEvent.toString()).queue();
+        return schedEvent;
     }
 }

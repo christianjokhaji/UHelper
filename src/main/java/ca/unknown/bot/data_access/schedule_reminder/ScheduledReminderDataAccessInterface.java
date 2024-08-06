@@ -39,6 +39,34 @@ public interface ScheduledReminderDataAccessInterface {
     void loadRepo(String filename);
 
     /**
+     * Returns whether a user should receive a direct message alert for the specified event.
+     * @param user the user who is to receive a direct message
+     * @param eventName a user scheduled event
+     * @return true if the user should receive a direct message reminder for the event
+     */
+    boolean getChecks(String user, String eventName);
+
+    /**
+     * Adds the specified event to a reminder alert list for the user.
+     * @param user the user who should receive an alert
+     * @param eventName the event for which the user should receive an alert for
+     */
+    void addCheck(String user, String eventName);
+
+    /**
+     * Unsubscribes the user from receiving a reminder alert for the specified event.
+     * @param user the user who needs to be unsubscribed
+     * @param eventName the event for which the user should be unsubscribed from
+     */
+    void removeCheck(String user, String eventName);
+
+    /**
+     * Unsubscribes the user from all current reminder alerts.
+     * @param user the user whose alerts should be cleared
+     */
+    void removeAllChecks(String user);
+
+    /**
      * Returns a user's schedule from the database.
      * @param user the user whose <code>Schedule</code> is to be returned
      * @return this user's <code>Schedule</code>

@@ -17,11 +17,13 @@ public class ScheduledAssignmentInteractor extends ScheduledEventInteractor {
     }
 
     @Override
-    public void execute(ScheduledReminderInputData scheduledReminderInputData, String user, SlashCommandInteractionEvent event) {
+    public ScheduledEvent execute(ScheduledReminderInputData scheduledReminderInputData, String user, SlashCommandInteractionEvent event) {
         ScheduledEvent schedAssignment = eventFactory.createAssignment(scheduledReminderInputData.getEventDate(),
                 scheduledReminderInputData.getEventName(), scheduledReminderInputData.getAssignmentCourseCode());
         scheduleDAO.getSchedule(user).addEvent(schedAssignment);
+        scheduleDAO.addCheck(user, schedAssignment.getEventName());
         scheduleDAO.saveToFile("schedule_repository");
-        event.reply("You have scheduled the following event: \n"+ schedAssignment.toString()).queue();
+        event.getHook().sendMessage("You have scheduled the following event: \n"+ schedAssignment.toString()).queue();
+        return schedAssignment;
     }
 }
