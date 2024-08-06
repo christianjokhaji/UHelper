@@ -22,9 +22,7 @@ public class ScheduleReminderCommands {
                 .addOption(OptionType.INTEGER, "hour",
                         "The military hour of your exam.", true)
                 .addOption(OptionType.INTEGER, "minute",
-                        "The minutes value of your exam time.", true)
-                .addOption(OptionType.INTEGER, "sec",
-                        "The seconds value of your exam time.", true);
+                        "The minutes value of your exam time.", true);
     }
 
     public static SlashCommandData getScheduleAssignmentCommand(){
@@ -44,9 +42,7 @@ public class ScheduleReminderCommands {
                 .addOption(OptionType.INTEGER, "hour",
                         "The military hour of your assignment due date.", true)
                 .addOption(OptionType.INTEGER, "minute",
-                        "The minutes value of your assignment due date.", true)
-                .addOption(OptionType.INTEGER, "sec",
-                        "The seconds value of your assignment due date.", true);
+                        "The minutes value of your assignment due date.", true);
     }
 
     public static SlashCommandData getScheduleEventCommand(){
@@ -58,8 +54,7 @@ public class ScheduleReminderCommands {
                 .addOption(OptionType.INTEGER, "month", "The numeric month of your event.", true)
                 .addOption(OptionType.INTEGER, "day", "The numeric day of your event.", true)
                 .addOption(OptionType.INTEGER, "hour", "The military hour of your event.", true)
-                .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true)
-                .addOption(OptionType.INTEGER, "sec", "The seconds value of your event.", true);
+                .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true);
     }
 
     public static SlashCommandData getCurrentScheduleCommand(){
