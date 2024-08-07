@@ -31,7 +31,7 @@ assets/TOKEN=.png
 src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json
 src/test/java/ca/unknown/bot/data_access/timer_repository_test.json
 src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json
-
+src/main/java/ca/unknown/bot/data_access/quiz_me/Quizzes
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -57,5 +57,3 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-### Storing files ###
-Quizzes

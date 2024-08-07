@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class JSONQuizMeRepository{
 
-    private static final String QUIZ_DIRECTORY = "quizzes";
+    private static final String QUIZ_DIRECTORY = "src/main/java/ca/unknown/bot/data_access/quiz_me/quizzes";
 
     public JSONQuizMeRepository() {
         // Ensure the directory exists

@@ -97,27 +97,6 @@ public class QuizMe {
     }
 
 
-    /**
-     * Shows the answer to a question and provides a button to proceed to the next question.
-     *
-     * @param event The ButtonInteractionEvent triggering this method.
-     * @param question The question for which to show the answer.
-     * @param currentIndex The index of the current question in the list.
-     */
-
-    public void showAnswer(ButtonInteractionEvent event, String question, int currentIndex) {
-        String answer = notes.get(question);
-
-        if (answer != null) {
-            Button nextQuestionButton = Button.success("next_" + currentIndex, "Next Question");
-            event.reply("Answer: " + answer)
-                    .addActionRow(nextQuestionButton)
-                    .queue();
-        } else {
-            event.reply("No answer found for this question.").queue();
-        }
-    }
-
 
     /**
      * Shows the hint for a question.
