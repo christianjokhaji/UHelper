@@ -8,7 +8,8 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 public class GameCommands {
     public static SlashCommandData getRockPaperScissorsCommand() {
         return Commands.slash("rock-paper-scissors", "Starts a game of rock paper scissors.")
-                .addOptions(new OptionData(OptionType.STRING, "choice", "Rock, paper, or scissors.")
+                .addOptions(new OptionData(OptionType.STRING, "choice",
+                        "Rock, paper, or scissors.", true)
                         .addChoice("Rock", "rock")
                         .addChoice("Paper", "paper")
                         .addChoice("Scissors", "scissors"));
@@ -20,6 +21,7 @@ public class GameCommands {
 
     public static SlashCommandData get8BallCommand() {
         return Commands.slash("8ball", "Receive a Magic 8Ball reading.")
-                .addOption(OptionType.STRING, "question", "What is the question?");
+                .addOption(OptionType.STRING, "question",
+                        "What is the question?", true);
     }
 }

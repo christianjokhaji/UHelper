@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
-public class ScheduleReminderCommands {
+public class ScheduledRemindersCommands {
     public static SlashCommandData getScheduleExamCommand(){
         return Commands.slash("schedule-exam",
                         "Schedules a new exam reminder. Please format your date as " +

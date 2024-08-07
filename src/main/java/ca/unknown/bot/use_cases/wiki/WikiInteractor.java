@@ -28,34 +28,39 @@ public class WikiInteractor extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("uhelper-wiki")) {
             String feature = Objects.requireNonNull(event.getOption("feature")).getAsString();
+            event.deferReply().queue();
 
             switch (feature) {
                 case "general":
-                    event.deferReply().queue();
                     List<EmbedBuilder> general_embeds = new WikiPresenter(event).getGeneralEmbed();
                     jda.addEventListener(new Paginator(event, general_embeds));
                     break;
-                case "schedule_reminder":
+                case "scheduled_reminders":
                     EmbedBuilder schedule_embed =
                             new WikiPresenter(event).getScheduledReminderEmbed();
-                    event.getChannel().sendMessageEmbeds(schedule_embed.build()).queue();
+                    event.getHook().sendMessageEmbeds(schedule_embed.build()).queue();
+                    break;
                 case "timer":
                     EmbedBuilder timer_embed = new WikiPresenter(event).getTimerEmbed();
-                    event.getChannel().sendMessageEmbeds(timer_embed.build()).queue();
+                    event.getHook().sendMessageEmbeds(timer_embed.build()).queue();
                     break;
                 case "study_helper":
                     EmbedBuilder study_help_embed = new WikiPresenter(event).getStudyHelperEmbed();
-                    event.getChannel().sendMessageEmbeds(study_help_embed.build()).queue();
+                    event.getHook().sendMessageEmbeds(study_help_embed.build()).queue();
                     break;
                 case "mini_games":
                     EmbedBuilder games_embed = new WikiPresenter(event).getMiniGamesEmbed();
-                    event.getChannel().sendMessageEmbeds(games_embed.build()).queue();
-                case "find_recipe":
+                    event.getHook().sendMessageEmbeds(games_embed.build()).queue();
+                    break;
+                case "find_recipes":
                     EmbedBuilder find_recipes_embed =
                             new WikiPresenter(event).getFindRecipesEmbed();
-                    event.getChannel().sendMessageEmbeds(find_recipes_embed.build()).queue();
+                    event.getHook().sendMessageEmbeds(find_recipes_embed.build()).queue();
+                    break;
                 default:
-                    event.reply("This is an invalid command. Please try again!").queue();
+                    event.getHook().sendMessage(
+                            "This is an invalid command. Please try again!"
+                    ).queue();
                     break;
             }
         }
