@@ -24,7 +24,7 @@ public class ClearEventInteractor {
         scheduleDAO.removeCheck(username, eventName);
 
         // update repo
-        scheduleDAO.saveToFile("schedule_repository");
+        scheduleDAO.saveToFile("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
 
         return eventName;
     }
