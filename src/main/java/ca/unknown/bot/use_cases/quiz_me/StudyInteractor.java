@@ -54,7 +54,6 @@ public class StudyInteractor extends ListenerAdapter {
             }
         }
     }
-
     /**
      * Handles modal interactions.
      *
@@ -67,6 +66,13 @@ public class StudyInteractor extends ListenerAdapter {
             new SaveNotesInteractor(quizMe).saveNotesToFile(event, filename);
         } else if (event.getModalId().equals("input-modal")) {
             new AddQuestionInteractor(quizMe).handleModalInteraction(event);
+        } else if (event.getModalId().startsWith("answer_question_")) {
+            String[] parts = event.getModalId().split("_", 4);
+            String question = parts[2];
+            int currentIndex = Integer.parseInt(parts[3]);
+            String userAnswer = Objects.requireNonNull(event.getValue("user_answer")).getAsString();
+            String userId = event.getUser().getId();
+            quizMe.checkAnswer(event, question, currentIndex, userAnswer, userId);
         }
     }
 

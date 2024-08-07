@@ -18,7 +18,7 @@ public class AddQuestionInteractor {
     }
 
     /**
-     * Class to allow user to add multiple questions without having to call the bot repeatedly.
+     * Allows user to add multiple questions without having to call the bot repeatedly.
      *
      * @param event represents a SlashCommandInteraction event.
      */
@@ -48,7 +48,11 @@ public class AddQuestionInteractor {
      * @param event represents a ButtonInteraction event.
      */
     public void handleButtonInteraction(ButtonInteractionEvent event) {
-        String buttonId = event.getButton().getId();
+
+
+        String buttonId = event.getButton().getId(); // Keeps track of user desired interaction
+        String userId = event.getUser().getId(); // Keep track of which user is using it
+
         if (buttonId != null) {
             if (buttonId.equals("add_another")) {
                 showAddQuestionModal(event);
@@ -58,7 +62,7 @@ public class AddQuestionInteractor {
                 String[] parts = buttonId.split("_", 3);
                 String question = parts[1];
                 int currentIndex = Integer.parseInt(parts[2]);
-                quizMe.showAnswer(event, question, currentIndex);
+                quizMe.answerQuestion(event, question, currentIndex);
             } else if (buttonId.startsWith("hint_")) {
                 String[] parts = buttonId.split("_", 3);
                 String question = parts[1];
@@ -66,7 +70,7 @@ public class AddQuestionInteractor {
                 quizMe.showHint(event, question, currentIndex);
             } else if (buttonId.startsWith("next_")) {
                 int currentIndex = Integer.parseInt(buttonId.split("_")[1]);
-                quizMe.showNextQuestion(event, currentIndex);
+                quizMe.showNextQuestion(event, currentIndex, userId);
             }
         }
     }
@@ -74,16 +78,16 @@ public class AddQuestionInteractor {
     /**
      * Displays inputs for user to add question
      *
-     * @param event     represents a SlashCommandInteraction event
+     * @param event represents a SlashCommandInteraction event
      */
     private void showAddQuestionModal(SlashCommandInteractionEvent event) {
         event.replyModal(ModalUtils.createAddQuestionModal(true)).queue();
     }
 
     /**
-     * Displays inputs for user to add question, answer, and hint.
+     * Displays inputs for subsequent question creation
      *
-     * @param event     represents a ButtonInteraction event.
+     * @param event represents a ButtonInteraction event.
      */
     private void showAddQuestionModal(ButtonInteractionEvent event) {
         event.replyModal(ModalUtils.createAddQuestionModal(false)).queue();
