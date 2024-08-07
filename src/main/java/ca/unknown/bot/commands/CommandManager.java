@@ -17,6 +17,7 @@ public class CommandManager {
     public static void registerCommands(JDA jda) {
         CommandListUpdateAction commands = jda.updateCommands();
         commands.addCommands(
+                WikiCommands.getWikiCommands(),
                 GameCommands.getRockPaperScissorsCommand(),
                 GameCommands.getTriviaCommand(),
                 GameCommands.get8BallCommand(),

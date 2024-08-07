@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RecipeApiHandlerTest {
+class RecipeApiControllerTest {
 
     @Test
     void fetchRecipes() {
@@ -31,13 +31,13 @@ class RecipeApiHandlerTest {
         expectedRecipes.add(recipe);
         HashMap<String, String> params = new HashMap<>();
         params.put("Meal Type", "Dinner");
-        RecipeApiHandler testRecipeApiHandler = new RecipeApiHandler(
+        RecipeApiController testRecipeApiController = new RecipeApiController(
                 "octopus ramen",
                 1,
                 params
         );
 
-        List<Recipe> actualRecipes = testRecipeApiHandler.fetchRecipes();
+        List<Recipe> actualRecipes = testRecipeApiController.fetchRecipes();
 
         assertEquals(expectedRecipes.size(), actualRecipes.size());
         assertEquals(expectedRecipes.get(0).getLabel(), actualRecipes.get(0).getLabel());

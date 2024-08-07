@@ -7,30 +7,30 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Paginator is a utility class for creating and handling paginated embeds in a Discord bot.
  * It manages pagination buttons and updates the displayed embed based on user interactions.
- * Currently, only 1 style of button groups are set. However, customization of button groups are
- * also available via setters in the future.
+ * Note: Currently, the first page should be set as a summary page: it has UHelper as author, and
+ * UHelper color code for embed color. Plus, only 1 style (simple arrows) is set for buttons.
+ * Customizations are available via setters.
  */
 
 public class Paginator extends ListenerAdapter {
     public List<EmbedBuilder> pages;
-    public Button firstButton;
-    public Button prevButton;
+    public Button firstButton = Button.primary("to_first", "|<").asDisabled();
+    public Button prevButton = Button.success("to_prev", "<").asDisabled();
     public Button currButton;
-    public Button nextButton;
-    public Button lastButton;
+    public Button nextButton = Button.success("to_next", ">");
+    public Button lastButton = Button.primary("to_last", ">|");
     public int currPage;
     public List<Button> buttons;
     public SlashCommandInteractionEvent event;
 
     /**
-     * Constructs a new Paginator instance.
-     *
      * @param event The SlashCommandInteractionEvent that triggered the pagination.
      * @param pages The list of EmbedBuilder instances representing the pages.
      */
@@ -38,14 +38,13 @@ public class Paginator extends ListenerAdapter {
         this.event = event;
         this.pages = pages;
         this.currPage = 0;
-        // initialize buttons for pagination
-        this.firstButton = Button.primary("to_first", "|<").withDisabled(currPage == 0);
-        this.prevButton = Button.success("to_prev", "<").withDisabled(currPage == 0);
         this.currButton = Button.secondary(
                 "curr_button", String.format("%d / %d", currPage, pages.size()-1)
         ).withDisabled(true);
-        this.nextButton = Button.success("to_next", ">").withDisabled(currPage == pages.size() - 1);
-        this.lastButton = Button.primary("to_last", ">|").withDisabled(currPage == pages.size() - 1);
+        if (currPage == pages.size() - 1 || pages.isEmpty()) {
+            nextButton = nextButton.asDisabled();
+            lastButton = lastButton.asDisabled();
+        }
         buttons = new ArrayList<>();
         buttons.add(firstButton);
         buttons.add(prevButton);
@@ -53,7 +52,13 @@ public class Paginator extends ListenerAdapter {
         buttons.add(nextButton);
         buttons.add(lastButton);
 
-        event.getHook().sendMessageEmbeds(pages.get(0).build())
+        EmbedBuilder firstPage = pages.get(0);
+        firstPage.setAuthor("UHelper Team",
+                null,
+                event.getJDA().getSelfUser().getAvatarUrl())
+                .setColor(Color.decode("#5E80A2"));
+
+        event.getHook().sendMessageEmbeds(firstPage.build())
                 .addActionRow(buttons)
                 .setEphemeral(true)
                 .queue();
