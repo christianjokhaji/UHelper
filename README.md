@@ -4,6 +4,8 @@ UHelper is an interactive bot that is designed to meet students' needs on Discor
 
 1. [Overview](#overview)
 2. [Installation Guide](#installation-guide)
+   1. [Running the Bot (Phase 1)](#how-to-run-uhelper-in-a-server-phase-1)
+   2. [Running the Bot (Phase 2)](#how-to-run-uhelper-in-a-server-phase-2)
 3. [Project Progresses](#project-progresses)
 4. [Important Notes](#important-notes)
 
@@ -58,7 +60,7 @@ down to the bottom to find the "authorize" button and click it.
 Seeing this screen means that UHelper has successfully joined your server. Congratulations! The next
 part of this guide will teach you how to run UHelper.
 
-### How to Run UHelper in a Server
+### How to Run UHelper in a Server (Phase 1)
 
 ![png](assets/4.png)
 
@@ -96,7 +98,21 @@ you can use the handy `\uhelper-wiki` guide. This guide allows you to view the e
 or dive into a specific feature to see related commands. Explore and enjoy all the awesome capabilities 
 UHelper has to offer! 🚀
 
+### How to Run UHelper in a Server (Phase 2)
 
+As of Phase 2, the way you run the UHelper bot is different from the 
+"How to Run UHelper in a Server (Phase 1)" section, as there is now a GUI component.
+
+![png](assets/8.png)
+
+Instead of running Main.java, go to src/main/java/ca/unknown/bot/gui and find GUI.java. 
+You should see a Java Swing window that has three boxes for you to enter. Put the tokens we provided
+ you with in the phase 1 submission and click start UHelper. 
+
+![png](assets/9.png)
+
+If successful, you should see the bot appearing as online in your server. At any point, you can click
+stop UHelper to deactivate it. Enjoy!
 
 ## Project Progresses
 Currently, we are working to implement the following features. 
@@ -155,6 +171,6 @@ You can find all the user stories and other details in our blueprint from [here]
 - [X] **July 21** - [Phase 1](https://q.utoronto.ca/courses/345741/pages/phase-1-10-percent?module_item_id=5764241)
 (Access to the course page may be restricted)
 
-- [ ] **August 8** - [Phase 2](https://q.utoronto.ca/courses/345741/pages/phase-2-10-percent?module_item_id=5764412) & [Final Presentation](https://q.utoronto.ca/courses/345741/pages/presentation-5-percent?module_item_id=5764413)
+- [ ] **August 8** - [Final Presentation](https://q.utoronto.ca/courses/345741/pages/presentation-5-percent?module_item_id=5764413)
 
-- [ ] **August 15** - Final Exam (7-10 PM)
+- [ ] **August 15** - [Phase 2](https://q.utoronto.ca/courses/345741/pages/phase-2-10-percent?module_item_id=5764412) & [Final Exam (7-10 PM)](https://q.utoronto.ca/courses/345741/pages/final-exam-information-august-15-2024?module_item_id=5872089)
