@@ -10,7 +10,7 @@ public class ModalUtils {
     /**
      * Creates a modal for adding questions as it looks nice
      *
-     * @param firstTime indicates if this is the first time the modal is being shown.
+     * @param firstTime Indicates if this is the first time the modal is being shown.
      * @return the created modal.
      */
     public static Modal createAddQuestionModal(boolean firstTime) {
@@ -22,7 +22,7 @@ public class ModalUtils {
                 .setPlaceholder("Type the answer here...")
                 .build();
 
-        TextInput hintInput = TextInput.create("hint", "Enter a hint (optional)", TextInputStyle.PARAGRAPH)
+        TextInput hintInput = TextInput.create("hint", "Enter a hint", TextInputStyle.PARAGRAPH)
                 .setPlaceholder("Type the hint here...")
                 .build();
 
@@ -43,6 +43,16 @@ public class ModalUtils {
 
         return Modal.create("save-notes-modal", "Save Notes")
                 .addActionRows(ActionRow.of(filenameInput))
+                .build();
+    }
+
+    public static Modal createAnswerQuestionModal(String question, int currentIndex) {
+        TextInput answerInput = TextInput.create("user_answer", "Your Answer", TextInputStyle.SHORT)
+                .setRequired(true)
+                .build();
+
+        return Modal.create("answer_question_" + question + "_" + currentIndex, "Answer the Question")
+                .addActionRow(answerInput)
                 .build();
     }
 }
