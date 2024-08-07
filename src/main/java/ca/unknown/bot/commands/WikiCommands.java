@@ -15,7 +15,7 @@ public class WikiCommands {
                         .addChoice("Timer", "timer")
                         .addChoice("Study Helper", "study_helper")
                         .addChoice("Mini Games", "mini_games")
-                        .addChoice("Find Recipe", "find_recipe")
+                        .addChoice("Find Recipes", "find_recipes")
                 );
     }
 }
