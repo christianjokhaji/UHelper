@@ -47,7 +47,7 @@ public class GameInteractor extends ListenerAdapter {
             String response = APIFetcher.fetch("https://eightballapi.com/api/biased?question="
                     + question + "&lucky=false");
             Map<String, JsonElement> parsed = Parser.parse(response).asMap();
-            String result = String.valueOf(parsed.get("reading"));
+            String result = parsed.get("reading").getAsString();
             event.reply(result).queue();
         }
     }
