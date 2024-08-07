@@ -13,16 +13,24 @@ public class UserSchedule implements Schedule {
     private List<ScheduledEvent> events = new ArrayList<>();
 
     /**
-     * The user of this schedule.
+     * The discord username of the user of this schedule.
      */
-    private String user;
+    private String username;
+
+
+    /**
+     * The userID of the user of this schedule.
+     */
+    private long userID;
 
     /**
      * Class constructor.
-     * @param user the user of this schedule
+     * @param username the username of the user of this schedule
+     * @param userID the discord userID of the user of this schedule
      */
-    public UserSchedule(String user){
-        this.user = user;
+    public UserSchedule(String username, long userID){
+        this.username = username;
+        this.userID = userID;
     }
 
     public void addEvent(ScheduledEvent s){
@@ -66,7 +74,7 @@ public class UserSchedule implements Schedule {
     }
 
     public String getUser(){
-        return user;
+        return username;
     }
 
     public boolean hasNoEvents(){
@@ -104,5 +112,13 @@ public class UserSchedule implements Schedule {
             }
         }
         return false;
+    }
+
+    public List<ScheduledEvent> getEvents(){
+        return this.events;
+    }
+
+    public long getUserId(){
+        return this.userID;
     }
 }

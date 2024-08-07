@@ -6,8 +6,9 @@ package ca.unknown.bot.entities.schedule_reminder;
 public interface ScheduleFactory {
     /**
      * Creates a new schedule for a desired user.
-     * @param user the user of this schedule
+     * @param username the username of the user of this schedule
+     * @param userID the discord userID of the user of this schedule
      * @return a new <code>Schedule</code> object
      */
-    Schedule create(String user);
+    Schedule create(String username, long userID);
 }
