@@ -72,8 +72,16 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
         return alertCheck.get(user).contains(eventName);
     }
 
-    public void addCheck(String user, String event){
+    public Map<String, Schedule> getRepo(){
+        return this.userSchedules;
+    }
+
+    public void addExistingCheck(String user, String event){
         alertCheck.get(user).add(event);
+    }
+
+    public void addNewCheck(String user){
+        alertCheck.put(user, new ArrayList<String>());
     }
 
     public void removeCheck(String user, String event){
@@ -94,7 +102,9 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
             JsonWriter jsonWriter = new JsonWriter(writer);
             Type type = new TypeToken<Map<String, Schedule>>(){}.getType();
             GsonBuilder builder = new GsonBuilder();
-            Gson gson = builder.enableComplexMapKeySerialization().create();
+            builder.setLongSerializationPolicy(LongSerializationPolicy.STRING);
+            builder.enableComplexMapKeySerialization();
+            Gson gson = builder.create();
             Map<String,Schedule> repo = this.userSchedules;
             gson.toJson(repo, type, jsonWriter);
 
@@ -133,12 +143,20 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
 
         for(String s: loadedRepo.keySet()){
             LinkedTreeMap scheduleIntermediary = loadedRepo.get(s);
-            String user = (String) scheduleIntermediary.get("user");
-            ArrayList<LinkedTreeMap> eventsIntermediary = (ArrayList<LinkedTreeMap>) scheduleIntermediary.get("events");
+            String username = (String) scheduleIntermediary.get("username");
 
-            Schedule finalSchedule = this.convertToSchedule(user, eventsIntermediary);
+            try {
+                String userIdString = (String) scheduleIntermediary.get("userID");
+                long userId = Long.parseLong(userIdString);
+                ArrayList<LinkedTreeMap> eventsIntermediary = (ArrayList<LinkedTreeMap>) scheduleIntermediary.get("events");
 
-            userSchedules.put(user, finalSchedule);
+                Schedule finalSchedule = this.convertToSchedule(username, userId, eventsIntermediary);
+
+                userSchedules.put(username, finalSchedule);
+            } catch(NumberFormatException n){
+                n.printStackTrace();
+            }
+
         }
         return userSchedules;
     }
@@ -148,8 +166,8 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
      * @param events the intermediary form of the user's scheduled events
      * @return a new Schedule for the user
      */
-    private Schedule convertToSchedule(String user, ArrayList<LinkedTreeMap> events) {
-        Schedule sched = new UserSchedule(user);
+    private Schedule convertToSchedule(String username, long userId, ArrayList<LinkedTreeMap> events) {
+        Schedule sched = new UserSchedule(username, userId);
 
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy, hh:mm:ss a", Locale.ENGLISH);
 
@@ -199,4 +217,5 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
         }
         return sched;
     }
+
 }

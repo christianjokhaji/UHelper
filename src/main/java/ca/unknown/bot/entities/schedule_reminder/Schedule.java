@@ -48,10 +48,16 @@ public interface Schedule {
     String clearSingle(int eventIndex);
 
     /**
-     * Returns the user that this schedule belongs to.
-     * @return the user of this <code>Schedule</code>
+     * Returns the discord username of the user that this schedule belongs to.
+     * @return the username of this <code>Schedule</code>
      */
     String getUser();
+
+    /**
+     * Returns the discord ID of the user that this schedule belongs to.
+     * @return the userID of this <code>Schedule</code>
+     */
+    long getUserId();
 
     /**
      * Returns whether this schedule has any upcoming events.
@@ -89,4 +95,10 @@ public interface Schedule {
      * @return true if the user already has scheduled this assignment
      */
     boolean hasDuplicateAssignment(String assignmentName, String courseCode);
+
+    /**
+     * Returns a list of the user's <code>ScheduledEvent</code>s
+     * @return a list of <code>ScheduledEvent</code>s
+     */
+    List<ScheduledEvent> getEvents();
 }

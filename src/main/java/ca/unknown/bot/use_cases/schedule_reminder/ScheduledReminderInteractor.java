@@ -35,12 +35,15 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         User discordUser = event.getUser();
 
-        // collects the user's discord username
+        // collects the user's discord username and userID
         String username = discordUser.getName();
+
+        long userId = discordUser.getIdLong();
 
          // loads the persisted repo onto the cache
         if(scheduleDAO.emptyCache("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json")){
             scheduleDAO.loadRepo("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
+            new RestartScheduleInteractor(scheduleDAO, event.getJDA()).execute();
         }
 
         if (event.getName().equals("schedule-event")) {
@@ -49,7 +52,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             // if the user is scheduling an event for the first time, make a new Schedule object for their use
             if(!scheduleDAO.existsByUser(username)){
-                scheduleDAO.saveNewUser(scheduleFactory.create(username));
+                scheduleDAO.saveNewUser(scheduleFactory.create(username, userId));
             }
 
             // calls a controller to receive user input and convert it into data the subordinate interactor can use
@@ -82,7 +85,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             // if the user is scheduling an event for the first time, make a new Schedule object for their use
             if(!scheduleDAO.existsByUser(username)){
-                scheduleDAO.saveNewUser(scheduleFactory.create(username));
+                scheduleDAO.saveNewUser(scheduleFactory.create(username, userId));
             }
 
             // calls a controller to receive user input and convert it into data the subordinate interactor can use
@@ -115,7 +118,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
 
             // if the user is scheduling an event for the first time, make a new Schedule object for their use
             if(!scheduleDAO.existsByUser(username)){
-                scheduleDAO.saveNewUser(scheduleFactory.create(username));
+                scheduleDAO.saveNewUser(scheduleFactory.create(username, userId));
             }
 
             // calls a controller to receive user input and convert it into data the subordinate interactor can use
