@@ -126,7 +126,9 @@ You can find all the user stories and other details in our blueprint from [here]
     - [X] Deletes reminder alerts (July 30)
   - [X] Bot clears individual events from the schedule and unsubscribes the user from the reminder alert. (Aug 1)
   - [X] Bot persists the schedule repo to a .json file. (July 20)
-  - [ ] Schedule repo is persisted if program restarts (in progress)
+  - [X] Schedule repo is persisted if program restarts (August 6)
+    - [X] Reminder alerts get restarted
+    - [X] Removes any passed events
   - [X] Bot removes passed events from the user's schedule automatically. (August 3)
 
 - **Recipe** 🍽️
