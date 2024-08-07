@@ -9,7 +9,7 @@ public class StudyHelpCommands {
     public static SlashCommandData getStudyHelpCommand() {
         return Commands.slash("study-help", "Get Study Help!")
                 .addOptions(new OptionData(OptionType.STRING, "choice",
-                        "How can we help with studying?")
+                        "How can we help with studying?", true)
                         .addChoice("Reset Notes", "resetnotes")
                         .addChoice("Add Question", "addquestion")
                         .addChoice("Study", "study")

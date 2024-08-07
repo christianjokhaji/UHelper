@@ -27,12 +27,12 @@ public class CommandManager {
                 TimerCommands.getTimerListCommand(),
                 TimerCommands.getTimerStartCommand(),
                 TimerCommands.getTimerCancelCommand(),
-                ScheduleReminderCommands.getScheduleExamCommand(),
-                ScheduleReminderCommands.getScheduleAssignmentCommand(),
-                ScheduleReminderCommands.getScheduleEventCommand(),
-                ScheduleReminderCommands.getCurrentScheduleCommand(),
-                ScheduleReminderCommands.getClearEventCommand(),
-                ScheduleReminderCommands.getClearScheduleCommand(),
+                ScheduledRemindersCommands.getScheduleExamCommand(),
+                ScheduledRemindersCommands.getScheduleAssignmentCommand(),
+                ScheduledRemindersCommands.getScheduleEventCommand(),
+                ScheduledRemindersCommands.getCurrentScheduleCommand(),
+                ScheduledRemindersCommands.getClearEventCommand(),
+                ScheduledRemindersCommands.getClearScheduleCommand(),
                 StudyHelpCommands.getStudyHelpCommand()
         ).queue();
     }

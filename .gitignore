@@ -15,6 +15,7 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/misc.xml
 
 ### assets ###
 assets/0.png
