@@ -51,7 +51,7 @@ class RecipeTest {
 
     @Test
     void getIngredientLines() {
-        String result = "1. a\n2. b\n3. c\n";
+        String result = "- a\n- b\n- c\n";
         assertEquals(result, recipe.getIngredientLines());
     }
 }

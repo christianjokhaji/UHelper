@@ -1,7 +1,6 @@
 package ca.unknown.bot.app;
 
 import ca.unknown.bot.commands.CommandManager;
-import ca.unknown.bot.commands.RecipeCommands;
 import ca.unknown.bot.use_cases.recipe.RecipeInteractor;
 import ca.unknown.bot.use_cases.schedule_reminder.ScheduledReminderInteractor;
 import ca.unknown.bot.use_cases.utils.EventListener;
@@ -11,9 +10,6 @@ import ca.unknown.bot.use_cases.quiz_me.StudyInteractor;
 import ca.unknown.bot.use_cases.wiki.WikiInteractor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Main {
@@ -46,6 +42,7 @@ public class Main {
         jda.addEventListener(new TimerInteractor());
         jda.addEventListener(new ScheduledReminderInteractor());
         jda.addEventListener(new StudyInteractor(jda));
+        jda.addEventListener(new WikiInteractor(jda));
 
         // Adds commands to the bot instance.
         CommandManager.registerCommands(jda);

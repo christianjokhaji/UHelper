@@ -30,8 +30,8 @@ public class Recipe {
     public String getShareAs() { return shareAs;}
     public String getIngredientLines() {
         StringBuilder ingredients = new StringBuilder();
-        for (int i = 0; i < ingredientLines.size(); i++) {
-            ingredients.append((i+1)).append(". ").append(ingredientLines.get(i)).append('\n');
+        for (String ingredient: ingredientLines) {
+            ingredients.append("- ").append(ingredient).append('\n');
         }
         return ingredients.toString();
     }
