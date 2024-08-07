@@ -2,11 +2,14 @@ package ca.unknown.bot.use_cases.schedule_reminder;
 
 import ca.unknown.bot.data_access.schedule_reminder.ScheduledReminderDataAccessInterface;
 
+/**
+ * A subordinate use case interactor which clears individual events from the user's schedule.
+ */
 public class ClearEventInteractor {
     /**
      * The current DAO in use by the program.
      */
-    ScheduledReminderDataAccessInterface scheduleDAO;
+    final ScheduledReminderDataAccessInterface scheduleDAO;
 
     /**
      * Class constructor
@@ -16,6 +19,13 @@ public class ClearEventInteractor {
         this.scheduleDAO = scheduleDAO;
     }
 
+    /**
+     * Removes the specified event from the user's schedule via an indexed list and then unsubscribes them from the associated
+     * reminder alert.
+     * @param username the discord username of the user
+     * @param index the index of the event they wish to clear
+     * @return the name of the event which was removed
+     */
     public String execute(String username, int index){
         // clear the event
         String eventName = scheduleDAO.getSchedule(username).clearSingle(index - 1);

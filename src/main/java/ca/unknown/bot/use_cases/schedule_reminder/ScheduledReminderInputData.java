@@ -8,26 +8,9 @@ import java.util.*;
  * Stores inputted event data in a format that the DAO can use.
  */
 public class ScheduledReminderInputData {
-    /**
-     * The name of a scheduled event. This would refer to the course code for an Exam
-     * and the assignment name for an Assignment.
-     */
-    private String eventName;
-
-    /**
-     * The date of a scheduled event in YYYY MM DD HR MIN SEC format. Refers to the
-     * exam date for an Exam and due date for an Assignment.
-     */
-    private Date eventDate;
-
-    /**
-     * The location of an Exam.
-     */
+    private final String eventName;
+    private final Date eventDate;
     private String location;
-
-    /**
-     * The course code of an Assignment.
-     */
     private String assignmentCourseCode;
 
 

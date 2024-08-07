@@ -7,15 +7,8 @@ import java.util.*;
  * a generic event.
  */
 public class ScheduledEvent implements Comparable<ScheduledEvent> {
-    /**
-     * Date of this event.
-     */
-    private Date eventDate;
-
-    /**
-     * Name of this event.
-     */
-    private String eventName;
+    private final Date eventDate;
+    private final String eventName;
 
     /**
      * Class constructor.
@@ -67,6 +60,7 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
      * Returns a String representation of this scheduled event's name and date details.
      * @return a String representation of this <code>ScheduledEvent</code>
      */
+    @Override
     public String toString(){
         return "Event: " + eventName + " \t Date: " + eventDate;
     }

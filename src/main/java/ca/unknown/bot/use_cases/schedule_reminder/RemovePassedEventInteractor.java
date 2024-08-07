@@ -6,13 +6,16 @@ import ca.unknown.bot.entities.schedule_reminder.ScheduledEvent;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * A subordinate use case interactor which removes events from the user's schedule once they have passed.
+ */
 public class RemovePassedEventInteractor {
     /**
      * The current DAO in use by the program.
      */
-    ScheduledReminderDataAccessInterface scheduleDAO;
+    final ScheduledReminderDataAccessInterface scheduleDAO;
 
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     /**
      * Class constructor
@@ -22,6 +25,11 @@ public class RemovePassedEventInteractor {
         this.scheduleDAO = scheduleDAO;
     }
 
+    /**
+     * Executes a delayed action of removing an event from the user's schedule using ScheduledExecutorService.
+     * @param user the discord username of the user whose event has passed
+     * @param scheduledEvent the event which has passed
+     */
     public void execute(String user, ScheduledEvent scheduledEvent){
         long currentDate = new Date().getTime();
         long eventDate = scheduledEvent.getEventDate().getTime();

@@ -2,15 +2,11 @@ package ca.unknown.bot.entities.schedule_reminder;
 import java.util.*;
 
 /**
- * Creates Date objects that store cutsom event dates using Calendar Builder, to accommodate for
+ * Creates Date objects that store custom event dates using Calendar Builder, to accommodate for
  * the deprecation of many Date functionalities.
  */
 public class EventDate {
-
-    /**
-     * <code>Calendar</code> object storing this event date.
-     */
-    private Calendar.Builder date = new Calendar.Builder();
+    private final Calendar.Builder date = new Calendar.Builder();
 
     /**
      * Class constructor.

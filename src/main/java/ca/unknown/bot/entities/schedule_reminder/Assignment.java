@@ -5,10 +5,7 @@ import java.util.*;
  * Stores the user's assignment details.
  */
 public class Assignment extends ScheduledEvent {
-    /**
-     * Course code of the class which this <code>Assignment</code> is from.
-     */
-    private String courseCode;
+    private final String courseCode;
 
     /**
      * Class constructor.
@@ -35,6 +32,7 @@ public class Assignment extends ScheduledEvent {
      * Returns a reminder statement for when this assignment is due that can then be DM'd to the user.
      * @return a String representation of this <code>Assignment</code>'s reminder alert
      */
+    @Override
     public String reminderAlert(){
         return "Reminder! Your assignment, '" + getEventName() + "', for class " + courseCode +
                 " is due on " + getEventDate();
@@ -44,6 +42,7 @@ public class Assignment extends ScheduledEvent {
      * Returns a String representation of this assignment's name, due date, and course code details.
      * @return a String representation of this <code>Assignment</code>
      */
+    @Override
     public String toString(){
         return "Assignment: " + getEventName() + " \t Class: " + courseCode +
                 " \t Due Date: " + getEventDate();

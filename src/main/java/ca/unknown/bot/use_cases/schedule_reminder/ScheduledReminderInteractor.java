@@ -19,12 +19,12 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
     /**
      * The data access object in use for scheduling reminders.
      */
-    ScheduledReminderDataAccessInterface scheduleDAO = new ScheduledReminderDAO();
+    final ScheduledReminderDataAccessInterface scheduleDAO = new ScheduledReminderDAO();
 
     /**
      * The factory used to create new user schedules.
      */
-    ScheduleFactory scheduleFactory = new UserScheduleFactory();
+    final ScheduleFactory scheduleFactory = new UserScheduleFactory();
 
 
     /**

@@ -6,18 +6,19 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class ClearEventListener extends ListenerAdapter {
-    /**
-     * The number of events in the interacting user's schedule.
-      */
-    private int size;
 
-    private JDA jda;
+/**
+ * Use case interactor for receiving input from the user about which indexed event they want removed from their schedule.
+ */
+public class ClearEventListener extends ListenerAdapter {
+    private final int size;
+
+    private final JDA jda;
 
     /**
      * The current DAO in use by the program.
      */
-    ScheduledReminderDataAccessInterface scheduleDAO;
+    final ScheduledReminderDataAccessInterface scheduleDAO;
 
     /**
      * Class constructor
@@ -30,6 +31,11 @@ public class ClearEventListener extends ListenerAdapter {
         this.jda = jda;
     }
 
+    /**
+     * Collects user input for the indexed event which the user wants removed from their schedule. Replies to the user
+     * if they selected an invalid index.
+     * @param event represents a MessageReceivedEvent
+     */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) {
