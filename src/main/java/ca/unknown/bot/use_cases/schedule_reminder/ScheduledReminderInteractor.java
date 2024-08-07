@@ -44,6 +44,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
         if(scheduleDAO.emptyCache("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json")){
             scheduleDAO.loadRepo("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
             new RestartScheduleInteractor(scheduleDAO, event.getJDA()).execute();
+            scheduleDAO.saveToFile("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
         }
 
         if (event.getName().equals("schedule-event")) {
