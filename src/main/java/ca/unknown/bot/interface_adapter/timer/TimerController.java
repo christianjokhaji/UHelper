@@ -67,7 +67,6 @@ public class TimerController {
       * @param three : ""
       * @oaram event : the event, which the JDA instance requires to make a proper reply message
       */
-
         ArrayList<User> users = new ArrayList<>();
         users.add(owner);
         if (one != null && one != owner) {users.add(one);}

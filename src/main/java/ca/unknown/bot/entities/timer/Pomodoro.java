@@ -9,7 +9,7 @@ public class Pomodoro implements TimerInterface {
 
     private final String name;
     private final HashMap<String, Object> map;
-    private final ArrayList<User> users;
+    private final ArrayList<User> subscribers;
     private int completedCycle;
 
     /**
@@ -40,7 +40,7 @@ public class Pomodoro implements TimerInterface {
         this.map.put("workTime", workTime);
         this.map.put("breakTime", breakTime);
         this.map.put("iteration", iteration);
-        this.users = new ArrayList<>();
+        this.subscribers = new ArrayList<>();
         this.completedCycle = 0;
     }
 
@@ -69,7 +69,7 @@ public class Pomodoro implements TimerInterface {
                 }
             }
         };
-        notifyUsers("Work period has started at " + new Date() + " (cycle: " + (i+1) + ")\n");
+        notifyUsers("Work period has started at " + new Date().toString() + " (cycle: " + (i+1) + ")\n");
         timerForWork.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -83,14 +83,14 @@ public class Pomodoro implements TimerInterface {
                     long endTime = System.currentTimeMillis() + minToMilli(getWorkTime());
                     if (completedCycle < getIteration()) {startWork(endTime, completedCycle);}
                     else {
-                        notifyUsers("Your timer ended at " + new Date());
-                        users.clear();
+                        notifyUsers("Your timer ended at " + new Date().toString());
+                        subscribers.clear();
                     }
                     timerForBreak.cancel();
                 }
             }
         };
-        notifyUsers("Break period has started at " + new Date() + " (cycle: " + (i+1) + ")\n");
+        notifyUsers("Break period has started at " + new Date().toString() + " (cycle: " + (i+1) + ")\n");
         timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 
@@ -118,7 +118,7 @@ public class Pomodoro implements TimerInterface {
     @Override
     public HashMap getMap() {return this.map;}
 
-    public ArrayList<User> getUsers() {return this.users;}
+    public ArrayList<User> getUsers() {return this.subscribers;}
 
     // A string representation of the Pomodoro class
     @Override
@@ -129,20 +129,20 @@ public class Pomodoro implements TimerInterface {
     }
 
     public void addUser(User user){
-        users.add(user);
+        subscribers.add(user);
     }
 
     public void removeUser(User user){
-        users.remove(user);
+        subscribers.remove(user);
     }
 
     // returns true if user exists in users
     public boolean containsUser(User user){
-        return users.contains(user);
+        return subscribers.contains(user);
     }
 
     private void notifyUsers(String message) {
-        for (User user : users) {
+        for (User user :  subscribers) {
             user.openPrivateChannel().queue((channel) -> channel.sendMessage(message).queue());
         }
     }
