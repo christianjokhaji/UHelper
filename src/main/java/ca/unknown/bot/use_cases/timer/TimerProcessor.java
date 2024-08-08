@@ -21,7 +21,7 @@ public class TimerProcessor {
      * {userID1: <timer1, timer2>, userID2: <timer3>}
      */
 
-     private static ArrayList<Pomodoro> timerList = new ArrayList<>();
+    private static ArrayList<Pomodoro> timerList = new ArrayList<>();
 
     public static void timerCreate(Map userAndTimer, SlashCommandInteractionEvent event) {
     /**
@@ -96,6 +96,15 @@ public class TimerProcessor {
 
 
     public static void timerStart(String timerName, ArrayList<User> users, SlashCommandInteractionEvent event) {
+    /**
+     * Use-case method for starting a Pomodoro instance. If the timer preset user requested is valid,
+     * and there is no timer running by that particular user, it will activate it.
+     *
+     * @param timerName : the name of the timer preset to be started
+     * @param users : the list of users who would like to be notified; this will be added to timerName
+     *              .subscribers
+     * @param event: a JDA event instance TimerPresenter needs to respond to.
+     */
         User owner = users.get(0);
         Pomodoro timer = TimerDAO.fetchTimer(timerName, owner.toString());
         if (timer == null) {TimerPresenter.sendReply(event, "The requested timer is not found.");}
@@ -115,6 +124,13 @@ public class TimerProcessor {
 
     // Searches timerList to find the corresponding timer and unregister user
     public static void TimerCancel(String timerName, User user, SlashCommandInteractionEvent event) {
+    /**
+     * A use-case method for unsubscribing a user from a timer instance.
+     *
+     * @param timerName : the name of the timer instance to be dealt with
+     * @param user : the user who wishes to unsubscribe from timerName.subscribers
+     * @param event : a JDA event instance TimerPresenter needs to respond to
+     */
         for (Pomodoro timer : timerList) {
             if (timer.getName().equals(timerName)) {
                 timer.removeUser(user);
