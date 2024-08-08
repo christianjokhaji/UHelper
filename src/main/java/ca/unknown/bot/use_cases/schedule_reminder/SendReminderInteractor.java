@@ -2,7 +2,6 @@ package ca.unknown.bot.use_cases.schedule_reminder;
 
 import ca.unknown.bot.data_access.schedule_reminder.ScheduledReminderDataAccessInterface;
 import ca.unknown.bot.entities.schedule_reminder.ScheduledEvent;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.*;

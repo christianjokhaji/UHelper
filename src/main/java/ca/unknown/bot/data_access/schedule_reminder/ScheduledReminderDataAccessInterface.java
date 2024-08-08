@@ -1,5 +1,8 @@
 package ca.unknown.bot.data_access.schedule_reminder;
+
 import ca.unknown.bot.entities.schedule_reminder.Schedule;
+
+import java.util.Map;
 
 /**
  * An abstraction for the DAO which interacts with the Data Access Layer for the schedule reminder
@@ -47,11 +50,17 @@ public interface ScheduledReminderDataAccessInterface {
     boolean getChecks(String user, String eventName);
 
     /**
-     * Adds the specified event to a reminder alert list for the user.
+     * Adds the specified event to an already existing reminder alert list for the user.
      * @param user the user who should receive an alert
      * @param eventName the event for which the user should receive an alert for
      */
-    void addCheck(String user, String eventName);
+    void addExistingCheck(String user, String eventName);
+
+    /**
+     * Opens a new list of reminder alerts for the user when the program restarts.
+     * @param user the user who should receive alerts
+     */
+    void addNewCheck(String user);
 
     /**
      * Unsubscribes the user from receiving a reminder alert for the specified event.
@@ -72,4 +81,11 @@ public interface ScheduledReminderDataAccessInterface {
      * @return this user's <code>Schedule</code>
      */
     Schedule getSchedule(String user);
+
+    /**
+     * Returns the current cache of the program.
+     * @return this program's schedule repository
+     */
+    Map<String, Schedule> getRepo();
+
 }

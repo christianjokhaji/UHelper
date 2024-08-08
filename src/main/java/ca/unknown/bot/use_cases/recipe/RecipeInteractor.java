@@ -1,7 +1,7 @@
 package ca.unknown.bot.use_cases.recipe;
 
-import ca.unknown.bot.interface_adapter.recipe.RecipeApiHandler;
-import ca.unknown.bot.interface_adapter.recipe.RecipeModel;
+import ca.unknown.bot.interface_adapter.recipe.RecipeApiController;
+import ca.unknown.bot.interface_adapter.recipe.RecipePresenter;
 import ca.unknown.bot.interface_adapter.templates.Paginator;
 import ca.unknown.bot.entities.recipe.Recipe;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -18,17 +18,16 @@ import java.util.Objects;
  * A use-case interactor for finding recipes.
  */
 public class RecipeInteractor extends ListenerAdapter {
+
+
+    private final JDA jda;
     /**
      * Extract food query, number of recipes, and optional parameters and generate a recipe search.
      *
-     * @param event represents a SlashCommandInteraction event.
      * @param jda creates an alias of jda to make the paginator event listener to work
      *
      *  Expected output: send the user a pagination with summary and recipe(s) requested.
      */
-
-    private final JDA jda;
-
     public RecipeInteractor(JDA jda){
         this.jda = jda;
     }
@@ -53,9 +52,9 @@ public class RecipeInteractor extends ListenerAdapter {
             HashMap<String, String> params = getOptionalParameters(event);
 
             // Fetch recipes from EDAMAM API according to the query
-            List<Recipe> recipes = new RecipeApiHandler(query, n, params).fetchRecipes();
+            List<Recipe> recipes = new RecipeApiController(query, n, params).fetchRecipes();
             // After fetching recipes, now we want to form a response
-            List<EmbedBuilder> recipeEmbeds = RecipeModel.getResponseEmbeds(
+            List<EmbedBuilder> recipeEmbeds = RecipePresenter.getResponseEmbeds(
                     query, recipes, n, params
             );
             // initiate the recipe embeds with paginator

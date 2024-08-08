@@ -133,7 +133,8 @@ You can find all the user stories and other details in our blueprint from [here]
   - [X] Magic 8 Ball 
 
 - **Study help** 📚
-  - [X] QuizMe
+  - [X] Create quizzes, save them and load them later
+  - [X] Practice answering them and see progress of score overtime
 
 - **Scheduled Reminders** 📅
   - [X] Create a scheduled event by providing the event name and date (day + time) of the event. (July 14)
@@ -146,7 +147,9 @@ You can find all the user stories and other details in our blueprint from [here]
     - [X] Deletes reminder alerts (July 30)
   - [X] Bot clears individual events from the schedule and unsubscribes the user from the reminder alert. (Aug 1)
   - [X] Bot persists the schedule repo to a .json file. (July 20)
-  - [ ] Schedule repo is persisted if program restarts (in progress)
+  - [X] Schedule repo is persisted if program restarts (August 6)
+    - [X] Reminder alerts get restarted
+    - [X] Removes any passed events
   - [X] Bot removes passed events from the user's schedule automatically. (August 3)
 
 - **Recipe** 🍽️

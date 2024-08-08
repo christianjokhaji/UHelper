@@ -3,11 +3,23 @@ package ca.unknown.bot.data_access.quiz_me;
 import ca.unknown.bot.entities.quiz_me.QuizMe;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class JSONQuizMeRepository{
+
+    private static final String QUIZ_DIRECTORY = "src/main/java/ca/unknown/bot/data_access/quiz_me/quizzes";
+
+    public JSONQuizMeRepository() {
+        // Ensure the directory exists
+        File directory = new File(QUIZ_DIRECTORY);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+    }
+
     /**
      *
      * @param quizMe The desired quiz object to be loaded or saved
@@ -17,8 +29,7 @@ public class JSONQuizMeRepository{
         Gson gson = new Gson();
         String json = gson.toJson(quizMe);
 
-        // Checks for exceptions since they are common with file operations
-        try (FileWriter writer = new FileWriter(filename)) {
+        try (FileWriter writer = new FileWriter(QUIZ_DIRECTORY + "/" + filename)) {
             writer.write(json);
         } catch (IOException e) {
             e.printStackTrace();
@@ -28,13 +39,12 @@ public class JSONQuizMeRepository{
     /**
      *
       * @param filename Name of quiz object to be loaded
-     * @return Quizme using file reader
+     * @return QuizMe using file reader
      */
     public QuizMe loadQuizMe(String filename) {
         Gson gson = new Gson();
 
-        try (FileReader reader = new FileReader(filename)) {
-            // gson.fromJson converts from the json file we have back to a Java object
+        try (FileReader reader = new FileReader(QUIZ_DIRECTORY + "/" + filename)) {
             return gson.fromJson(reader, QuizMe.class);
         } catch (IOException e) {
             e.printStackTrace();

@@ -29,7 +29,6 @@ public class RemovePassedEventInteractor {
 
         Runnable removeEvent = () -> this.remove(user, scheduledEvent);
         scheduler.schedule(removeEvent, delay, TimeUnit.MILLISECONDS);
-        // close scheduler?
     }
 
     private void remove(String user, ScheduledEvent s){

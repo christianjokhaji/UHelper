@@ -19,11 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This class is responsible for retrieving recipe data from an API.
+ * This class is responsible for fetching recipe data from an API.
  * It processes and parses JSON responses to a list of Recipe class instances.
  */
 
-public class RecipeApiHandler {
+public class RecipeApiController {
     /**
      *
      * @param json represents a JSON string.
@@ -33,7 +33,7 @@ public class RecipeApiHandler {
     private final String recipeApi;
     private List<Recipe> recipes;
 
-    public RecipeApiHandler(String query, int n, HashMap<String, String> params){
+    public RecipeApiController(String query, int n, HashMap<String, String> params){
         this.n = n;
         this.recipes = new ArrayList<>();
         String app_id;
