@@ -24,15 +24,17 @@ import java.util.List;
  */
 
 public class RecipeApiController {
-    /**
-     *
-     * @param json represents a JSON string.
-     * @return a JsonObject for further data manipulation and/or access.
-     */
     private final int n;
     private final String recipeApi;
     private List<Recipe> recipes;
 
+    /**
+     * Constructs a RecipeApiController with the specified query parameters.
+     *
+     * @param query  the search query for the recipes.
+     * @param n      the number of recipes to fetch.
+     * @param params additional parameters for the API request.
+     */
     public RecipeApiController(String query, int n, HashMap<String, String> params){
         this.n = n;
         this.recipes = new ArrayList<>();
@@ -58,7 +60,12 @@ public class RecipeApiController {
         }
         this.recipeApi = recipeApi;
     }
-
+    /**
+     * Each recipe is extracted from the "hits" array in the JSON
+     * response and converted to a Recipe object.
+     *
+     * @return a list of Recipe objects containing the fetched recipes.
+     */
     public List<Recipe> fetchRecipes() {
         JsonArray allResults = getHitsArray(recipeApi);
 

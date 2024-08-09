@@ -15,76 +15,82 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A use-case interactor for finding recipes.
+ * This is a use case interactor for handling the "find-recipes" command.
+ * <p>
+ * This interactor manages the process of fetching recipes based on user input,
+ * interacting with the Recipe API, and preparing the data for presentation.
+ * </p>
  */
 public class RecipeInteractor extends ListenerAdapter {
 
 
     private final JDA jda;
     /**
-     * Extract food query, number of recipes, and optional parameters and generate a recipe search.
+     * Constructs a new RecipeInteractor with the specified JDA instance.
      *
-     * @param jda creates an alias of jda to make the paginator event listener to work
-     *
-     *  Expected output: send the user a pagination with summary and recipe(s) requested.
+     * @param jda The JDA instance, used for managing Discord events and interactions.
      */
     public RecipeInteractor(JDA jda){
         this.jda = jda;
     }
-
-
+    /**
+     * Handles slash command interactions for the "find-recipes" command.
+     * Delegates the processing to the execute method.
+     *
+     * @param event The slash command interaction event.
+     */
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("find-recipes")) {
-            // Tell discord we received the command, send a thinking... message to the user
-            event.deferReply().queue();
-
-            // Get the query
-            String query = Objects.requireNonNull(event.getOption("food")).getAsString();
-            int n = Objects.requireNonNull(event.getOption("count")).getAsInt();
-
-            if (n < 0) {
-                event.getHook().sendMessage("Please try again with a positive number.").queue();
-                return;
-            }
-
-            // Generate key-value pairs for every parameter entered
-            HashMap<String, String> params = getOptionalParameters(event);
-
-            // Fetch recipes from EDAMAM API according to the query
-            List<Recipe> recipes = new RecipeApiController(query, n, params).fetchRecipes();
-            // After fetching recipes, now we want to form a response
-            List<EmbedBuilder> recipeEmbeds = RecipePresenter.getResponseEmbeds(
-                    query, recipes, n, params
-            );
-            // initiate the recipe embeds with paginator
-            jda.addEventListener(new Paginator(event, recipeEmbeds));
+            execute(event);
         }
+    }
+    /**
+     * Executes the recipe-finding use case, handling the extraction of user input,
+     * fetching recipes, and preparing the response.
+     *
+     * @param event The slash command interaction event containing the user's input.
+     */
+    public void execute(SlashCommandInteractionEvent event) {
+        event.deferReply().queue();
+
+        String query = Objects.requireNonNull(event.getOption("food")).getAsString();
+        int count = Objects.requireNonNull(event.getOption("count")).getAsInt();
+
+        if (count < 0) {
+            event.getHook().sendMessage("Please try again with a positive number.").queue();
+            return;
+        }
+
+        HashMap<String, String> params = getOptionalParameters(event);
+
+        List<Recipe> recipes = new RecipeApiController(query, count, params).fetchRecipes();
+
+        List<EmbedBuilder> recipeEmbeds = RecipePresenter.getResponseEmbeds(
+                query, recipes, count, params
+        );
+
+        jda.addEventListener(new Paginator(event, recipeEmbeds));
     }
 
     private HashMap<String, String> getOptionalParameters(SlashCommandInteractionEvent event) {
         HashMap<String, String> params = new HashMap<>();
 
-        // Extract diet-label
         OptionMapping dietLabelOption = event.getOption("diet-label");
         if (dietLabelOption != null) {
             params.put("diet", dietLabelOption.getAsString());
         }
 
-
-        // Extract meal-type
         OptionMapping mealTypeOption = event.getOption("meal-type");
         if (mealTypeOption != null) {
             params.put("mealType", mealTypeOption.getAsString());
         }
 
-        // Extract dish-type
         OptionMapping dishTypeOption = event.getOption("dish-type");
         if (dishTypeOption != null) {
             params.put("dishType", dishTypeOption.getAsString());
         }
 
-        // Extract cuisine-type
         OptionMapping cuisineTypeOption = event.getOption("cuisine-type");
         if (cuisineTypeOption != null) {
             params.put("cuisineType", cuisineTypeOption.getAsString());
