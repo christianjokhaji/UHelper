@@ -3,8 +3,13 @@ package ca.unknown.bot.commands;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
-
+/**
+ * This class stores all the slash commands related to Scheduled Reminders feature.
+ */
 public class ScheduledRemindersCommands {
+    /**
+     * This method stores the SlashCommand data for /schedule-exam.
+     */
     public static SlashCommandData getScheduleExamCommand(){
         return Commands.slash("schedule-exam",
                         "Schedules a new exam reminder. Please format your date as " +
@@ -24,7 +29,9 @@ public class ScheduledRemindersCommands {
                 .addOption(OptionType.INTEGER, "minute",
                         "The minutes value of your exam time.", true);
     }
-
+    /**
+     * This method stores the SlashCommand data for /schedule-assignment.
+     */
     public static SlashCommandData getScheduleAssignmentCommand(){
         return Commands.slash("schedule-assignment",
                         "Schedules a new assignment reminder. " +
@@ -44,7 +51,9 @@ public class ScheduledRemindersCommands {
                 .addOption(OptionType.INTEGER, "minute",
                         "The minutes value of your assignment due date.", true);
     }
-
+    /**
+     * This method stores the SlashCommand data for /schedule-event.
+     */
     public static SlashCommandData getScheduleEventCommand(){
         return Commands.slash("schedule-event",
                         "Schedules a generic event reminder. " +
@@ -56,14 +65,21 @@ public class ScheduledRemindersCommands {
                 .addOption(OptionType.INTEGER, "hour", "The military hour of your event.", true)
                 .addOption(OptionType.INTEGER, "minute", "The minutes value of your event.", true);
     }
-
+    /**
+     * This method stores the SlashCommand data for /current-schedule.
+     */
     public static SlashCommandData getCurrentScheduleCommand(){
         return Commands.slash("current-schedule", "Displays the user's upcoming event schedule.");
     }
+    /**
+     * This method stores the SlashCommand data for /clear-event.
+     */
     public static SlashCommandData getClearEventCommand(){
         return  Commands.slash("clear-event", "Clears an event from the user's current schedule.");
     }
-
+    /**
+     * This method stores the SlashCommand data for /clear-schedule.
+     */
     public static SlashCommandData getClearScheduleCommand(){
         return Commands.slash("clear-schedule", "Clears the user's current schedule.");
     }

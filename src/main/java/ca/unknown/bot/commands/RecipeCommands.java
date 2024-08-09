@@ -4,8 +4,15 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
-
+/**
+ * This class stores all the slash commands related to Recipe feature.
+ */
 public class RecipeCommands {
+    /**
+     * This method stores the SlashCommand data for /find-recipes.
+     * There are two options - food and count - set to required, while rest of the options
+     * (diet-label, meal-type, dish-type, cuisine-type) are set to optional.
+     */
     public static SlashCommandData getFindRecipesCommand() {
         return Commands.slash("find-recipes", "Suggests recipes based on the name of a food.")
                 .addOption(OptionType.STRING, "food",
