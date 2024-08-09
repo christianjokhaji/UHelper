@@ -15,11 +15,21 @@ import java.util.List;
 
 public class WikiPresenter {
     SlashCommandInteractionEvent event;
+    /**
+     * Constructs a WikiPresenter with the specified SlashCommandInteractionEvent.
+     *
+     * @param event the slash command interaction event.
+     */
     public WikiPresenter(SlashCommandInteractionEvent event) {
         this.event = event;
     }
 
-    public EmbedBuilder getScheduledReminderEmbed(){
+    /**
+     * Creates an EmbedBuilder for the Scheduled Reminders feature.
+     *
+     * @return an EmbedBuilder containing information about the Scheduled Reminder feature.
+     */
+    public EmbedBuilder getScheduledRemindersEmbed(){
         String scheduledReminder_description = "UHelper can schedule any ongoing exams, " +
                 "assignments, or general events for you and send you reminders " +
                 "via direct message 24 hours before your event, or an hour before the event " +
@@ -61,7 +71,11 @@ public class WikiPresenter {
         eb.setFooter("Created by Aria");
         return eb;
     }
-
+    /**
+     * Creates an EmbedBuilder for the Timer feature.
+     *
+     * @return an EmbedBuilder containing information about the Timer feature.
+     */
     public EmbedBuilder getTimerEmbed(){
         String Timer_features = "-`/timer-add`: Users can configure how much they want to " +
                 "spend on work and how much they want to spend on breaks. They can input an " +
@@ -87,7 +101,11 @@ public class WikiPresenter {
         eb.setFooter("Created by Min");
         return eb;
     }
-
+    /**
+     * Creates an EmbedBuilder for the Study Helper feature.
+     *
+     * @return an EmbedBuilder containing information about the Study Helper feature.
+     */
     public EmbedBuilder getStudyHelperEmbed(){
         String StudyHelper_features =
                 "Here are a few options you can choose with `/study-help`:\n" +
@@ -115,7 +133,11 @@ public class WikiPresenter {
         eb.setFooter("Created by Dusan");
         return eb;
     }
-
+    /**
+     * Creates an EmbedBuilder for the Mini Games feature.
+     *
+     * @return an EmbedBuilder containing information about the Mini Games feature.
+     */
     public EmbedBuilder getMiniGamesEmbed(){
         String minigames_features = "Whenever you have a break or free time, " +
                 "call on one of the following commands to start it:\n" +
@@ -135,7 +157,11 @@ public class WikiPresenter {
         eb.setFooter("Created by Christian");
         return eb;
     }
-
+    /**
+     * Creates an EmbedBuilder for the Find Recipes feature.
+     *
+     * @return an EmbedBuilder containing information about the Find Recipes feature.
+     */
     public EmbedBuilder getFindRecipesEmbed(){
         String Recipe_features =
                 "`/find-recipe`: By entering a food and the number of recipes you want, " +
@@ -155,7 +181,12 @@ public class WikiPresenter {
         eb.setFooter("Created by Cindy(Xinyue)");
         return eb;
     }
-
+    /**
+     * Creates a list of EmbedBuilders for the general UHelper Wiki.
+     * This includes a welcome page and specific feature descriptions.
+     *
+     * @return a list of EmbedBuilders containing information about all features of UHelper.
+     */
     public List<EmbedBuilder> getGeneralEmbed(){
         List<EmbedBuilder> embeds = new ArrayList<>();
         embeds.add(new EmbedBuilder()
@@ -169,7 +200,7 @@ public class WikiPresenter {
                         " to explore what you can do with UHelper :raised_hands:", false)
                 .addBlankField(false)
         );
-        embeds.add(getScheduledReminderEmbed());
+        embeds.add(getScheduledRemindersEmbed());
         embeds.add(getTimerEmbed());
         embeds.add(getStudyHelperEmbed());
         embeds.add(getMiniGamesEmbed());

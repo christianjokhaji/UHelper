@@ -94,11 +94,13 @@ public class RecipePresenter {
             return summary.toString();
         } else if (n > recipes.size()) {
             // not enough recipes found
-            summary.append("I couldn't find ").append(n).append(" ").append("recipes matching your search, ");
+            summary.append("I couldn't find ").append(n)
+                    .append(" ").append("recipes matching your search, ");
             if (count == 1){
                 summary.append("but here is one that match your search for ");
             } else {
-                summary.append("but here are ").append(count).append(" ").append("recipes based on ");
+                summary.append("but here are ").append(count)
+                        .append(" ").append("recipes based on ");
             }
             summary.append(query).append(".");
         } else {

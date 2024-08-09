@@ -24,6 +24,12 @@ public class WikiInteractor extends ListenerAdapter {
         this.jda = jda;
     }
 
+    /**
+     * Handles slash command interactions. Depending on the command feature,
+     * it calls the WikiPresenter to generate appropriate output and sends it as a response.
+     *
+     * @param event the slash command interaction event.
+     */
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("uhelper-wiki")) {
@@ -37,7 +43,7 @@ public class WikiInteractor extends ListenerAdapter {
                     break;
                 case "scheduled_reminders":
                     EmbedBuilder schedule_embed =
-                            new WikiPresenter(event).getScheduledReminderEmbed();
+                            new WikiPresenter(event).getScheduledRemindersEmbed();
                     event.getHook().sendMessageEmbeds(schedule_embed.build()).queue();
                     break;
                 case "timer":

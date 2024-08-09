@@ -13,7 +13,14 @@ public class URLGenerator {
     private static String encodeValue(String value) {
         return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
-
+    /**
+     * Constructs a URL parameter string from a hashmap of key-value pairs.
+     * Each key and value is URL-encoded to ensure proper formatting in a URL query string.
+     *
+     * @param params a hashmap containing the key-value pairs to be included
+     *               in the URL parameter string.
+     * @return a URL-encoded string representing the parameters for inclusion in a URL.
+     */
     public static String getParamURL(HashMap<String, String> params) {
         StringBuilder url = new StringBuilder();
         for (String key : params.keySet()) {
