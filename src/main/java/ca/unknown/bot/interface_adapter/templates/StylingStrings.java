@@ -10,7 +10,12 @@ import java.util.regex.Matcher;
  */
 
 public class StylingStrings {
-
+    /**
+     * Converts the input string to a phrase starting with an uppercase letter and natural spacing.
+     *
+     * @param input the input string to be styled.
+     * @return the styled string with natural spacing and proper capitalization.
+     */
     public static String startWithUpperCase(String input) {
         if (isCamelCase(input)) {
             return camelCaseToWords(input);

@@ -64,23 +64,6 @@ public class Paginator extends ListenerAdapter {
                 .queue();
     }
 
-    // change buttons for pagination via setters
-    public void setFirstButton(Button firstButton) {
-        this.firstButton = firstButton;
-    }
-
-    public void setPrevButton(Button prevButton) {
-        this.prevButton = prevButton;
-    }
-
-    public void setNextButton(Button nextButton) {
-        this.nextButton = nextButton;
-    }
-
-    public void setLastButton(Button lastButton) {
-        this.lastButton = lastButton;
-    }
-
     /**
      * Handles button interactions for pagination.
      *

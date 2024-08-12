@@ -60,9 +60,9 @@ public class TimerPresenter {
         TimerDAO timerDAO = new TimerDAO();
         ArrayList list = timerDAO.loadTimers(user.toString(), "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
         if (list == null || list.size() == 0) {
-            event.reply("You have no timer presets!").queue();
+            event.reply(user.getName() + " has no timer presets!").queue();
         } else {
-            String message = new String("You have the following timer(s):" + "\n\n");
+            String message = new String(user.getName() + " has the following timer(s):" + "\n\n");
             for (int i = 0; i < list.size(); i++) {
                 LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
                 String name = treeMap.get("name").toString();
@@ -89,9 +89,9 @@ public class TimerPresenter {
         TimerDAO timerDAO = new TimerDAO();
         ArrayList list = timerDAO.loadTimers(user.toString(), "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
         if (list == null || list.size() == 0) {
-            event.reply("You have no timer presets!").queue();
+            event.reply(user.getName() + " has no timer presets!").queue();
         } else {
-            String message = new String("You have the following timer(s):" + "\n\n");
+            String message = new String( user.getName() + " has the following timer(s):" + "\n\n");
             for (int i = 0; i < list.size(); i++) {
                 LinkedTreeMap treeMap = (LinkedTreeMap) list.get(i);
                 String name = treeMap.get("name").toString();
