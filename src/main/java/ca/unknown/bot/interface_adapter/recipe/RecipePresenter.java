@@ -54,7 +54,8 @@ public class RecipePresenter {
                         ")**.\nNote: the source link of the recipe may be outdated.")
                 .addField(":point_right: Ingredients", recipeIngredients, true)
                 .addBlankField(true)
-                .addField(":muscle: Nutrients Info", "Provided by [EDAMAM API](" + recipeShareAs + ")", true)
+                .addField(":muscle: Nutrients Info",
+                        "Provided by [EDAMAM API](" + recipeShareAs + ")", true)
                 .setThumbnail(recipe.getImage());
     }
 
@@ -72,7 +73,6 @@ public class RecipePresenter {
     private static String getSummary (
             String query, int n, HashMap<String, String> params, List<Recipe> recipes
     ) {
-        // Summary Part
         StringBuilder summary = new StringBuilder();
         summary.append("- Food: ").append(query).append("\n");
         summary.append("- Number of recipe(s) requested: ").append(n).append("\n");
@@ -85,15 +85,12 @@ public class RecipePresenter {
         }
         summary.append("\n");
         int count =  recipes.size();
-        // A new section with a line that guide the user to flip through the pagination
         if (recipes.isEmpty()) {
-            // no recipes found / invalid search keywords
             String noResults = "I'm sorry, but I couldn't find any recipes " +
                     "matching your search for " + query + ".";
             summary.append(noResults).append("\nPlease try again with another food:eyes:");
             return summary.toString();
         } else if (n > recipes.size()) {
-            // not enough recipes found
             summary.append("I couldn't find ").append(n)
                     .append(" ").append("recipes matching your search, ");
             if (count == 1){
@@ -104,7 +101,6 @@ public class RecipePresenter {
             }
             summary.append(query).append(".");
         } else {
-            // enough recipes found
             if (n == 1) {
                 summary.append("Here is the suggested recipe based on ").append(query).append(".");
             } else {
