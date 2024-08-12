@@ -86,12 +86,10 @@ public class TimerProcessor {
             TimerPresenter.sendReply(event, "You don't have any presets to remove.");}
         else if (!TimerDAO.checkTimer(user, name,"src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
             TimerPresenter.sendReply(event, "The requested timer is not found! Make sure " +
-                    "you have entered a correct name.");
-        }
+                    "you have entered a correct name.");}
         else {
             TimerDAO.deletePomodoro(name, user, "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
-            TimerPresenter.sendSuccessReply(event, name + " has been successfully removed.");
-        }
+            TimerPresenter.sendSuccessReply(event, name + " has been successfully removed.");}
     }
 
 
@@ -134,8 +132,8 @@ public class TimerProcessor {
         for (Pomodoro timer : timerList) {
             if (timer.getName().equals(timerName)) {
                 timer.removeUser(user);
-                TimerPresenter.sendReply(event,  timer.getName() + " has been cancelled and " +
-                        "you will not be notified.");
+                TimerPresenter.sendReply(event,  timer.getName() + " has been cancelled and "
+                        + user.getName() + " will not be notified.");
                 break;
             }
         }
@@ -144,7 +142,6 @@ public class TimerProcessor {
                 "Please check that you have entered a correct name.");
     }
 
-    // checks if user has a timer running in the background
     private static boolean checkTimerRunning(User user) {
         for (Pomodoro timer : timerList) {
             if (timer.containsUser(user)) {return true;}
@@ -152,7 +149,6 @@ public class TimerProcessor {
         return false;
     }
 
-    // clear up timerList regularly if timers no longer have subscribers
     private static void cleanTimerList() {
         for (Pomodoro timer : timerList) {
             if (timer.getUsers().isEmpty()) {
