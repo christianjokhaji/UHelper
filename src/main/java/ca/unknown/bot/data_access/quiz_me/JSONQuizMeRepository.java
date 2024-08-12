@@ -8,12 +8,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Data access for Quiz_Me, allows saving and loading of quizzes, also defines location to store those files
+ */
 public class JSONQuizMeRepository{
 
     private static final String QUIZ_DIRECTORY = "src/main/java/ca/unknown/bot/data_access/quiz_me/quizzes";
 
     public JSONQuizMeRepository() {
-        // Ensure the directory exists
         File directory = new File(QUIZ_DIRECTORY);
         if (!directory.exists()) {
             directory.mkdir();

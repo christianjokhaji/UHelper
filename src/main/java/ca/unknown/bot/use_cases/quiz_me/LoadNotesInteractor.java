@@ -5,6 +5,9 @@ import ca.unknown.bot.entities.quiz_me.QuizMe;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+/**
+ * Interactor that allows users to load notes and controls prompting user to input desired notes
+ */
 public class LoadNotesInteractor {
 
     private final JSONQuizMeRepository repository;
@@ -30,14 +33,10 @@ public class LoadNotesInteractor {
         quizMe.getQuestionsOrder().clear();
         quizMe.getQuestionsOrder().addAll(loadedQuizMe.getQuestionsOrder());
 
-        System.out.println("Loaded QuizMe: " + quizMe); // Debug print
-        System.out.println("Questions: " + quizMe.getQuestionsOrder().size()); // Debug print
-
         if (quizMe.getQuestionsOrder().isEmpty()) {
             event.getChannel().sendMessage("There are no questions to study.").queue();
         } else {
             event.getChannel().sendMessage("Notes loaded from " + filename).queue();
-            // Handle further logic to utilize the loaded questions...
         }
     }
 
@@ -47,7 +46,6 @@ public class LoadNotesInteractor {
      * @param event represents a SlashCommandInteraction event.
      */
     public void displaySavedQuizzes(SlashCommandInteractionEvent event) {
-        // Implement logic to display saved quizzes
         event.reply("Please provide the name of the quiz file to load (e.g., quiz.json)").queue();
     }
 }

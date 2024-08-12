@@ -5,8 +5,10 @@ import java.util.Map;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Basic entity representing a user's stats taking quizzes
+ */
 public class QuizTaker {
-    //private final String userId;
     private final Map<String, Integer> questionAttempts;
     private final Map<String, Integer> correctAnswers;
 
@@ -22,7 +24,7 @@ public class QuizTaker {
         this.attemptScores = new LinkedList<>();
     }
 
-    // Getters
+
     public String getUserId() {
         return userId;
     }
@@ -39,7 +41,7 @@ public class QuizTaker {
         return questionAttempts;
     }
 
-    // Increase and reset score
+
     public void incrementScore() {
         currentScore++;
     }
@@ -82,7 +84,7 @@ public class QuizTaker {
                 ((double) score / totalQuestions) * 100) + "%)";
 
         if (attemptScores.size() > 1) {
-            attemptScores.remove(0); // Keep only the last 2 scores
+            attemptScores.remove(0);
         }
 
         attemptScores.add(attemptScore);

@@ -9,6 +9,9 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.util.Objects;
 
+/**
+ * Interactor that controls prompting user when adding questions and calling the respective methods
+ */
 public class AddQuestionInteractor {
 
     private final QuizMe quizMe;
@@ -50,8 +53,8 @@ public class AddQuestionInteractor {
     public void handleButtonInteraction(ButtonInteractionEvent event) {
 
 
-        String buttonId = event.getButton().getId(); // Keeps track of user desired interaction
-        String userId = event.getUser().getId(); // Keep track of which user is using it
+        String buttonId = event.getButton().getId();
+        String userId = event.getUser().getId();
 
         if (buttonId != null) {
             if (buttonId.equals("add_another")) {

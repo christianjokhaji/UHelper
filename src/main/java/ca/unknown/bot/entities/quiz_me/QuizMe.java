@@ -15,7 +15,6 @@ import java.util.Map;
 
 /**
  * Basic entity for quiz_me methods
- *
  */
 public class QuizMe {
     private final Map<String, String> notes;
@@ -23,15 +22,12 @@ public class QuizMe {
     private final List<String> questionsOrder;
     private final Map<String, QuizTaker> quizTakers;
 
-    // Constructs a QuizMe object
     public QuizMe() {
         this.notes = new HashMap<>();
         this.hints = new HashMap<>();
         this.questionsOrder = new ArrayList<>();
         this.quizTakers = new HashMap<>();
     }
-
-    // Getters
 
     public Map<String, String> getNotes() {
         return notes;
@@ -182,7 +178,7 @@ public class QuizMe {
             int totalQuestions = questionsOrder.size();
             String scoreMessage = getScoreMessage(score, totalQuestions, quizTaker);
             quizTaker.addAttemptScore(score, totalQuestions);
-            quizTaker.resetScore(); // Reset the score for a new attempt
+            quizTaker.resetScore();
 
             event.reply(scoreMessage).queue();
         }
@@ -202,7 +198,6 @@ public class QuizMe {
         StringBuilder scoreMessage = new StringBuilder("Quiz completed! Your score: " + score + "/" + totalQuestions +
                 " (" + String.format("%.1f", percentage) + "%)");
 
-        // Include previous scores in the message
         List<String> previousScores = quizTaker.getLastTwoScores();
         if (!previousScores.isEmpty()) {
             scoreMessage.append("\n\nPrevious Scores:");
