@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * This class needs EDAMAM_ID and EDAMAM_KEY for configuration.
+ */
 class RecipeApiControllerTest {
 
     @Test
@@ -30,7 +32,7 @@ class RecipeApiControllerTest {
                 );
         expectedRecipes.add(recipe);
         HashMap<String, String> params = new HashMap<>();
-        params.put("Meal Type", "Dinner");
+        params.put("mealType", "Dinner");
         RecipeApiController testRecipeApiController = new RecipeApiController(
                 "octopus ramen",
                 1,
