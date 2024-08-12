@@ -13,59 +13,63 @@ public class RockPaperScissors extends Game {
     /**
      * Starts a game of rock paper scissors.
      *
-     * @param event represents a SlashCommandInteraction event.
+     * @param choice represents the user's move.
      */
     @Override
-    public void startGame(SlashCommandInteractionEvent event) {
+    public String startGame(String choice) {
         // Generate a random integer between 0 (inclusive) and 3 (exclusive).
         Random rand = new Random();
         int number = rand.nextInt(3);
-        String option = Objects.requireNonNull(event.getOption("choice")).getAsString();
-        String choice;
+        String move;
 
         // The bot selects a move.
         if (number == 0) {
-            choice = "rock";
+            move = "rock";
         }
         else if (number == 1) {
-            choice = "paper";
+            move = "paper";
         }
         else {
-            choice = "scissors";
+            move = "scissors";
         }
 
         // Winner is determined.
-        switch (option) {
+        return determineWinner(choice, move);
+    }
+
+    /**
+     * @param choice represents the user's move.
+     * @param move represents the bot's move.
+     * @return represents a statement determining the winner.
+     */
+    private String determineWinner(String choice, String move) {
+        switch (choice) {
             case "rock":
-                if (choice.equals("rock")) {
-                    event.reply("The bot chose " + choice + ". The game is a tie.").queue();
-                } else if (choice.equals("paper")) {
-                    event.reply("The bot chose " + choice + ". You lose.").queue();
+                if (move.equals("rock")) {
+                    return "The bot chose " + move + ". The game is a tie.";
+                } else if (move.equals("paper")) {
+                    return "The bot chose " + move + ". You lose.";
                 } else {
-                    event.reply("The bot chose " + choice + ". You win!").queue();
+                    return "The bot chose " + move + ". You win!";
                 }
-                break;
             case "paper":
-                if (choice.equals("rock")) {
-                    event.reply("The bot chose " + choice + ". You win!").queue();
-                } else if (choice.equals("paper")) {
-                    event.reply("The bot chose " + choice + ". The game is a tie.").queue();
+                if (move.equals("rock")) {
+                    return "The bot chose " + move + ". You win!";
+                } else if (move.equals("paper")) {
+                    return "The bot chose " + move + ". The game is a tie.";
                 } else {
-                    event.reply("The bot chose " + choice + ". You lose.").queue();
+                    return "The bot chose " + move + ". You lose.";
                 }
-                break;
             case "scissors":
-                if (choice.equals("rock")) {
-                    event.reply("The bot chose " + choice + ". You lose.").queue();
-                } else if (choice.equals("paper")) {
-                    event.reply("The bot chose " + choice + ". You win!").queue();
+                if (move.equals("rock")) {
+                    return "The bot chose " + move + ". You lose.";
+                } else if (move.equals("paper")) {
+                    return "The bot chose " + move + ". You win!";
                 } else {
-                    event.reply("The bot chose " + choice + ". The game is a tie.").queue();
+                    return "The bot chose " + move + ". The game is a tie.";
                 }
-                break;
             default:
-                event.reply("Invalid option selected.").queue();
-                break;
+                return "Invalid option selected.";
         }
     }
 }
