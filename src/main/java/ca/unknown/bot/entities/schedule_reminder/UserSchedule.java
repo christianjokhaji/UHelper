@@ -32,7 +32,7 @@ public class UserSchedule implements Schedule {
         Collections.sort(events);
     }
 
-    public int size(){
+    public int getSize(){
         return events.size();
     }
 

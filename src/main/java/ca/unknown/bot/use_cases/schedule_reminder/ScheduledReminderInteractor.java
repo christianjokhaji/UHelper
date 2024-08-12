@@ -117,7 +117,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
             // Tell discord we received the command, send a thinking... message to the user
             event.deferReply().queue();
 
-            // if the user is scheduling an event for the first time, make a new Schedule object for their use
+            // if the user is scheqduling an event for the first time, make a new Schedule object for their use
             if(!scheduleDAO.existsByUser(username)){
                 scheduleDAO.saveNewUser(scheduleFactory.create(username, userId));
             }
@@ -157,7 +157,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 event.reply("You have no scheduled events.").queue();
             }
             else if(scheduleDAO.getSchedule(username).hasNoEvents()){
-                event.reply("There is no ongoing schedule to clear.").queue();
+                event.reply("You have no scheduled events.").queue();
             }
             else{
                 // otherwise displays a String representation of the user's ongoing event schedule
@@ -182,7 +182,7 @@ public class ScheduledReminderInteractor extends ListenerAdapter {
                 event.getHook().sendMessage("\nPlease reply with the index of the event you wish to clear.").queue();
 
                 JDA jda = event.getJDA();
-                jda.addEventListener(new ClearEventListener(scheduleDAO.getSchedule(username).size(), scheduleDAO, jda));
+                jda.addEventListener(new ClearEventListener(scheduleDAO.getSchedule(username).getSize(), scheduleDAO, jda));
 
             }
         }
