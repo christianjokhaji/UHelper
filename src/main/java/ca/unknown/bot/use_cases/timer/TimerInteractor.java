@@ -41,7 +41,7 @@ public class TimerInteractor extends ListenerAdapter {
 
             // Prevents users from creating timers with impossible configurations
             if (workTime < 0 || breakTime < 0 || iteration <= 0) {
-                TimerPresenter.sendReply(event, "You can't create a timer with negative" +
+                TimerPresenter.sendReply(event, "You can't create a timer with negative " +
                         "numbers! Try again with positive real numbers.");}
             else {TimerController.convertCreateInput(name, workTime, breakTime, iteration, user, event);}
         }
@@ -51,7 +51,6 @@ public class TimerInteractor extends ListenerAdapter {
             TimerController.convertDeleteInput(name, user, event);
         }
         if (event.getName().equals("timer-list")) {
-            // Invokes TimerPresenter to reply with a list of timers, given the caller and event
             TimerPresenter.getTimers(event.getUser(), event);
         }
         if (event.getName().equals("timer-start")) {
@@ -63,14 +62,12 @@ public class TimerInteractor extends ListenerAdapter {
             User two = event.getOption("invitee2", null, OptionMapping::getAsUser);
             User three = event.getOption("invitee3", null, OptionMapping::getAsUser);
 
-            // Invokes TimerController to convert inputs
             TimerController.convertStartInput(timerName, user, one, two, three, event);
         }
         if (event.getName().equals("timer-cancel")) {
             User user = event.getUser();
             String timerName = Objects.requireNonNull(event.getOption("name")).getAsString();
 
-            // Invokes TimerController to process inputs appropriately to the purpose of cancelling
             TimerController.convertCancelInput(timerName, user, event);
         }
     }
@@ -83,7 +80,6 @@ public class TimerInteractor extends ListenerAdapter {
      */
     public void onButtonInteraction(ButtonInteractionEvent event) {
        if (event.getComponentId().equals("list")) {
-           // Invokes TimerPresenter to prepare a list of timers created by this particular user
            TimerPresenter.getTimersButton(event.getUser(), event);
        }
    }

@@ -94,7 +94,6 @@ public class Pomodoro implements TimerInterface {
         timerForBreak.scheduleAtFixedRate(task, 100, 100);
     }
 
-    // Getters for Pomodoro
     @Override
     public double getWorkTime() {
         return (double) this.map.get("workTime");
@@ -136,7 +135,6 @@ public class Pomodoro implements TimerInterface {
         subscribers.remove(user);
     }
 
-    // returns true if user exists in users
     public boolean containsUser(User user){
         return subscribers.contains(user);
     }
@@ -147,7 +145,6 @@ public class Pomodoro implements TimerInterface {
         }
     }
 
-    // A helper function for converting minute to millisecond
     private static long minToMilli(double min){
         return Math.round(min * 60 * 1000);
     }

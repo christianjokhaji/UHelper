@@ -146,8 +146,12 @@ public class TimerDAO {
            }
     }
 
-    // returns true if the designated json file is totally empty
     public static boolean checkEmpty(String filename) {
+    /**
+    * checkEmpty returns true if the designated json file is totally empty
+    *
+    * @param filename: the name of the json file to work with
+    */
         try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
@@ -161,8 +165,14 @@ public class TimerDAO {
         return false;
     }
 
-    // Same as above, but uses a simplified parameter for the deleting purpose
     public static boolean checkUser(String user, String filename) {
+    /**
+    * checkUser is similar to checkEmpty, except for that it ses a simplified parameter for
+    * the deleting purpose
+    *
+    * @param filename: the name of the json file to work with
+    * @param user : it is what it is
+    */
         try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
@@ -177,6 +187,13 @@ public class TimerDAO {
     }
 
     public static boolean checkTimer(String user, String timerName, String filename) {
+    /**
+    * checkMoreThanFive returns true if user has 5 or more timer instances
+    *
+    * @param user : the user who is creating a timer preset (pomodoro instance)
+    * @param timerName : the name of the timer that is being searched
+    * @param filename: the name of the json file to work with
+    */
         try (FileReader reader = new FileReader(filename)) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
@@ -192,8 +209,12 @@ public class TimerDAO {
         return false;
     }
 
-    // returns true if user has 5 or more timer instances
     public static boolean checkMoreThanFive(String user) {
+    /**
+    * checkMoreThanFive returns true if user has 5 or more timer instances
+    *
+    * @param user : the user who is creating a timer preset (pomodoro instance)
+    */
         try (FileReader reader = new FileReader("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
             JsonReader jsonReader = new JsonReader(reader);
             Gson gson = new Gson();
@@ -210,8 +231,13 @@ public class TimerDAO {
         return false;
     }
 
-    // returns true if the input name is already used for any timer that user has
     public static boolean checkDuplicate(String name, String user) {
+    /**
+    * checkDuplicate returns if the input name is already used for any timer that user has
+    *
+    * @param name : the name of the timer that the user wants to get
+    * @param user : it is what it is
+    */
         try (FileReader reader = new FileReader("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json")) {
             Map repo = loadPomodoro("src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
             if (repo == null) {return false;}
@@ -229,6 +255,14 @@ public class TimerDAO {
     }
 
     public static Pomodoro fetchTimer(String name, String user) {
+    /**
+    * fetchTimer searches timer_repository to find a pomodoro instance with name for user.
+    * returns null if no such instance is found.
+    *
+    * @param name : the name of the timer that the user wants to get
+    * @param user : it is what it is
+    * @return Pomodoro : a pomodoro instance found in timer_repository as requested
+    */
         ArrayList<LinkedTreeMap> timers = (ArrayList) loadTimers(user,
                 "src/main/java/ca/unknown/bot/data_access/timer/timer_repository.json");
         for (LinkedTreeMap timer : timers) {
@@ -249,20 +283,20 @@ public class TimerDAO {
    /**
     * loadTimers returns an ArrayList that consists of Pomodoro instances.
     *
-    * @param user an identifier that serves to find out what list to import
-    * @param filename the location of timer_repository
+    * @param user : an identifier that serves to find out what list to import
+    * @param filename : the location of timer_repository
     * @return ArrayList of Pomodoro instances
     */
         Map repo = loadPomodoro(filename);
-        if (repo == null) { // if timer_repository is empty
+        if (repo == null) {
             ArrayList emptyList = new ArrayList();
             return emptyList;
         }
-        else if (repo.containsKey(user)) { // if you do have a timer
+        else if (repo.containsKey(user)) {
             ArrayList list = (ArrayList) repo.get(user);
             return list;
         }
-        else { // if you haven't created a timer yet
+        else {
             ArrayList emptyList = new ArrayList();
             return emptyList;
         }
