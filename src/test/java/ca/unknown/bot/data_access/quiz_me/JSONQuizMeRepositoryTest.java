@@ -25,7 +25,6 @@ public class JSONQuizMeRepositoryTest {
     }
 
 
-    // Don't want testing file as part of quizzes after testing is done
     @AfterEach
     public void tearDown() {
         File file = new File("src/main/java/ca/unknown/bot/data_access/quiz_me/quizzes/test_quiz.json");
