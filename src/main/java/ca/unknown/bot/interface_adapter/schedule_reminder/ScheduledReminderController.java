@@ -10,14 +10,7 @@ import java.util.Objects;
  * <code>ScheduledReminderInputData</code> object for the DAO to use.
  */
 public class ScheduledReminderController {
-    /**
-     * The slash command that was used during this interaction.
-     */
-    private SlashCommandInteractionEvent event;
-
-    /**
-     * The converted scheduled event input data.
-     */
+    private final SlashCommandInteractionEvent event;
     private ScheduledReminderInputData scheduledReminderInputData;
 
     /**
@@ -28,10 +21,6 @@ public class ScheduledReminderController {
         this.event = event;
     }
 
-    /**
-     * Collects raw input data about this event and feeds it into a new <code>ScheduledReminderInputData</code>
-     * object to store.
-     */
     private void execute(){
         // the event date is collected as an integer array from the user
         int[] eventDate = new int[6];
@@ -69,8 +58,8 @@ public class ScheduledReminderController {
      * @return a new <code>ScheduledReminderInputData</code> object
      */
     public ScheduledReminderInputData getScheduledReminderInputData(){
-        // runs the data conversion method which is private
-        execute();
+        // runs the data conversion method
+        this.execute();
 
         return scheduledReminderInputData;
     }

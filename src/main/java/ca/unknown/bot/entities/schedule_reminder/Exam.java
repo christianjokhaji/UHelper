@@ -5,11 +5,7 @@ import java.util.*;
  * Stores the user's exam details.
  */
 public class Exam extends ScheduledEvent {
-
-    /**
-     * Location of this <code>Exam</code>.
-     */
-    private String location;
+    private final String location;
 
     /**
      * Class constructor.
@@ -35,6 +31,7 @@ public class Exam extends ScheduledEvent {
      * Returns a reminder statement for when this exam is scheduled that can then be DM'd to the user.
      * @return a String representation of this <code>Exam</code>'s reminder alert
      */
+    @Override
     public String reminderAlert(){
         return "Reminder! Your exam for " + getEventName() + " is at " + location +
                 " on " + getEventDate();
@@ -44,6 +41,7 @@ public class Exam extends ScheduledEvent {
      * Returns a String representation of this exam's course code, scheduled time, and location details.
      * @return a String representation of this <code>Exam</code>
      */
+    @Override
     public String toString(){
         return "Exam: " + getEventName() + " \t Location: " + location +
                 " \t Date: " + getEventDate();

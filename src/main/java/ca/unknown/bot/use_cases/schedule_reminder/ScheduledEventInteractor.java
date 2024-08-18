@@ -12,12 +12,12 @@ public class ScheduledEventInteractor {
     /**
      * The factory used to create new scheduled events.
      */
-    ScheduledEventFactory eventFactory = new ScheduledEventFactory();
+    final ScheduledEventFactory eventFactory = new ScheduledEventFactory();
 
     /**
      * The current DAO in use by the program.
      */
-    ScheduledReminderDataAccessInterface scheduleDAO;
+    final ScheduledReminderDataAccessInterface scheduleDAO;
 
 
     /**

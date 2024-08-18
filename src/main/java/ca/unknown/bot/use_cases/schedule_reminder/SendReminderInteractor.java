@@ -16,7 +16,7 @@ public class SendReminderInteractor {
     /**
      * The current DAO in use by the program.
      */
-    ScheduledReminderDataAccessInterface scheduleDAO;
+    final ScheduledReminderDataAccessInterface scheduleDAO;
 
     /**
      * Class constructor
@@ -59,12 +59,6 @@ public class SendReminderInteractor {
         this.sendPrivateMessage(user, content, delay, scheduledEvent.getEventName());
     }
 
-    /**
-     * Queues a direct message to be sent to the user after a specified delay.
-     * @param user the user of this interaction
-     * @param content the reminder alert which is being messaged to the user
-     * @param delay the reminder delay measured in milliseconds
-     */
     private void sendPrivateMessage(User user, String content, long delay, String event){
         user.openPrivateChannel().queueAfter(delay, TimeUnit.MILLISECONDS,
                 (channel) -> channel.sendMessage(content).setCheck(() -> scheduleDAO.getChecks(user.getName(), event)).queue());

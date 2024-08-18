@@ -17,14 +17,7 @@ import java.io.*;
  * and also stores schedules in a cache.
  */
 public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterface {
-    /**
-     * The in-memory cache of the program.
-     */
     private Map<String, Schedule> userSchedules = new HashMap<>();
-
-    /**
-     * Stores the events that users should be alerted of.
-     */
     private Map<String, ArrayList<String>> alertCheck = new HashMap<>();
 
     /**
@@ -53,7 +46,6 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
         alertCheck.put(sched.getUser(), new ArrayList<String>());
     }
 
-    @Override
     public void saveToFile(String filename) {
         this.save(filename);
     }
@@ -92,10 +84,7 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
         alertCheck.get(user).clear();
     }
 
-    /**
-     * Persists the current cache to a .json file.
-     * @param filename the .json file to persist to
-     */
+
     private void save(String filename){
 
         try(FileWriter writer = new FileWriter(filename)){
@@ -114,11 +103,6 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
 
     }
 
-    /**
-     * Loads a repository of user schedules from a .json file into an intermediary form.
-     * @param filename the .json file to read from
-     * @return a new <code>Map<String, LinkedTreeMap></code> of the loaded intermediary repo
-     */
     private Map<String, LinkedTreeMap> loadFile(String filename){
         try(FileReader filereader = new FileReader(filename)){
             JsonReader jsonReader = new JsonReader(filereader);
@@ -133,12 +117,9 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
         return new HashMap<>();
     }
 
-    /**
-     * Converts the intermediary repo into a workable cache for the program.
-     * @param loadedRepo the intermediary form of the schedule repo
-     * @return a new cache repo
-     */
     private Map<String, Schedule> convertRepo(Map<String, LinkedTreeMap> loadedRepo){
+        // Converts the intermediary repo into a workable cache for the program
+
         Map<String, Schedule> userSchedules = new HashMap<>();
 
         for(String s: loadedRepo.keySet()){
@@ -161,11 +142,7 @@ public class ScheduledReminderDAO implements ScheduledReminderDataAccessInterfac
         return userSchedules;
     }
 
-    /**
-     * Converts LinkedTreeMap representations of <code>ScheduledEvent</code>s into a <code>Schedule</code> entity.
-     * @param events the intermediary form of the user's scheduled events
-     * @return a new Schedule for the user
-     */
+
     private Schedule convertToSchedule(String username, long userId, ArrayList<LinkedTreeMap> events) {
         Schedule sched = new UserSchedule(username, userId);
 

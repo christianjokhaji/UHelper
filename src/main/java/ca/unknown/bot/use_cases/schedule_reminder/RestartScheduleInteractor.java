@@ -7,24 +7,31 @@ import net.dv8tion.jda.api.JDA;
 
 import java.util.*;
 
+/**
+ * A subordinate use case interactor which restarts the schedule repository once the program is booted back up.
+ */
 public class RestartScheduleInteractor {
     /**
      * The current DAO in use by the program.
      */
-    ScheduledReminderDataAccessInterface scheduleDAO;
+    final ScheduledReminderDataAccessInterface scheduleDAO;
 
-    private JDA jda;
+    private final JDA jda;
 
 
     /**
      * Class constructor
      * @param scheduleDAO the current data access object in use by the program
+     * @param jda the current JDA instance
      */
     public RestartScheduleInteractor(ScheduledReminderDataAccessInterface scheduleDAO, JDA jda){
         this.scheduleDAO = scheduleDAO;
         this.jda = jda;
     }
 
+    /**
+     * Checks for which events have passed and removes them, and resubscribes each user to their reminder alerts.
+     */
     public void execute(){
         Map<String, Schedule> repo = scheduleDAO.getRepo();
 
@@ -41,14 +48,10 @@ public class RestartScheduleInteractor {
                     passedEvents.add(e);
                 }
                 else {
-                    // adds the event back to the user's reminder alert list
                     scheduleDAO.addExistingCheck(username, e.getEventName());
 
-                    // call subordinate interactor to set up a delayed queue for sending a private message reminder to the user
                     jda.retrieveUserById(userId).queue(user -> new SendReminderInteractor(scheduleDAO).execute(user, e));
 
-
-                    // call subordinate interactor to clean up event from schedule after its passed
                     new RemovePassedEventInteractor(scheduleDAO).execute(username, e);
                 }
             }

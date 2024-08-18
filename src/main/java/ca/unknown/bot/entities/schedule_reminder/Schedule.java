@@ -20,6 +20,7 @@ public interface Schedule {
 
     /**
      * Removes a passed event from this schedule.
+     * @param s the passed event
      */
     void removePassedEvent(ScheduledEvent s);
 
@@ -27,7 +28,7 @@ public interface Schedule {
      * Returns the number of events in this schedule.
      * @return an int of the number of events in this <code>Schedule</code>
      */
-    int size();
+    int getSize();
 
     /**
      * Returns a String representation of all the events in this schedule.

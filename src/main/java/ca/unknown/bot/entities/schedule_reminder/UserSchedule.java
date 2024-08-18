@@ -6,22 +6,9 @@ import java.util.*;
  * Concrete implementation of a user <code>Schedule</code>. Stores scheduled events and manipulates them.
  */
 public class UserSchedule implements Schedule {
-
-    /**
-     * A list of this schedule's current events.
-     */
     private List<ScheduledEvent> events = new ArrayList<>();
-
-    /**
-     * The discord username of the user of this schedule.
-     */
-    private String username;
-
-
-    /**
-     * The userID of the user of this schedule.
-     */
-    private long userID;
+    private final String username;
+    private final long userID;
 
     /**
      * Class constructor.
@@ -45,7 +32,7 @@ public class UserSchedule implements Schedule {
         Collections.sort(events);
     }
 
-    public int size(){
+    public int getSize(){
         return events.size();
     }
 

@@ -1,4 +1,4 @@
-    package ca.unknown.bot.entities;
+    package ca.unknown.bot.entities.timer;
 
     import net.dv8tion.jda.api.JDA;
     import net.dv8tion.jda.api.entities.User;
