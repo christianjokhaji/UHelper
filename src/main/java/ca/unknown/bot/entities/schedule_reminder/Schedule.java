@@ -20,6 +20,7 @@ public interface Schedule {
 
     /**
      * Removes a passed event from this schedule.
+     * @param s the passed event
      */
     void removePassedEvent(ScheduledEvent s);
 

@@ -27,13 +27,10 @@ public class ClearEventInteractor {
      * @return the name of the event which was removed
      */
     public String execute(String username, int index){
-        // clear the event
         String eventName = scheduleDAO.getSchedule(username).clearSingle(index - 1);
 
-        // remove reminder alert for that event
         scheduleDAO.removeCheck(username, eventName);
 
-        // update repo
         scheduleDAO.saveToFile("src/main/java/ca/unknown/bot/data_access/schedule_reminder/schedule_repository.json");
 
         return eventName;

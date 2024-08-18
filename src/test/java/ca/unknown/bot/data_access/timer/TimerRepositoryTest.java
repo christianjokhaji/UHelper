@@ -1,4 +1,4 @@
-package ca.unknown.bot.data_access;
+package ca.unknown.bot.data_access.timer;
 
 import ca.unknown.bot.entities.quiz_me.QuizMe;
 import ca.unknown.bot.entities.timer.Pomodoro;
@@ -61,7 +61,7 @@ public class TimerRepositoryTest {
         timer = new Pomodoro(25.0, 5.0, 3, "test");
         mockSlashEvent = new SlashCommandInteractionEvent(mockJDA, interactionId, mockInteraction);
         mockButtonEvent = mock(ButtonInteractionEvent.class);
-        fileName = "src/test/java/ca/unknown/bot/data_access/timer_repository_test.json";
+        fileName = "src/test/java/ca/unknown/bot/data_access/timer/timer_repository_test.json";
         mockUser1 = User.fromId(123L);
         mockUser2 = User.fromId(456L);
 

@@ -48,14 +48,10 @@ public class RestartScheduleInteractor {
                     passedEvents.add(e);
                 }
                 else {
-                    // adds the event back to the user's reminder alert list
                     scheduleDAO.addExistingCheck(username, e.getEventName());
 
-                    // call subordinate interactor to set up a delayed queue for sending a private message reminder to the user
                     jda.retrieveUserById(userId).queue(user -> new SendReminderInteractor(scheduleDAO).execute(user, e));
 
-
-                    // call subordinate interactor to clean up event from schedule after its passed
                     new RemovePassedEventInteractor(scheduleDAO).execute(username, e);
                 }
             }
