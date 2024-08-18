@@ -10,10 +10,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+/**
+ * Primary interactor for quiz_me, calling the various methods as well as defining basic modal and button behaviour
+ */
 public class StudyInteractor extends ListenerAdapter {
 
     private final QuizMe quizMe = new QuizMe();
-    private final JDA jda; // This allows the event listener to work
+    private final JDA jda;
 
     public StudyInteractor(JDA jda) {
         this.jda = jda;
@@ -45,7 +48,6 @@ public class StudyInteractor extends ListenerAdapter {
                     break;
                 case "loadnotes":
                     new LoadNotesInteractor(quizMe).displaySavedQuizzes(event);
-                    // Register LoadNotesListener
                     jda.addEventListener(new LoadNotesListener(jda, quizMe));
                     break;
                 default:

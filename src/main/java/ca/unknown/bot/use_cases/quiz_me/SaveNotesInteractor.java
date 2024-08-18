@@ -6,6 +6,9 @@ import ca.unknown.bot.use_cases.utils.ModalUtils;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 
+/**
+ * Interactor for saving and displaying save notes option
+ */
 public class SaveNotesInteractor {
 
     private final QuizMe quizMe;

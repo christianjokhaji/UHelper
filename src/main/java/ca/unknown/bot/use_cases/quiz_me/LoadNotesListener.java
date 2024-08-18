@@ -5,6 +5,9 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.JDA;
 
+/**
+ * Listener for load notes that allows users to put in which file they would like to load
+ */
 public class LoadNotesListener extends ListenerAdapter {
 
     private final JDA jda;
@@ -15,6 +18,11 @@ public class LoadNotesListener extends ListenerAdapter {
         this.quizMe = quizMe;
     }
 
+    /**
+     * Method to call load notes interactor if user provides an available quiz to load
+     *
+     * @param event represents message from user stating desired quiz to load
+     */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) {
@@ -24,7 +32,7 @@ public class LoadNotesListener extends ListenerAdapter {
         String message = event.getMessage().getContentRaw();
         if (message.endsWith(".json")) {
             new LoadNotesInteractor(quizMe).loadNotesFromFile(message, event);
-            jda.removeEventListener(this); // Unregister the listener after loading the notes
+            jda.removeEventListener(this);
         }
     }
 }

@@ -5,8 +5,10 @@ import java.util.Map;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Basic entity representing a user's stats taking quizzes
+ */
 public class QuizTaker {
-    //private final String userId;
     private final Map<String, Integer> questionAttempts;
     private final Map<String, Integer> correctAnswers;
 
@@ -14,6 +16,12 @@ public class QuizTaker {
     private int currentScore;
     private final List<String> attemptScores;
 
+
+    /**
+     * Constructor for QuizTaker
+     *
+     * @param userId Initializes with users discord id
+     */
     public QuizTaker(String userId) {
         this.userId = userId;
         this.questionAttempts = new HashMap<>();
@@ -21,29 +29,47 @@ public class QuizTaker {
         this.currentScore = 0;
         this.attemptScores = new LinkedList<>();
     }
-
-    // Getters
+    /**
+     * Getter for userId
+     *
+     * @return userId
+     */
     public String getUserId() {
         return userId;
     }
-
+    /**
+     * Getter for current score
+     *
+     * @return currentScore
+     */
     public int getCurrentScore() {
         return currentScore;
     }
-
+    /**
+     * Getter for correctAnswers array
+     *
+     * @return correctAnswers
+     */
     public Map<String, Integer> getCorrectAnswers() {
         return correctAnswers;
     }
-
+    /**
+     * Getter for questionAttempts array
+     *
+     * @return questionAttempts
+     */
     public Map<String, Integer> getQuestionAttempts() {
         return questionAttempts;
     }
-
-    // Increase and reset score
+    /**
+     * Increment for score whenever user gets a correct answer
+     */
     public void incrementScore() {
         currentScore++;
     }
-
+    /**
+     * Reset for score whenever user finishes their quiz
+     */
     public void resetScore() {
         currentScore = 0;
     }
@@ -55,7 +81,6 @@ public class QuizTaker {
      *
      * @param question Question corresponding to current answer
      */
-
     public void recordAttempt(String question) {
         questionAttempts.put(question, questionAttempts.getOrDefault(question, 0) + 1);
     }
@@ -65,7 +90,6 @@ public class QuizTaker {
      *
      * @param question Question corresponding to current answer
      */
-
     public void recordCorrectAnswer(String question) {
         correctAnswers.put(question, correctAnswers.getOrDefault(question, 0) + 1);
     }
@@ -82,7 +106,7 @@ public class QuizTaker {
                 ((double) score / totalQuestions) * 100) + "%)";
 
         if (attemptScores.size() > 1) {
-            attemptScores.remove(0); // Keep only the last 2 scores
+            attemptScores.remove(0);
         }
 
         attemptScores.add(attemptScore);
