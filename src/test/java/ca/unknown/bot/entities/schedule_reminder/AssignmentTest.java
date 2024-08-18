@@ -13,7 +13,7 @@ class AssignmentTest {
     private Assignment assignment;
 
     @BeforeEach
-    void setUp() {
+    void init() {
         EventDate date = new EventDate(2024, 8 - 1,15, 23, 59, 00);
         this.assignment = new Assignment(date.getDate(), "Phase two", "CSC207");
     }

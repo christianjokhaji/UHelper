@@ -13,7 +13,7 @@ class ExamTest {
     private Exam exam;
 
     @BeforeEach
-    void setUp() {
+    void init() {
         EventDate date = new EventDate(2024, 8 - 1,15, 19, 00, 00);
         this.exam = new Exam(date.getDate(), "CSC207", "Exam Centre");
     }

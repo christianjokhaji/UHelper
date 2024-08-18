@@ -11,7 +11,7 @@ public class ScheduledEventTest {
     private ScheduledEvent event;
 
     @BeforeEach
-    void setUp() {
+    void init() {
         EventDate date = new EventDate(2024, 8 - 1,12, 11, 11, 00);
         this.event = new ScheduledEvent(date.getDate(), "streaming");
     }
