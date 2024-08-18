@@ -22,6 +22,10 @@ public class QuizMe {
     private final List<String> questionsOrder;
     private final Map<String, QuizTaker> quizTakers;
 
+
+    /**
+     * Constructor for quiz_me entity with new values
+     */
     public QuizMe() {
         this.notes = new HashMap<>();
         this.hints = new HashMap<>();
@@ -29,14 +33,29 @@ public class QuizMe {
         this.quizTakers = new HashMap<>();
     }
 
+    /**
+     * Getter for notes
+     *
+     * @return notes
+     */
     public Map<String, String> getNotes() {
         return notes;
     }
 
+    /**
+     * Getter for hints
+     *
+     * @return hints
+     */
     public Map<String, String> getHints() {
         return hints;
     }
 
+    /**
+     * Getter for questions order
+     *
+     * @return questionsOrder
+     */
     public List<String> getQuestionsOrder() { return questionsOrder; }
 
 

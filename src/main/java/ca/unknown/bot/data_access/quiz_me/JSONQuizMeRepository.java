@@ -15,6 +15,10 @@ public class JSONQuizMeRepository{
 
     private static final String QUIZ_DIRECTORY = "src/main/java/ca/unknown/bot/data_access/quiz_me/quizzes";
 
+
+    /**
+     * Constructor for JSONQuizMeRepository, creates file at given location or creates directory if it does not exist
+     */
     public JSONQuizMeRepository() {
         File directory = new File(QUIZ_DIRECTORY);
         if (!directory.exists()) {
