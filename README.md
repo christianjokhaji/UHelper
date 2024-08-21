@@ -13,19 +13,15 @@ UHelper is an interactive bot that is designed to meet students' needs on Discor
 
 The main goal of UHelper is to assist with time management and wellness. 
 Users can create events for exams or assignments at specified times and details. Once scheduled, 
-the bot will notify users individually in direct messages a day before the events. 
+the bot will notify users individually in direct messages a day before the events or an hour before 
+if they were scheduled less than a day away. 
 For study assistance, they can input questions and answers for UHelper to quiz them later, 
 with optional hints available. To help boost students’ productivity and focus, 
 the bot can set up a Pomodoro timer, including customizable presets and collaborative features that 
-allow multiple users to have a timer in common to work remotely.
-
-The bot supports student wellness by suggesting healthy and handy cooking recipes based on given 
-ingredients. If requested, the bot can also display nutritional facts about each dish. Additionally,
-users can subscribe to receive daily motivational quotes and mental health tips. During breaks, 
-users can engage in mini-games, which track their records, to stay entertained. Finally, 
-to avoid command conflicts with other bots in the server, users can customize UHelper's command 
-lines. The customizability ensures a seamless and non-disruptive experience across various 
-functionalities.
+allow multiple users to have a timer in common to work remotely. Additionally, The bot supports 
+student wellness by suggesting healthy and handy cooking recipes based on given 
+ingredients. If requested, the bot can also display nutritional facts about each dish. During breaks, 
+users can engage in mini-games, which track their records, to stay entertained. 
 
 ## Installation Guide
 
@@ -176,4 +172,6 @@ You can find all the user stories and other details in our blueprint from [here]
 
 - [X] **August 8** - [Final Presentation](https://q.utoronto.ca/courses/345741/pages/presentation-5-percent?module_item_id=5764413)
 
-- [ ] **August 15** - [Phase 2](https://q.utoronto.ca/courses/345741/pages/phase-2-10-percent?module_item_id=5764412) & [Final Exam (7-10 PM)](https://q.utoronto.ca/courses/345741/pages/final-exam-information-august-15-2024?module_item_id=5872089)
+- [X] **August 15** - [Final Exam (7-10 PM)](https://q.utoronto.ca/courses/345741/pages/final-exam-information-august-15-2024?module_item_id=5872089)
+
+- [X] **August 20** - [Phase 2](https://q.utoronto.ca/courses/345741/pages/phase-2-10-percent?module_item_id=5764412) 
